@@ -4,6 +4,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
+import moodRoutes from './routes/mood.js';
+import challengeRoutes from './routes/challenges.js';
 
 dotenv.config();
 connectDB(); 
@@ -13,6 +15,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/mood', moodRoutes);
+app.use('/api/challenges', challengeRoutes);
 
 app.use(bodyParser.json());
 

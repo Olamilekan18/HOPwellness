@@ -34,6 +34,17 @@ const userSchema = new mongoose.Schema({
     default: 0
   },
 
+  assignedChallenges: {
+  daily: [{
+    challengeId: String,
+    date: Date 
+  }],
+  weekly: [{
+    challengeId: String,
+    weekStart: Date 
+  }]
+},
+
   completedChallenges: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Challenge'

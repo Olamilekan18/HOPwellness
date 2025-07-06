@@ -1,0 +1,77 @@
+import mongoose from 'mongoose';
+
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+
+  passwordHash: {
+    type: String,
+    required: true
+  },
+
+  xp: {
+    type: Number,
+    default: 0
+  },
+
+  level: {
+    type: Number,
+    default: 1
+  },
+
+  streak: {
+    type: Number,
+    default: 0
+  },
+
+  completedChallenges: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Challenge'
+  }],
+
+  moodLogs: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Mood'
+  }],
+
+  badges: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Badge'
+  }],
+
+  journalEntries: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JournalEntry'
+  }],
+
+  reports: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Report'
+  }],
+
+  avatarId: {
+    type: String, 
+    default: () => {
+      const avatars = ['lion', 'panda', 'koala', 'robot', 'astronaut', 'fox'];
+      return avatars[Math.floor(Math.random() * avatars.length)];
+    }
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const User = mongoose.model('User', userSchema);
+export default User;

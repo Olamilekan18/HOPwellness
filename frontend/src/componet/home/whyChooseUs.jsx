@@ -114,8 +114,8 @@ export default function WhyChooseUs() {
                         clipRule="evenodd"
                       />
                     </svg>
-                    Reward-Based System
-                  </dt>
+                    Reward-Based System:
+                  </dt>{" "}
                   <dd className="inline">
                     Earn points and badges for consistency, effort, and results.
                   </dd>

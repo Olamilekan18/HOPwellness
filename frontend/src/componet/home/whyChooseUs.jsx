@@ -59,8 +59,8 @@ export default function WhyChooseUs() {
                         clipRule="evenodd"
                       />
                     </svg>
-                    Personalized Wellness Plans
-                  </dt>
+                    Personalized Wellness Plans:
+                  </dt>{" "}
                   <dd className="inline">
                     Track your goals and progress with routines crafted just for
                     you.
@@ -86,8 +86,8 @@ export default function WhyChooseUs() {
                         clipRule="evenodd"
                       />
                     </svg>
-                    Holistic Health Focus
-                  </dt>
+                    Holistic Health Focus:
+                  </dt>{" "}
                   <dd className="inline">
                     We support both your physical strength and emotional
                     balance.

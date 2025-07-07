@@ -1,14 +1,11 @@
 import { motion } from "framer-motion";
-// import { useState } from "react";
 import HomeNav from "../header";
 
 export default function Hero() {
   return (
     <section className="bg-gradient-to-r from-green-200 via-teal-200 to-blue-200 min-h-screen text-gray-900 font-sans">
-      {/* Header */}
       <HomeNav />
 
-      {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 text-center">
         <motion.h2
           className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4"
@@ -29,7 +26,6 @@ export default function Hero() {
           Get Started
         </motion.button>
 
-        {/* Images Section */}
         <motion.div
           className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
           initial={{ opacity: 0 }}
@@ -53,7 +49,6 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* Stats Section */}
         <motion.div
           className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 mt-14 gap-6 text-center"
           initial={{ opacity: 0 }}

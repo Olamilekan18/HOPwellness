@@ -9,15 +9,16 @@ export default function AboutUs() {
           <motion.img
             src="https://img.freepik.com/free-photo/portrait-confident-female-doctor-hospital_23-2149370393.jpg?w=740"
             alt="Doctor"
-            className="rounded-2xl w-64 sm:w-72 shadow-xl z-10 relative"
+            className="rounded-2xl w-96 sm:w-[400px] shadow-xl z-10 relative"
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.7 }}
           />
+
           <motion.img
             src="https://todaysparent.mblycdn.com/uploads/tp/2006/01/GettyImages-1368004438.jpg"
             alt="Checkup"
-            className="rounded-2xl w-56 sm:w-64 shadow-md absolute top-32 hover:z-10 left-24 sm:left-40 z-0"
+            className="rounded-2xl w-72 sm:w-[350px] shadow-md absolute top-36 left-32 sm:left-56 z-0"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.7 }}
@@ -33,6 +34,7 @@ export default function AboutUs() {
                 95% Heart Health Success
               </div>
             </motion.div>
+
             <motion.div
               className="bg-white rounded-xl px-4 py-3 shadow flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
@@ -42,6 +44,7 @@ export default function AboutUs() {
                 Expert Trainers
               </div>
             </motion.div>
+
             <motion.div
               className="bg-white rounded-xl px-4 py-3 shadow flex items-center gap-2"
               whileHover={{ scale: 1.05 }}

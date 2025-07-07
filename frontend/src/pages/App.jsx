@@ -117,7 +117,7 @@ function App() {
             transition={{ duration: 0.3 }}
           >
             <h3 className="text-3xl font-bold text-green-800">300,000+</h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               people improved their well-being
             </p>
           </motion.div>
@@ -126,16 +126,14 @@ function App() {
             transition={{ duration: 0.3 }}
           >
             <h3 className="text-3xl font-bold text-green-800">90%</h3>
-            <p className="text-sm text-gray-500">
-              saw fitness gains in 3 months
-            </p>
+            <p className="text-sm text-black">saw fitness gains in 3 months</p>
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.3 }}
           >
             <h3 className="text-3xl font-bold text-green-800">70%</h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               reduced stress with mindfulness
             </p>
           </motion.div>
@@ -144,7 +142,7 @@ function App() {
             transition={{ duration: 0.3 }}
           >
             <h3 className="text-3xl font-bold text-green-800">95%</h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               satisfaction with mental balance
             </p>
           </motion.div>

@@ -13,7 +13,7 @@ export default function WhyChooseUs() {
           >
             <div className="lg:max-w-lg">
               <motion.h2
-                className="text-sm font-semibold leading-7 text-teal-600 uppercase"
+                className="text-sm font-semibold leading-7 text-black uppercase"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}

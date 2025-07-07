@@ -1,55 +1,56 @@
-import { FaRunning, FaHeartbeat, FaAppleAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 function App() {
   return (
-    <section className="bg-white min-h-screen text-gray-800">
+    <section className="bg-gradient-to-r from-green-200 via-teal-200 to-blue-200 min-h-screen text-gray-900 font-sans">
       {/* Header */}
       <motion.header
-        className="bg-green-200 shadow-md"
-        initial={{ opacity: 0, y: -40 }}
+        className="shadow-lg"
+        initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.8 }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <img
               src="https://www.shutterstock.com/image-vector/fitness-logo-vector-symbol-icon-600nw-1926906863.jpg"
               alt="Healthify Logo"
-              className="w-12 h-12 rounded-full"
+              className="w-14 h-14 rounded-full"
             />
-            <h1 className="text-2xl font-extrabold text-green-700">HOP</h1>
+            <h1 className="text-3xl font-extrabold text-green-800 tracking-wide">
+              HOP
+            </h1>
           </div>
-          <nav className="hidden md:flex gap-8 text-sm font-semibold">
+          <nav className="hidden md:flex gap-6 text-sm font-medium">
             <a
               href="#"
-              className="text-green-800 hover:text-green-600 transition"
+              className="text-gray-900 hover:text-green-600 transition-all duration-300 ease-in-out"
             >
               About Us
             </a>
             <a
               href="#"
-              className="text-green-800 hover:text-green-600 transition"
+              className="text-gray-900 hover:text-green-600 transition-all duration-300 ease-in-out"
             >
               Clients & Results
             </a>
             <a
               href="#"
-              className="text-green-800 hover:text-green-600 transition"
+              className="text-gray-900 hover:text-green-600 transition-all duration-300 ease-in-out"
             >
               Contact
             </a>
           </nav>
-          <div className="hidden md:flex gap-3">
+          <div className="hidden md:flex gap-4">
             <motion.button
-              className="text-green-700 border border-green-700 px-4 py-2 rounded-full hover:bg-green-50 transition"
+              className="text-black border-2 border-green-700 px-5 py-2 rounded-full hover:bg-green-600 hover:text-white transition-all duration-300"
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.05 }}
             >
               Log In
             </motion.button>
             <motion.button
-              className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition"
+              className="bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-800 transition-all duration-300"
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.05 }}
             >
@@ -60,106 +61,95 @@ function App() {
       </motion.header>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+      <section className="max-w-7xl mx-auto px-6 py-20 text-center">
+        <motion.h2
+          className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <h2 className="text-4xl font-bold text-green-800 mb-6 leading-snug">
-            Reach Your Fitness <span className="text-green-500">Goals</span>{" "}
-            <br />
-            With HOP
-          </h2>
-          <p className="text-gray-700 mb-8">
-            Empower your journey to a healthier lifestyle with personalized
-            plans, real-time tracking, and expert tips.
-          </p>
-          <div className="flex gap-4">
-            <motion.button
-              className="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition font-semibold"
-              whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              Get Started
-            </motion.button>
-            <motion.button
-              className="border border-green-600 text-green-600 px-6 py-3 rounded-full hover:bg-green-50 transition font-semibold"
-              whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              Learn More
-            </motion.button>
-          </div>
+          Revolutionize Your Health
+        </motion.h2>
+        <p className="text-gray-700 text-lg max-w-xl mx-auto mb-8">
+          Achieve your wellness goals with personalized fitness routines,
+          mindful moments, and nutritious eating habits.
+        </p>
+        <motion.button
+          className="px-6 py-3 border-2 border-white text-black font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
+        >
+          Get Started
+        </motion.button>
+
+        {/* Images Section */}
+        <motion.div
+          className="mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
+          <motion.img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6gcvkfyLwVeN4VCk_eTnt2ClLymdwj109Gg&s"
+            alt="Yoga"
+            className="rounded-xl shadow-lg object-cover w-full h-60 transition-all duration-500 hover:scale-105"
+          />
+          <motion.img
+            src="https://todaysparent.mblycdn.com/uploads/tp/2006/01/GettyImages-1368004438.jpg"
+            alt="Happy Couple"
+            className="rounded-xl shadow-lg object-cover w-full h-60 transition-all duration-500 hover:scale-105"
+          />
+          <motion.img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIFckTtBx4RNmpshNkY9051EPYUYMZwXEVNA&s"
+            alt="Smoothies"
+            className="rounded-xl shadow-lg object-cover w-full h-60 transition-all duration-500 hover:scale-105"
+          />
         </motion.div>
 
+        {/* Stats Section */}
         <motion.div
-          className="relative group"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          whileHover={{ scale: 1.03 }}
+          className="grid grid-cols-2 md:grid-cols-4 mt-14 gap-6 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
         >
-          <div className="rounded-[30px] overflow-hidden shadow-xl transition-all">
-            <img
-              src="https://hips.hearstapps.com/hmg-prod/images/701/articles/2017/01/how-much-joining-gym-helps-health-2-jpg-1488906648.jpeg?resize=640:*"
-              alt="Fitness Illustration"
-              className="w-full h-auto"
-            />
-          </div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <h3 className="text-3xl font-bold text-green-800">300,000+</h3>
+            <p className="text-sm text-gray-500">
+              people improved their well-being
+            </p>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <h3 className="text-3xl font-bold text-green-800">90%</h3>
+            <p className="text-sm text-gray-500">
+              saw fitness gains in 3 months
+            </p>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <h3 className="text-3xl font-bold text-green-800">70%</h3>
+            <p className="text-sm text-gray-500">
+              reduced stress with mindfulness
+            </p>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <h3 className="text-3xl font-bold text-green-800">95%</h3>
+            <p className="text-sm text-gray-500">
+              satisfaction with mental balance
+            </p>
+          </motion.div>
         </motion.div>
       </section>
-
-      {/* Features */}
-      <motion.section
-        className="bg-green-200 py-14"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-      >
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          <motion.div
-            className="flex items-start gap-4 bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
-            whileHover={{ scale: 1.05 }}
-          >
-            <FaRunning className="text-green-600 w-10 h-10" />
-            <div>
-              <h3 className="text-xl font-bold text-green-800">Step Tracker</h3>
-              <p className="text-gray-600 text-sm">
-                Track every step with intuitive insights.
-              </p>
-            </div>
-          </motion.div>
-          <motion.div
-            className="flex items-start gap-4 bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
-            whileHover={{ scale: 1.05 }}
-          >
-            <FaAppleAlt className="text-green-600 w-10 h-10" />
-            <div>
-              <h3 className="text-xl font-bold text-green-800">
-                Nutrition Guide
-              </h3>
-              <p className="text-gray-600 text-sm">
-                Stay informed and balanced with healthy meals.
-              </p>
-            </div>
-          </motion.div>
-          <motion.div
-            className="flex items-start gap-4 bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
-            whileHover={{ scale: 1.05 }}
-          >
-            <FaHeartbeat className="text-green-600 w-10 h-10" />
-            <div>
-              <h3 className="text-xl font-bold text-green-800">
-                Heart Monitor
-              </h3>
-              <p className="text-gray-600 text-sm">
-                Track your heart rate and maintain fitness.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
     </section>
   );
 }

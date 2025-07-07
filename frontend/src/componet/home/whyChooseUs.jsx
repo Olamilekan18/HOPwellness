@@ -130,7 +130,7 @@ export default function WhyChooseUs() {
               >
                 <a
                   href="#"
-                  className="rounded-md bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition"
+                  className="bg-white rounded-2xl px-8 py-4 text-sm font-semibold text-black shadow-sm hover:bg-black hover:text-white transition"
                 >
                   Explore More →
                 </a>

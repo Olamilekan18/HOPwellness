@@ -50,7 +50,7 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
+        <div className="flex-1  text-center hidden lg:flex">
           <div
             className="w-full h-full bg-contain bg-center bg-no-repeat"
             style={{

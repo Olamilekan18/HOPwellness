@@ -5,7 +5,6 @@ export default function WhyChooseUs() {
     <section className="overflow-hidden bg-gradient-to-br from-green-300 via-teal-200 to-blue-200  py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-10 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        
           <motion.div
             className="lg:pr-10 lg:pt-4"
             initial={{ opacity: 0, x: -50 }}
@@ -30,7 +29,7 @@ export default function WhyChooseUs() {
                 Wellness Backed by Results
               </motion.p>
               <motion.p
-                className="mt-6 text-lg leading-8 text-gray-600"
+                className="mt-6 text-lg leading-8 text-gray-800"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
@@ -40,7 +39,7 @@ export default function WhyChooseUs() {
                 to coach, support, and reward your growth every step of the way.
               </motion.p>
 
-              <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-700 lg:max-w-none">
+              <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-800 lg:max-w-none">
                 {/* First Item */}
                 <motion.div
                   className="relative pl-10"

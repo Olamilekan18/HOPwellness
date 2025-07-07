@@ -29,10 +29,11 @@ const userSchema = new mongoose.Schema({
     default: 1
   },
 
-  streak: {
-    type: Number,
-    default: 0
-  },
+streak: {
+  count: { type: Number, default: 0 },
+  lastDate: { type: Date, default: null }
+}
+,
 
   assignedChallenges: {
   daily: [{
@@ -45,20 +46,20 @@ const userSchema = new mongoose.Schema({
   }]
 },
 
-  completedChallenges: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Challenge'
-  }],
+   completedChallenges: [
+  {
+    challengeId: { type: String, required: true },
+    date: { type: Date, required: true }
+  }
+],
+
 
   moodLogs: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Mood'
   }],
 
-  badges: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Badge'
-  }],
+  badges: [String],
 
   journalEntries: [{
     type: mongoose.Schema.Types.ObjectId,

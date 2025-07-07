@@ -7,3 +7,11 @@ export const getStartOfWeek = () => {
   monday.setHours(0, 0, 0, 0);
   return monday;
 };
+
+export const isSameLocalDay =(date1, date2) =>{
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}

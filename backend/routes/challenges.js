@@ -5,8 +5,9 @@ import { completeChallenge,getAllChallenges, getAssignedChallenges } from '../co
 
 const router = express.Router();
 
-router.post('/:id/complete', protect, completeChallenge);
 router.get('/', protect, getAllChallenges);
 router.get('/assigned', protect, getAssignedChallenges);
+router.post('/:challengeId/complete', protect, completeChallenge);
+
 
 export default router;

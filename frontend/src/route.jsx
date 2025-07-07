@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import App from "./App";
+import App from "./pages/App";
 export default function Router() {
   return (
     <Routes>

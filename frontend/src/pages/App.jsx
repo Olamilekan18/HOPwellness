@@ -89,7 +89,7 @@ function App() {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <motion.img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6gcvkfyLwVeN4VCk_eTnt2ClLymdwj109Gg&s"
+            src="https://img.freepik.com/free-photo/beautiful-blonde-woman-doing-yoga-outdoors_23-2148739137.jpg?semt=ais_hybrid&w=740"
             alt="Yoga"
             className="rounded-xl shadow-lg object-cover w-full h-60 transition-all duration-500 hover:scale-105"
           />

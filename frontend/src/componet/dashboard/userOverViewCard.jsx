@@ -10,13 +10,16 @@ export default function UserOverViewCard() {
             className="w-20 h-20 rounded-full object-cover shadow-md ring-2 ring-green-500"
           />
           <div className="text-center sm:text-left">
-            <p className="text-sm text-gray-500 dark:text-white">Username</p>
-            <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
+            <div className="flex items-center justify-center sm:justify-start gap-3 mt-2 mb-4">
+              <h2 className="text-3xl font-semibold text-gray-900 dark:text-white transition-colors">
                 Thony Stone
               </h2>
-              <CheckCircle className="text-green-800" size={20} />
+              <CheckCircle className="text-green-400" size={24} />
             </div>
+
+            <span className=" bg-green-500 text-white px-5 py-2 rounded-full text-sm font-bold ">
+              🔥 21 Streak
+            </span>
           </div>
         </div>
 

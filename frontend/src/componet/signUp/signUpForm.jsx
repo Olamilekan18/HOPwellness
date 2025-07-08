@@ -12,7 +12,6 @@ export default function SignUpForm() {
     <div className="mt-5 flex flex-col items-center">
       <h1 className="text-2xl xl:text-3xl font-extrabold">Sign Up</h1>
       <div className="w-full flex-1 mt-8">
-        {/* Google Sign Up Button */}
         <div className="flex flex-col items-center">
           <motion.button
             className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
@@ -26,14 +25,12 @@ export default function SignUpForm() {
           </motion.button>
         </div>
 
-        {/* Or Sign Up with Email */}
         <div className="my-12 border-b text-center">
           <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
             Or sign up with email
           </div>
         </div>
 
-        {/* Email Input */}
         <div className="mx-auto max-w-xs">
           <input
             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"

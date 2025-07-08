@@ -19,15 +19,27 @@ import PropTypes from "prop-types";
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
+
   const menuItems = [
-    { name: "Dashboard", icon: <Home size={18} />, active: true },
-    { name: "Nutrition", icon: <Salad size={18} /> },
-    { name: "Challenge", icon: <BarChart size={18} /> },
-    { name: "leaderboards", icon: <ChartAreaIcon size={18} /> },
-    { name: "Achievements", icon: <Award size={18} /> },
-    { name: "Quizzes", icon: <CircleQuestionMark size={18} /> },
-    { name: "Community", icon: <User2 size={18} /> },
-    { name: "Settings", icon: <Settings size={18} /> },
+    {
+      name: "Dashboard",
+      link: "/dashboard",
+      icon: <Home size={18} />,
+      active: window.location.pathname === "/dashboard" ? "active" : "",
+    },
+    { name: "Nutrition", link: "#", icon: <Salad size={18} /> },
+    { name: "Challenge", link: "#", icon: <BarChart size={18} /> },
+    { name: "leaderboards", link: "#", icon: <ChartAreaIcon size={18} /> },
+    { name: "Achievements", link: "#", icon: <Award size={18} /> },
+    { name: "Quizzes", link: "#", icon: <CircleQuestionMark size={18} /> },
+    { name: "Community", link: "#", icon: <User2 size={18} /> },
+    {
+      name: "Settings",
+      link: "/dashboard/settings",
+      icon: <Settings size={18} />,
+      active:
+        window.location.pathname === "/dashboard/settings" ? "active" : "",
+    },
   ];
 
   return (
@@ -62,7 +74,8 @@ export default function DashboardLayout({ children }) {
 
         <nav className="space-y-2">
           {menuItems.map((item) => (
-            <button
+            <a
+              href={item.link}
               key={item.name}
               className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all ${
                 item.active
@@ -72,7 +85,7 @@ export default function DashboardLayout({ children }) {
             >
               {item.icon}
               <span>{item.name}</span>
-            </button>
+            </a>
           ))}
         </nav>
       </aside>

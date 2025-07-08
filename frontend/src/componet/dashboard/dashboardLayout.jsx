@@ -28,8 +28,20 @@ export default function DashboardLayout({ children }) {
       icon: <Home size={18} />,
       active: window.location.pathname === "/dashboard" ? "active" : "",
     },
-    { name: "Nutrition", link: "#", icon: <Salad size={18} /> },
-    { name: "Challenge", link: "#", icon: <BarChart size={18} /> },
+    {
+      name: "Nutrition",
+      link: "/dashboard/nutrition",
+      icon: <Salad size={18} />,
+      active:
+        window.location.pathname === "/dashboard/nutrition" ? "active" : "",
+    },
+    {
+      name: "Challenge",
+      link: "/dashboard/challenge",
+      icon: <BarChart size={18} />,
+      active:
+        window.location.pathname === "dashboard/challenge" ? "active" : "",
+    },
     { name: "leaderboards", link: "#", icon: <ChartAreaIcon size={18} /> },
     { name: "Achievements", link: "#", icon: <Award size={18} /> },
     { name: "Quizzes", link: "#", icon: <CircleQuestionMark size={18} /> },

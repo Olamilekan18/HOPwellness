@@ -5,7 +5,6 @@ export default function Dashboard() {
   return (
     <DashboardLayout>
       <UserOverViewCard />
-
       <div className="max-w-6xl mx-auto p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">

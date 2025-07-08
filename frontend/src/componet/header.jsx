@@ -18,7 +18,7 @@ export default function HomeNav() {
               alt="Logo"
               className="w-12 h-12 rounded-full"
             />
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-black tracking-wide">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-wide">
               HOP
             </h1>
           </div>

@@ -93,7 +93,7 @@ export default function HomeNav() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="md:hidden bg-white px-4 py-4 space-y-4 shadow-inner"
+              className="md:hidden  px-4 py-4 space-y-4 shadow-inner"
             >
               <a
                 href="#"
@@ -114,12 +114,18 @@ export default function HomeNav() {
                 Contact
               </a>
               <div className="flex flex-col gap-2 pt-2">
-                <button className="border-2 border-green-700 px-4 py-2 rounded-full hover:bg-green-600 hover:text-white">
+                <a
+                  href="/login"
+                  className="border-2 border-green-700 px-4 py-2 rounded-full hover:bg-green-600 hover:text-white"
+                >
                   Log In
-                </button>
-                <button className="bg-green-700 text-white px-4 py-2 rounded-full hover:bg-green-800">
+                </a>
+                <a
+                  href="/signup"
+                  className="bg-green-700 text-white px-4 py-2 rounded-full hover:bg-green-800"
+                >
                   Sign Up
-                </button>
+                </a>
               </div>
             </motion.div>
           )}

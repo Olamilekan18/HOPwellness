@@ -10,7 +10,7 @@ export default function SignUpForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [initialPassword, setInitialPassword] = useState("");
   const [email, setEmail] = useState("");
-  console.log(email, initialPassword, confirmPassword);
+  console.log(email + ":" + initialPassword + ":" + confirmPassword);
 
   return (
     <div className="mt-5 flex flex-col items-center">

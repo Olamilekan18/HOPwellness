@@ -1,6 +1,5 @@
 import { FiLogIn } from "react-icons/fi";
 import { FaGoogle } from "react-icons/fa";
-// import image from "../../assets/image.png";
 import { motion } from "framer-motion";
 const image =
   "https://www.bartonassociates.com/wp-content/uploads/2021/04/Blog-Twitter-Facebook-1080x1080-44.jpg";

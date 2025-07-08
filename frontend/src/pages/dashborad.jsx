@@ -1,15 +1,7 @@
 import DashboardLayout from "../componet/dashboard/dashboardLayout";
-import { useEffect } from "react";
-import axios from "axios";
+// import { useEffect } from "react";
+// import axios from "axios";
 export default function Dashboard() {
-  useEffect(() => {
-    try {
-      const response = axios.get("/api/challenges/assigned");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error initializing dashboard:", error);
-    }
-  }, []);
   return (
     <DashboardLayout>
       <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-200">

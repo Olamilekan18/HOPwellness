@@ -9,7 +9,9 @@ export default function Router() {
       <Route path="/" element={<App />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard">
+        <Route index element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 }

@@ -18,7 +18,7 @@ export default function SignUpForm() {
 
     // Check if full name is valid
     if (!verifyFullName(inputedName)) {
-      return toast.error(
+      toast.error(
         <div>
           <span>
             Hey! Your full name is missing. Completing your profile will help us
@@ -31,11 +31,8 @@ export default function SignUpForm() {
           className: "toast-health-success",
         }
       );
-    }
-
-    // Check if email is valid
-    if (!validateEmail(email)) {
-      return toast.error(
+    } else if (!validateEmail(email)) {
+      toast.error(
         <div>
           <span>
             Hey! Your email is missing or not in a valid format. Completing your
@@ -48,10 +45,7 @@ export default function SignUpForm() {
           className: "toast-health-success",
         }
       );
-    }
-
-    // Check if passwords match and are valid
-    if (!checkIfPasswordIsTheSame() || initialPassword.length < 8) {
+    } else if (!checkIfPasswordIsTheSame() || initialPassword.length < 8) {
       return toast.error(
         <div>
           <span>
@@ -65,14 +59,13 @@ export default function SignUpForm() {
           className: "toast-health-success",
         }
       );
+    } else {
+      return {
+        name: name,
+        email: email,
+        password: initialPassword,
+      };
     }
-
-    // If all validations pass
-    return {
-      name: name,
-      email: email,
-      password: initialPassword,
-    };
   }
 
   function verifyFullName(n) {

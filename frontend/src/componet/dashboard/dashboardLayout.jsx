@@ -13,6 +13,7 @@ import {
   Award,
   User2,
   CircleQuestionMark,
+  Heart,
 } from "lucide-react";
 import PropTypes from "prop-types";
 
@@ -32,6 +33,7 @@ export default function DashboardLayout({ children }) {
     { name: "leaderboards", link: "#", icon: <ChartAreaIcon size={18} /> },
     { name: "Achievements", link: "#", icon: <Award size={18} /> },
     { name: "Quizzes", link: "#", icon: <CircleQuestionMark size={18} /> },
+    { name: "Mood Tracker", link: "#", icon: <Heart size={18} /> },
     { name: "Community", link: "#", icon: <User2 size={18} /> },
     {
       name: "Settings",
@@ -80,7 +82,7 @@ export default function DashboardLayout({ children }) {
               className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all ${
                 item.active
                   ? "bg-indigo-100 text-green-600 font-semibold dark:bg-green-600 dark:text-white"
-                  : "text-gray-600 hover:bg-green-300 dark:text-white dark:hover:bg-green-600"
+                  : "text-black hover:bg-green-300 dark:text-white dark:hover:bg-green-600"
               }`}
             >
               {item.icon}

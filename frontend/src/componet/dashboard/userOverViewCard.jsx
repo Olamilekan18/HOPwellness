@@ -15,7 +15,7 @@ export default function UserOverViewCard() {
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
                 Thony Stone
               </h2>
-              <CheckCircle className="text-white" size={20} />
+              <CheckCircle className="text-green-800" size={20} />
             </div>
           </div>
         </div>

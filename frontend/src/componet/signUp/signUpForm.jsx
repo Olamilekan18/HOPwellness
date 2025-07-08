@@ -7,6 +7,10 @@ import { useState } from "react";
 export default function SignUpForm() {
   const [showInitialPassword, setShowInitialPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [initialPassword, setInitialPassword] = useState("");
+  const [email, setEmail] = useState("");
+  console.log(email, initialPassword, confirmPassword);
 
   return (
     <div className="mt-5 flex flex-col items-center">
@@ -36,13 +40,18 @@ export default function SignUpForm() {
             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
             type="email"
             placeholder="Email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
-
+          {/* initial password */}
           <div className="relative mt-5">
             <input
               className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
               type={showInitialPassword ? "text" : "password"}
               placeholder="Password"
+              onChange={(e) => {
+                setInitialPassword(e.target.value);
+              }}
             />
 
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -55,12 +64,13 @@ export default function SignUpForm() {
               </button>
             </div>
           </div>
-
+          {/* confirm password */}
           <div className="relative mt-5">
             <input
               className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
 
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">

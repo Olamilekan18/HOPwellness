@@ -4,7 +4,7 @@ import axios from "axios";
 export default function Dashboard() {
   useEffect(() => {
     try {
-      const response = axios.get("/api/challenges");
+      const response = axios.get("/api/challenges/assigned");
       console.log(response.data);
     } catch (error) {
       console.error("Error initializing dashboard:", error);

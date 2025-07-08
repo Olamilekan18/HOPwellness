@@ -123,7 +123,7 @@ export default function DashboardLayout({ children }) {
           </div>
         </header>
 
-        <main className="p-6 overflow-y-auto">{children}</main>
+        <main className="p-2 overflow-y-auto">{children}</main>
       </div>
     </div>
   );

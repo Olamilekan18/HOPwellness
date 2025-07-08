@@ -49,7 +49,7 @@ export default function DashboardLayout({ children }) {
         } md:translate-x-0 bg-white dark:bg-gray-800 w-64 border-r p-6 fixed md:relative top-0 left-0 h-full shadow-sm transition-transform duration-300 ease-in-out z-70`}
       >
         <div className="flex items-center justify-between mb-10">
-          <h2 className="text-2xl font-extrabold text-green-800 dark:text-green-200">
+          <h2 className="text-2xl font-extrabold text-green-800 dark:text-green-500">
             HOP
           </h2>
           <button
@@ -89,7 +89,6 @@ export default function DashboardLayout({ children }) {
           </div>
 
           <div className="flex items-center gap-4 pr-3">
-            {/* Notifications Button */}
             <button className="p-2 bg-gray-100 dark:bg-white rounded-full hover:bg-gray-200 dark:hover:bg-gray-600">
               <Bell size={18} />
             </button>

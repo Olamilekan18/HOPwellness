@@ -16,7 +16,6 @@ export default function SignUpForm() {
   function verifyInput() {
     const inputedName = name;
 
-    // Check if full name is valid
     if (!verifyFullName(inputedName)) {
       toast.error(
         <div>

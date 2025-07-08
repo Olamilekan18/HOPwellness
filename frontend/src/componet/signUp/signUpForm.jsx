@@ -3,6 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function SignUpForm() {
   const [showInitialPassword, setShowInitialPassword] = useState(false);
@@ -10,7 +11,93 @@ export default function SignUpForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [initialPassword, setInitialPassword] = useState("");
   const [email, setEmail] = useState("");
-  console.log(email + ":" + initialPassword + ":" + confirmPassword);
+  const [name, setName] = useState("");
+
+  function verifyInput() {
+    const inputedName = name;
+
+    // Check if full name is valid
+    if (!verifyFullName(inputedName)) {
+      return toast.error(
+        <div>
+          <span>
+            Hey! Your full name is missing. Completing your profile will help us
+            track your fitness journey better.
+          </span>
+        </div>,
+        {
+          icon: false,
+          style: { backgroundColor: "#d4edda", color: "#155724" },
+          className: "toast-health-success",
+        }
+      );
+    }
+
+    // Check if email is valid
+    if (!validateEmail(email)) {
+      return toast.error(
+        <div>
+          <span>
+            Hey! Your email is missing or not in a valid format. Completing your
+            profile will help us track your fitness journey better.
+          </span>
+        </div>,
+        {
+          icon: false,
+          style: { backgroundColor: "#d4edda", color: "#155724" },
+          className: "toast-health-success",
+        }
+      );
+    }
+
+    // Check if passwords match and are valid
+    if (!checkIfPasswordIsTheSame() || initialPassword.length < 8) {
+      return toast.error(
+        <div>
+          <span>
+            Hey! Your passwords are not matching or they are not at least 8
+            characters long.
+          </span>
+        </div>,
+        {
+          icon: false,
+          style: { backgroundColor: "#d4edda", color: "#155724" },
+          className: "toast-health-success",
+        }
+      );
+    }
+
+    // If all validations pass
+    return {
+      name: name,
+      email: email,
+      password: initialPassword,
+    };
+  }
+
+  function verifyFullName(n) {
+    const doesNameIncludes = n.trim().includes(" ");
+    return doesNameIncludes;
+  }
+
+  function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  }
+
+  function checkIfPasswordIsTheSame() {
+    const passwordLength =
+      initialPassword.length && confirmPassword.length >= 8;
+    const areTheyTheSame = initialPassword === confirmPassword;
+
+    return passwordLength && areTheyTheSame ? true : false;
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const response = verifyInput();
+    console.log(response);
+  };
 
   return (
     <div className="mt-5 flex flex-col items-center">
@@ -35,25 +122,36 @@ export default function SignUpForm() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-xs">
+        <form onSubmit={handleSubmit} className="mx-auto max-w-xs">
           <input
             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            type="text"
+            placeholder="Fullname"
+            name="name"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <input
+            className="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
             type="email"
             placeholder="Email"
             name="email"
+            id="email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {/* initial password */}
+
+          {/* Initial password */}
           <div className="relative mt-5">
             <input
               className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
               type={showInitialPassword ? "text" : "password"}
               placeholder="Password"
-              onChange={(e) => {
-                setInitialPassword(e.target.value);
-              }}
+              value={initialPassword}
+              onChange={(e) => setInitialPassword(e.target.value)}
             />
-
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <button
                 onClick={() => setShowInitialPassword(!showInitialPassword)}
@@ -64,15 +162,16 @@ export default function SignUpForm() {
               </button>
             </div>
           </div>
-          {/* confirm password */}
+
+          {/* Confirm password */}
           <div className="relative mt-5">
             <input
               className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
+              value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <button
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -88,11 +187,12 @@ export default function SignUpForm() {
             className="mt-5 tracking-wide font-semibold bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
+            type="submit"
           >
             <FiLogIn />
             <span className="ml-3">Sign Up</span>
           </motion.button>
-        </div>
+        </form>
       </div>
     </div>
   );

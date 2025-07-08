@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import Form from "./form";
+import PropTypes from "prop-types";
+
 const image =
   "https://www.bartonassociates.com/wp-content/uploads/2021/04/Blog-Twitter-Facebook-1080x1080-44.jpg";
-export default function LoginForm() {
+export default function LoginForm({ children }) {
   return (
     <div className="min-h-screen flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 flex justify-center flex-1">
@@ -12,7 +13,7 @@ export default function LoginForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <Form />
+          {children}
         </motion.div>
 
         <div className="flex-1 text-center hidden lg:flex">
@@ -33,3 +34,7 @@ export default function LoginForm() {
     </div>
   );
 }
+
+LoginForm.propTypes = {
+  children: PropTypes.node.isRequired,
+};

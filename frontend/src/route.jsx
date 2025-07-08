@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import App from "./pages/App";
 import Login from "./pages/login";
 import SignUp from "./pages/signUp";
-import Dashboard from "./pages/dashborad";
+import Dashboard from "./pages/dashboard/dashborad";
 export default function Router() {
   return (
     <Routes>

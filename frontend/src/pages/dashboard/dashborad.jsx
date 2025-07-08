@@ -1,6 +1,5 @@
-import DashboardLayout from "../componet/dashboard/dashboardLayout";
-// import { useEffect } from "react";
-// import axios from "axios";
+import DashboardLayout from "../../componet/dashboard/dashboardLayout";
+
 export default function Dashboard() {
   return (
     <DashboardLayout>

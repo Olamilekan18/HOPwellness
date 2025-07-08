@@ -1,12 +1,12 @@
 import { FiLogIn } from "react-icons/fi";
-import { FaGoogle, FaGithub } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import image from "../../assets/image.png";
 export default function LoginForm() {
   return (
     <div className="min-h-screen  flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10  flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-          <div className="mt-12 flex flex-col items-center">
+          <div className="mt-5 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
@@ -15,13 +15,6 @@ export default function LoginForm() {
                     <FaGoogle />
                   </div>
                   <span className="ml-4">Login with Google</span>
-                </button>
-
-                <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
-                  <div className="bg-white p-1 rounded-full">
-                    <FaGithub />
-                  </div>
-                  <span className="ml-4">Login with GitHub</span>
                 </button>
               </div>
 

@@ -1,13 +1,44 @@
+import { useEffect, useState } from "react";
 import DashboardLayout from "../../componet/dashboard/dashboardLayout";
 
 export default function DashboardSettings() {
+  const [profilePicture, setProfilePicture] = useState("");
+
+  function updateProfilePicture(e) {
+    if (e[0] && e) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfilePicture(e.target.result);
+      };
+      reader.readAsDataURL(e[0]);
+    }
+  }
+
+  useEffect(() => {
+    const savedProfilePicture = localStorage.getItem("profilePicture");
+    if (savedProfilePicture) {
+      setProfilePicture(savedProfilePicture);
+    } else {
+      const defaultImage =
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+      localStorage.setItem("profilePicture", defaultImage);
+      setProfilePicture(defaultImage);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (profilePicture) {
+      localStorage.setItem("profilePicture", profilePicture);
+    }
+  }, [profilePicture]);
+
   return (
     <DashboardLayout>
       <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-2xl shadow">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
           ⚙️ Settings
         </h1>
-        
+
         {/* Profile Picture Section */}
         <div className="mb-8">
           <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">
@@ -15,9 +46,8 @@ export default function DashboardSettings() {
           </h2>
           <div className="flex items-center space-x-6">
             <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-              {/* Display Profile Image */}
               <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                src={profilePicture}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -30,6 +60,9 @@ export default function DashboardSettings() {
                 type="file"
                 accept="image/*"
                 className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-100"
+                onChange={(e) => {
+                  updateProfilePicture(e.target.files);
+                }}
               />
             </div>
           </div>

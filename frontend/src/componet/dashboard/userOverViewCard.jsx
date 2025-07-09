@@ -1,14 +1,12 @@
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-
+import defaultImage from "../../../public/blank-profile-picture-973460_960_720.webp";
 export default function UserOverViewCard() {
   const [profilePicture, setProfilePicture] = useState("");
   useEffect(() => {
     const savedProfilePicture = localStorage.getItem("profilePicture");
     if (savedProfilePicture === null) {
-      setProfilePicture(
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-      );
+      setProfilePicture(defaultImage);
     } else {
       setProfilePicture(savedProfilePicture);
     }

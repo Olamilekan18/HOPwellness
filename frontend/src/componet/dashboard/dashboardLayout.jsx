@@ -40,13 +40,43 @@ export default function DashboardLayout({ children }) {
       link: "/dashboard/challenge",
       icon: <BarChart size={18} />,
       active:
-        window.location.pathname === "dashboard/challenge" ? "active" : "",
+        window.location.pathname === "/dashboard/challenge" ? "active" : "",
     },
-    { name: "leaderboards", link: "#", icon: <ChartAreaIcon size={18} /> },
-    { name: "Achievements", link: "#", icon: <Award size={18} /> },
-    { name: "Quizzes", link: "#", icon: <CircleQuestionMark size={18} /> },
-    { name: "Mood Tracker", link: "#", icon: <Heart size={18} /> },
-    { name: "Community", link: "#", icon: <User2 size={18} /> },
+    {
+      name: "leaderboards",
+      link: "/dashboard/leaderboard",
+      icon: <ChartAreaIcon size={18} />,
+      active:
+        window.location.pathname === "/dashboard/leaderboard" ? "active" : "",
+    },
+    {
+      name: "Achievements",
+      link: "/dashboard/achivements",
+      icon: <Award size={18} />,
+      active:
+        window.location.pathname === "/dashboard/achivements" ? "active" : "",
+    },
+    {
+      name: "Quizzes",
+      link: "/dashboard/quizzes",
+      icon: <CircleQuestionMark size={18} />,
+      active:
+        window.location.pathname === "/dashboard/achivements" ? "active" : "",
+    },
+    {
+      name: "Mood Tracker",
+      link: "/dashboard/moodtracker",
+      icon: <Heart size={18} />,
+      active:
+        window.location.pathname === "/dashboard/moodtracker" ? "active" : "",
+    },
+    {
+      name: "Community",
+      link: "/dashboard/community",
+      icon: <User2 size={18} />,
+      active:
+        window.location.pathname === "/dashboard/community" ? "active" : "",
+    },
     {
       name: "Settings",
       link: "/dashboard/settings",

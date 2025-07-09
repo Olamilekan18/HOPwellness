@@ -61,7 +61,7 @@ export default function DashboardLayout({ children }) {
       link: "/dashboard/quizzes",
       icon: <CircleQuestionMark size={18} />,
       active:
-        window.location.pathname === "/dashboard/achivements" ? "active" : "",
+        window.location.pathname === "/dashboard/quizzes" ? "active" : "",
     },
     {
       name: "Mood Tracker",

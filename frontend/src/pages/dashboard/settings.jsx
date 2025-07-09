@@ -44,8 +44,8 @@ export default function DashboardSettings() {
           <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">
             Profile Picture
           </h2>
-          <div className="flex items-center space-x-6">
-            <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:space-x-6 items-center">
+            <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-4 sm:mb-0">
               <img
                 src={profilePicture}
                 alt="Profile"

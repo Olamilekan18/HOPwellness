@@ -60,8 +60,7 @@ export default function DashboardLayout({ children }) {
       name: "Quizzes",
       link: "/dashboard/quizzes",
       icon: <CircleQuestionMark size={18} />,
-      active:
-        window.location.pathname === "/dashboard/quizzes" ? "active" : "",
+      active: window.location.pathname === "/dashboard/quizzes" ? "active" : "",
     },
     {
       name: "Mood Tracker",
@@ -102,7 +101,7 @@ export default function DashboardLayout({ children }) {
       <aside
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 bg-white dark:bg-gray-800 w-64 border-r p-6 fixed md:relative top-0 left-0 h-full shadow-sm transition-transform duration-300 ease-in-out z-70`}
+        } md:translate-x-0 bg-white dark:bg-gray-800 w-64 border-r p-6 fixed md:relative top-0 left-0 h-full shadow-sm transition-transform duration-300 ease-in-out z-70 overflow-y-auto`}
       >
         <div className="flex items-center justify-between mb-10">
           <h2 className="text-2xl font-extrabold text-green-800 dark:text-green-500">

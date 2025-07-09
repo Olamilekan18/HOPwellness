@@ -1,13 +1,25 @@
 import { CheckCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function UserOverViewCard() {
+  const [profilePicture, setProfilePicture] = useState("");
+  useEffect(() => {
+    const savedProfilePicture = localStorage.getItem("profilePicture");
+    if (savedProfilePicture === null) {
+      setProfilePicture(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+      );
+    } else {
+      setProfilePicture(savedProfilePicture);
+    }
+  }, []);
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
       <div className="p-6 rounded-3xl w-full max-w-5xl mx-auto transition-all duration-300">
         {/* Profile Info Section */}
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
           <img
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            src={profilePicture}
             alt="Profile"
             className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-md ring-2 ring-green-500"
           />

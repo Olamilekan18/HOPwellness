@@ -7,7 +7,7 @@ export default function UserOverViewCard() {
   const [userName, setUserName] = useState("");
   const [streak, setStreak] = useState(1); 
   const [xp,setXp] = useState(0);
-  const [badges, setBadges] = useState([])
+  const [badges, setBadges] = useState(0);
   useEffect(() => {
     const savedProfilePicture = localStorage.getItem("profilePicture");
     const userData =  JSON.parse(localStorage.getItem("user"));
@@ -32,11 +32,12 @@ export default function UserOverViewCard() {
         const data = await response.json();
         setStreak(data.streak || 1); 
         setXp(data.xp || 0);
+        setBadges(data.badges.length || 0);
       } catch (error) {
         console.error("Error fetching user streak:", error);
         setStreak(1); 
         setXp(0);
-        setBadges(data.badges || 0);
+        setBadges(data.badges.length || 0);
       }
     };
     if (userData && userData.name) {
@@ -108,7 +109,7 @@ export default function UserOverViewCard() {
             </p>
             <div className="flex justify-center items-center gap-2">
               <p className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
-                {badges.length}
+                {badges}
               </p>
             </div>
           </div>

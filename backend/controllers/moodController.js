@@ -7,7 +7,6 @@ export const checkInMood = async (req, res) => {
   const { emoji, note } = req.body;
 
   try {
-   
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 
@@ -16,17 +15,19 @@ export const checkInMood = async (req, res) => {
       date: { $gte: startOfDay }
     });
 
-    if (alreadyCheckedIn) {
-      return res.status(400).json({ message: 'Already checked in today' });
+    // Optional: prevent double check-in
+    // if (alreadyCheckedIn) {
+    //   return res.status(400).json({ message: 'Already checked in today' });
+    // }
+
+    const mood = await Mood.create({ user: userId, emoji, note });
+
+    const user = await User.findById(userId);
+
+    if (!user.streak || typeof user.streak.count !== 'number') {
+      user.streak = { count: 0, lastDate: null };
     }
 
-    // 2. Save mood
-    const mood = await Mood.create({ user: userId, emoji, note });
-    
-    // 3. Update XP & Streak
-    const user = await User.findById(userId);
-    
-    // Check if yesterday was last check-in
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     yesterday.setHours(0, 0, 0, 0);
@@ -35,13 +36,20 @@ export const checkInMood = async (req, res) => {
       user: userId,
       date: {
         $gte: yesterday,
-        $lt: new Date(yesterday.getTime() + 86400000)
-      }
+        $lt: new Date(yesterday.getTime() + 86400000),
+      },
     });
 
-    // If yesterday was checked in, increase streak
-    user.streak = yesterdayCheckIn ? user.streak + 1 : 1;
-    user.xp += 5; // reward amount
+    if (yesterdayCheckIn && user.streak.lastDate?.toDateString() === yesterday.toDateString()) {
+      user.streak.count += 1;
+    } else {
+      user.streak.count = 1;
+    }
+
+    user.streak.lastDate = startOfDay;
+
+    // XP
+    user.xp += 5;
     user.moodLogs.push(mood._id);
 
     await user.save();
@@ -50,11 +58,24 @@ export const checkInMood = async (req, res) => {
       message: 'Check-in successful',
       xp: user.xp,
       streak: user.streak,
-      mood
+      mood,
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Mood check-in failed' });
+  }
+};
+export const getMoodLogs = async (req, res) => {
+  const userId = req.user._id;
+
+  try {
+    const moodLogs = await Mood.find({ user: userId })
+      .sort({ date: -1 })
+      .populate('user', 'name');
+
+    res.status(200).json(moodLogs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to fetch mood logs' });
   }
 };

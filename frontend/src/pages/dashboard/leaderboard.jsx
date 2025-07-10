@@ -37,6 +37,44 @@ export default function Leaderboard() {
       title: "Champion 🏆",
     },
   ];
+
+  const remainingSeventeen = [
+    {
+      rank: 4,
+      name: "Ryan Smith",
+      xps: 16050,
+      streak: 590,
+      avatar: "https://i.pravatar.cc/150?img=24",
+    },
+    {
+      rank: 5,
+      name: "Olivia Green",
+      xps: 15020,
+      streak: 560,
+      avatar: "https://i.pravatar.cc/150?img=25",
+    },
+    {
+      rank: 6,
+      name: "Jacob Miller",
+      xps: 14300,
+      streak: 530,
+      avatar: "https://i.pravatar.cc/150?img=26",
+    },
+    {
+      rank: 7,
+      name: "Lily Thompson",
+      xps: 13200,
+      streak: 500,
+      avatar: "https://i.pravatar.cc/150?img=27",
+    },
+    {
+      rank: 8,
+      name: "James White",
+      xps: 12500,
+      streak: 470,
+      avatar: "https://i.pravatar.cc/150?img=28",
+    },
+  ];
   return (
     <DashboardLayout>
       <div className="w-full px-6 py-6">
@@ -124,72 +162,40 @@ export default function Leaderboard() {
               </div>
 
               <div className="min-w-full">
-                {[
-                  {
-                    rank: 4,
-                    name: "Ryan Smith",
-                    steps: 16050,
-                    calories: 590,
-                    avatar: "https://i.pravatar.cc/150?img=24",
-                  },
-                  {
-                    rank: 5,
-                    name: "Olivia Green",
-                    steps: 15020,
-                    calories: 560,
-                    avatar: "https://i.pravatar.cc/150?img=25",
-                  },
-                  {
-                    rank: 6,
-                    name: "Jacob Miller",
-                    steps: 14300,
-                    calories: 530,
-                    avatar: "https://i.pravatar.cc/150?img=26",
-                  },
-                  {
-                    rank: 7,
-                    name: "Lily Thompson",
-                    steps: 13200,
-                    calories: 500,
-                    avatar: "https://i.pravatar.cc/150?img=27",
-                  },
-                  {
-                    rank: 8,
-                    name: "James White",
-                    steps: 12500,
-                    calories: 470,
-                    avatar: "https://i.pravatar.cc/150?img=28",
-                  },
-                ].map((user, idx) => (
-                  <div
-                    key={user.rank}
-                    className={`grid grid-cols-12 px-6 py-4 items-center text-sm ${
-                      idx % 2 === 0
-                        ? "bg-white dark:bg-gray-800"
-                        : "bg-gray-50 dark:bg-gray-900"
-                    }`}
-                  >
-                    <div className="col-span-1 font-semibold text-green-700 dark:text-green-300">
-                      {user.rank}
-                    </div>
-                    <div className="col-span-5 flex items-center gap-3">
-                      <img
-                        src={user.avatar}
-                        alt={user.name}
-                        className="w-8 h-8 rounded-full object-cover border border-green-400 dark:border-green-600"
-                      />
-                      <span className="text-gray-800 dark:text-white">
-                        {user.name}
-                      </span>
-                    </div>
-                    <div className="col-span-3 text-right text-gray-700 dark:text-gray-300 font-semibold">
-                      {user.steps.toLocaleString()}
-                    </div>
-                    <div className="col-span-3 text-right text-green-600 dark:text-green-400 font-semibold">
-                      {user.calories.toLocaleString()}
-                    </div>
-                  </div>
-                ))}
+                {remainingSeventeen.map(
+                  ({ rank, avatar, name, streak, xps }, idx) => {
+                    return (
+                      <div
+                        key={rank}
+                        className={`grid grid-cols-12 px-6 py-4 items-center text-sm ${
+                          idx % 2 === 0
+                            ? "bg-white dark:bg-gray-800"
+                            : "bg-gray-50 dark:bg-gray-900"
+                        }`}
+                      >
+                        <div className="col-span-1 font-semibold text-green-700 dark:text-green-300">
+                          {rank}
+                        </div>
+                        <div className="col-span-5 flex items-center gap-3">
+                          <img
+                            src={avatar}
+                            alt={name}
+                            className="w-8 h-8 rounded-full object-cover border border-green-400 dark:border-green-600"
+                          />
+                          <span className="text-black dark:text-white">
+                            {name}
+                          </span>
+                        </div>
+                        <div className="col-span-3 text-right text-gray-700 dark:text-gray-300 font-semibold">
+                          {xps.toLocaleString()}
+                        </div>
+                        <div className="col-span-3 text-right text-green-600 dark:text-green-400 font-semibold">
+                          {streak.toLocaleString()}
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
               </div>
             </div>
           </div>

@@ -185,7 +185,7 @@ export default function Leaderboard() {
                     <div className="col-span-3 text-right text-gray-700 dark:text-gray-300 font-semibold">
                       {user.steps.toLocaleString()}
                     </div>
-                    <div className="col-span-3 text-right text-orange-600 dark:text-orange-400 font-semibold">
+                    <div className="col-span-3 text-right text-green-600 dark:text-green-400 font-semibold">
                       {user.calories.toLocaleString()}
                     </div>
                   </div>

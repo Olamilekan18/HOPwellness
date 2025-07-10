@@ -1,4 +1,3 @@
-// data/challenges.js
 
 const dailyChallenges = [
   { id: 'drink-water', title: "Drink 8 glasses of water", frequency: "daily", category: "nutrition", xpReward: 5 },
@@ -16,7 +15,7 @@ const dailyChallenges = [
   { id: 'early-wake', title: "Wake up 10 minutes earlier", frequency: "daily", category: "mental", xpReward: 5 },
   { id: 'smile', title: "Smile at someone", frequency: "daily", category: "social", xpReward: 5 },
   { id: 'no-snooze', title: "Don't hit snooze", frequency: "daily", category: "mental", xpReward: 5 },
-  { id: 'learn-word', title: "Learn a new word", frequency: "daily", category: "mental", xpReward: 5 },
+  { id: 'learn-word', title: "Learn 10 new words", frequency: "daily", category: "mental", xpReward: 5 },
   { id: 'declutter', title: "Declutter one small area", frequency: "daily", category: "mental", xpReward: 5 },
   { id: 'hydrate', title: "Drink water before coffee", frequency: "daily", category: "nutrition", xpReward: 5 },
   { id: 'posture', title: "Check your posture", frequency: "daily", category: "physical", xpReward: 5 },

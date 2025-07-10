@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
+      const navigate = useNavigate();
   const [showInitialPassword, setShowInitialPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,21 +19,7 @@ export default function SignUpForm() {
   function verifyInput() {
     const inputedName = name;
 
-    if (!verifyFullName(inputedName)) {
-      toast.error(
-        <div>
-          <span>
-            Hey! Your full name is missing. Completing your profile will help us
-            track your fitness journey better.
-          </span>
-        </div>,
-        {
-          icon: false,
-          style: { backgroundColor: "#d4edda", color: "#155724" },
-          className: "toast-health-success",
-        }
-      );
-    } else if (!validateEmail(email)) {
+     if (!validateEmail(email)) {
       toast.error(
         <div>
           <span>
@@ -67,9 +56,8 @@ export default function SignUpForm() {
     }
   }
 
-  function verifyFullName(n) {
-    const doesNameIncludes = n.trim().includes(" ");
-    return doesNameIncludes;
+  function verifyFullName() {
+   
   }
 
   function validateEmail(email) {
@@ -85,10 +73,28 @@ export default function SignUpForm() {
     return passwordLength && areTheyTheSame ? true : false;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const response = verifyInput();
     console.log(response);
+
+     try {
+    const res = await fetch(`${backendUrl}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(response),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      toast.error(data.message || "Registration failed");
+      return;
+    }
+    toast.success("Registration successful! You can now log in.");
+    navigate("/dashboard");
+  } catch (err) {
+    toast.error("Network error");
+  }
   };
 
   return (
@@ -174,7 +180,7 @@ export default function SignUpForm() {
               </button>
             </div>
           </div>
-
+a
           <motion.button
             className="mt-5 tracking-wide font-semibold bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             whileHover={{ scale: 1.05 }}

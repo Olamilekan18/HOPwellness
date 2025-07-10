@@ -4,37 +4,6 @@ import { dailyChallenges, weeklyChallenges } from '../data/challlenges.js'
 import { getStartOfWeek, isSameLocalDay} from '../utils/dates.js';
 import { getRandomChallenges } from '../utils/getRandomChallenges.js';
 
-// export const completeChallenge = async (req, res) => {
-//   const userId = req.user._id;
-//   const challengeId = req.params.id;
-
-//   try {
-//     const challenge = await Challenge.findById(challengeId);
-//     if (!challenge) return res.status(404).json({ message: 'Challenge not found' });
-
-//     const user = await User.findById(userId);
-
-//     // Already completed?
-//     if (user.completedChallenges.includes(challengeId)) {
-//       return res.status(400).json({ message: 'Already completed this challenge' });
-//     }
-
-//     // Add challenge to user
-//     user.completedChallenges.push(challengeId);
-//     user.xp += challenge.xpReward;
-//     await user.save();
-
-//     res.status(200).json({
-//       message: 'Challenge completed',
-//       xpReward: challenge.xpReward,
-//       totalXP: user.xp
-//     });
-
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: 'Challenge completion failed' });
-//   }
-// };
 
 export const getAllChallenges = async (req, res) => {
   try {
@@ -227,26 +196,34 @@ if (user.streak.count > 1 && lastDate && (today - lastDate) / (1000 * 60 * 60 * 
   // Badges
   const newBadges = [];
 
+  if (user.xp >= 5 && !user.badges.includes('xp-5')) {
+    user.badges.push('xp-5');
+    newBadges.push('xp-5');
+    await user.save(); // Save immediately to avoid badge duplication
+  }
+
   if (user.xp >= 50 && !user.badges.includes('xp-50')) {
     user.badges.push('xp-50');
     newBadges.push('xp-50');
+    await user.save(); // Save immediately to avoid badge duplication
   }
 
   if (user.xp >= 100 && !user.badges.includes('xp-100')) {
     user.badges.push('xp-100');
     newBadges.push('xp-100');
+    await user.save(); // Save immediately to avoid badge duplication
   }
 
   if (user.streak.count === 3 && !user.badges.includes('3-day-streak')) {
     user.badges.push('3-day-streak');
     newBadges.push('3-day-streak');
+    await user.save(); // Save immediately to avoid badge duplication
   }
 
   if (user.streak.count === 7 && !user.badges.includes('7-day-streak')) {
     user.badges.push('7-day-streak');
-    newBadges.push('7-day-streak');
+    newBadges.push('7-day-streak');  
   }
-
   await user.save();
 
   res.status(200).json({

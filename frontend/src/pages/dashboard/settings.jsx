@@ -9,8 +9,10 @@ export default function DashboardSettings() {
       const reader = new FileReader();
       reader.onload = (e) => {
         setProfilePicture(e.target.result);
+        
       };
       reader.readAsDataURL(e[0]);
+      
     }
   }
 
@@ -81,7 +83,7 @@ export default function DashboardSettings() {
               <input
                 type="text"
                 className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-100"
-                defaultValue="Thony"
+                defaultValue=""
               />
             </div>
             <div>
@@ -91,7 +93,7 @@ export default function DashboardSettings() {
               <input
                 type="text"
                 className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-100"
-                defaultValue="Stone"
+                defaultValue=""
               />
             </div>
             <div className="md:col-span-2">
@@ -101,7 +103,7 @@ export default function DashboardSettings() {
               <input
                 type="email"
                 className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-100"
-                defaultValue="thony@example.com"
+                defaultValue=""
               />
             </div>
           </div>

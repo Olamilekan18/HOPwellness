@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 1
   },
+  badges: {
+  type: [String],
+  default: []
+}
+,
 
 streak: {
   count: { type: Number, default: 0 },

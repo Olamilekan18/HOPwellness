@@ -86,7 +86,7 @@ export default function Leaderboard() {
                       className="w-20 h-20 rounded-full border-4 border-green-400 object-cover"
                     />
 
-                    <h3 className="mt-3 text-lg font-semibold text-green-800 dark:text-green-200">
+                    <h3 className="mt-3 text-lg font-semibold text-green-800 dark:text-white">
                       {name}
                     </h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -114,81 +114,84 @@ export default function Leaderboard() {
             )}
           </div>
 
-          {/* Table Section */}
-          <div className="bg-gray-100 dark:bg-gray-900 rounded-b-xl overflow-x-auto">
-            <div className="grid grid-cols-12 px-6 py-3 text-sm font-semibold text-gray-600 dark:text-gray-400 border-t border-gray-300 dark:border-gray-700">
-              <div className="col-span-1">Rank</div>
-              <div className="col-span-5">User</div>
-              <div className="col-span-3 text-right">Xps</div>
-              <div className="col-span-3 text-right">Streak</div>
-            </div>
-
-            {[
-              {
-                rank: 4,
-                name: "Ryan Smith",
-                steps: 16050,
-                calories: 590,
-                avatar: "https://i.pravatar.cc/150?img=24",
-              },
-              {
-                rank: 5,
-                name: "Olivia Green",
-                steps: 15020,
-                calories: 560,
-                avatar: "https://i.pravatar.cc/150?img=25",
-              },
-              {
-                rank: 6,
-                name: "Jacob Miller",
-                steps: 14300,
-                calories: 530,
-                avatar: "https://i.pravatar.cc/150?img=26",
-              },
-              {
-                rank: 7,
-                name: "Lily Thompson",
-                steps: 13200,
-                calories: 500,
-                avatar: "https://i.pravatar.cc/150?img=27",
-              },
-              {
-                rank: 8,
-                name: "James White",
-                steps: 12500,
-                calories: 470,
-                avatar: "https://i.pravatar.cc/150?img=28",
-              },
-            ].map((user, idx) => (
-              <div
-                key={user.rank}
-                className={`grid grid-cols-12 px-6 py-4 items-center text-sm ${
-                  idx % 2 === 0
-                    ? "bg-white dark:bg-gray-800"
-                    : "bg-gray-50 dark:bg-gray-900"
-                }`}
-              >
-                <div className="col-span-1 font-semibold text-green-700 dark:text-green-300">
-                  {user.rank}
-                </div>
-                <div className="col-span-5 flex items-center gap-3">
-                  <img
-                    src={user.avatar}
-                    alt={user.name}
-                    className="w-8 h-8 rounded-full object-cover border border-green-400 dark:border-green-600"
-                  />
-                  <span className="text-gray-800 dark:text-white">
-                    {user.name}
-                  </span>
-                </div>
-                <div className="col-span-3 text-right text-gray-700 dark:text-gray-300 font-semibold">
-                  {user.steps.toLocaleString()}
-                </div>
-                <div className="col-span-3 text-right text-orange-600 dark:text-orange-400 font-semibold">
-                  {user.calories.toLocaleString()}
-                </div>
+          <div className="bg-gray-100 dark:bg-gray-900 rounded-b-xl">
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-12 px-6 py-3 text-sm font-semibold text-gray-600 dark:text-gray-400 border-t border-gray-300 dark:border-gray-700">
+                <div className="col-span-1 text-center">Rank</div>
+                <div className="col-span-5 text-center">User</div>
+                <div className="col-span-3 text-center">Xps</div>
+                <div className="col-span-3 text-right">Streak</div>
               </div>
-            ))}
+
+              <div className="min-w-full">
+                {[
+                  {
+                    rank: 4,
+                    name: "Ryan Smith",
+                    steps: 16050,
+                    calories: 590,
+                    avatar: "https://i.pravatar.cc/150?img=24",
+                  },
+                  {
+                    rank: 5,
+                    name: "Olivia Green",
+                    steps: 15020,
+                    calories: 560,
+                    avatar: "https://i.pravatar.cc/150?img=25",
+                  },
+                  {
+                    rank: 6,
+                    name: "Jacob Miller",
+                    steps: 14300,
+                    calories: 530,
+                    avatar: "https://i.pravatar.cc/150?img=26",
+                  },
+                  {
+                    rank: 7,
+                    name: "Lily Thompson",
+                    steps: 13200,
+                    calories: 500,
+                    avatar: "https://i.pravatar.cc/150?img=27",
+                  },
+                  {
+                    rank: 8,
+                    name: "James White",
+                    steps: 12500,
+                    calories: 470,
+                    avatar: "https://i.pravatar.cc/150?img=28",
+                  },
+                ].map((user, idx) => (
+                  <div
+                    key={user.rank}
+                    className={`grid grid-cols-12 px-6 py-4 items-center text-sm ${
+                      idx % 2 === 0
+                        ? "bg-white dark:bg-gray-800"
+                        : "bg-gray-50 dark:bg-gray-900"
+                    }`}
+                  >
+                    <div className="col-span-1 font-semibold text-green-700 dark:text-green-300">
+                      {user.rank}
+                    </div>
+                    <div className="col-span-5 flex items-center gap-3">
+                      <img
+                        src={user.avatar}
+                        alt={user.name}
+                        className="w-8 h-8 rounded-full object-cover border border-green-400 dark:border-green-600"
+                      />
+                      <span className="text-gray-800 dark:text-white">
+                        {user.name}
+                      </span>
+                    </div>
+                    <div className="col-span-3 text-right text-gray-700 dark:text-gray-300 font-semibold">
+                      {user.steps.toLocaleString()}
+                    </div>
+                    <div className="col-span-3 text-right text-orange-600 dark:text-orange-400 font-semibold">
+                      {user.calories.toLocaleString()}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

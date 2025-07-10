@@ -5,6 +5,8 @@ import SignUp from "./pages/signUp";
 import Dashboard from "./pages/dashboard/dashborad";
 import DashboardSettings from "./pages/dashboard/settings";
 import CommingSoon from "./pages/dashboard/commingSoon";
+import Achievements from "./pages/dashboard/achivements";
+import Leaderboard from "./pages/dashboard/leaderboard";
 export default function Router() {
   return (
     <Routes>
@@ -15,8 +17,8 @@ export default function Router() {
         <Route index element={<Dashboard />} />
         <Route path="nutrition" element={<CommingSoon />} />
         <Route path="challenge" element={<CommingSoon />} />
-        <Route path="leaderboard" element={<CommingSoon />} />
-        <Route path="achivements" element={<CommingSoon />} />
+        <Route path="leaderboard" element={<Leaderboard />} />
+        <Route path="achivements" element={<Achievements />} />
         <Route path="quizzes" element={<CommingSoon />} />
         <Route path="moodtracker" element={<CommingSoon />} />
         <Route path="community" element={<CommingSoon />} />

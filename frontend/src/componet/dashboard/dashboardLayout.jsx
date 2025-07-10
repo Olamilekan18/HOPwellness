@@ -16,11 +16,12 @@ import {
   Heart,
 } from "lucide-react";
 import PropTypes from "prop-types";
-
+import defaultImage from "../../../public/blank-profile-picture-973460_960_720.webp";
+import { useEffect } from "react";
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
-
+  const [profilePicture, setProfilePicture] = useState("");
   const menuItems = [
     {
       name: "Dashboard",
@@ -84,6 +85,15 @@ export default function DashboardLayout({ children }) {
         window.location.pathname === "/dashboard/settings" ? "active" : "",
     },
   ];
+
+  useEffect(() => {
+    const savedProfilePicture = localStorage.getItem("profilePicture");
+    if (savedProfilePicture === null) {
+      setProfilePicture(defaultImage);
+    } else {
+      setProfilePicture(savedProfilePicture);
+    }
+  }, []);
 
   return (
     <div
@@ -157,9 +167,9 @@ export default function DashboardLayout({ children }) {
             </button>
 
             <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              src={profilePicture}
               alt="Profile"
-              className="w-9 h-9 rounded-full border-2 border-green-950 object-cover"
+              className="w-9 h-9 rounded-full border-2 border-green-800 dark:border-white object-cover"
             />
           </div>
         </header>

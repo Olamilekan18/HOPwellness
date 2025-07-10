@@ -1,16 +1,23 @@
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import defaultImage from "../../../public/blank-profile-picture-973460_960_720.webp";
 import { data } from "react-router-dom";
 
 export default function UserOverViewCard() {
   const [profilePicture, setProfilePicture] = useState("");
   const [userName, setUserName] = useState("");
+<<<<<<< HEAD
   const [streak, setStreak] = useState(1); 
   const [xp,setXp] = useState(0);
   const [badges, setBadges] = useState(0);
+=======
+  const [streak, setStreak] = useState(1);
+  const [xp, setXp] = useState(0);
+  const [badges, setBadges] = useState([]);
+>>>>>>> 6cd32a2bfffe6ec63c1256c93ad4dd3bfa1401bc
   useEffect(() => {
     const savedProfilePicture = localStorage.getItem("profilePicture");
-    const userData =  JSON.parse(localStorage.getItem("user"));
+    const userData = JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem("token");
     if (!userData || !token) {
       window.location.href = "/login";
@@ -30,12 +37,12 @@ export default function UserOverViewCard() {
           throw new Error("Failed to fetch user data");
         }
         const data = await response.json();
-        setStreak(data.streak || 1); 
+        setStreak(data.streak || 1);
         setXp(data.xp || 0);
         setBadges(data.badges.length || 0);
       } catch (error) {
         console.error("Error fetching user streak:", error);
-        setStreak(1); 
+        setStreak(1);
         setXp(0);
         setBadges(data.badges.length || 0);
       }
@@ -46,9 +53,7 @@ export default function UserOverViewCard() {
       setUserName("Anonymous User");
     }
     if (savedProfilePicture === null) {
-      setProfilePicture(
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-      );
+      setProfilePicture(defaultImage);
     } else {
       setProfilePicture(savedProfilePicture);
     }
@@ -72,7 +77,7 @@ export default function UserOverViewCard() {
               <CheckCircle className="text-green-400" size={24} />
             </div>
             <span className="bg-green-500 text-white px-5 py-2 rounded-full text-xs sm:text-sm font-bold">
-              🔥 {streak.count + 1 } Day 
+              🔥 {streak.count + 1} Day
             </span>
           </div>
         </div>
@@ -98,7 +103,7 @@ export default function UserOverViewCard() {
               XPs
             </p>
             <p className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
-            {xp}
+              {xp}
             </p>
           </div>
 

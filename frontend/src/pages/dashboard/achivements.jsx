@@ -1,10 +1,10 @@
 import DashboardLayout from "../../componet/dashboard/dashboardLayout";
-import firstPosition from "../../../public/badges/first.png";
-import secondPosition from "../../../public/badges/second.png";
-import thirdPosition from "../../../public/badges/third.png";
-import firstRanking from "../../../public/badges/rankingFirst.png";
-import secondRanking from "../../../public/badges/rankingSecond.png";
-import thirdRanking from "../../../public/badges/rankingThird.png";
+import firstPosition from "/badges/first.png";
+import secondPosition from "/badges/second.png";
+import thirdPosition from "/badges/third.png";
+import firstRanking from "/badges/rankingFirst.png";
+import secondRanking from "/badges/rankingSecond.png";
+import thirdRanking from "/badges/rankingThird.png";
 const achivementsBadges = [
   { name: "First Position", timeEarned: 12, imageUrl: firstPosition },
   { name: "Second Position", timeEarned: 7, imageUrl: secondPosition },

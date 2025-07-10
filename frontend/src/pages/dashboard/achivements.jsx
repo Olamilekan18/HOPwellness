@@ -17,33 +17,34 @@ export default function Achievements() {
   return (
     <DashboardLayout>
       <div className="w-full">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-black dark:text-white">
-            Achievements
-          </h2>
-          <div className="flex gap-2 text-sm font-medium">
-            <button className="px-4 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-              All
-            </button>
-            <button className="px-4 py-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition">
-              Earned
-            </button>
+        {/* Inner Padding Wrapper */}
+        <div className="px-6 py-6">
+          {/* Header */}
+          <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
+            <h2 className="text-2xl font-bold text-black dark:text-white">
+              Achievements
+            </h2>
+            <div className="flex gap-2 text-sm font-medium">
+              <button className="px-4 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                All
+              </button>
+              <button className="px-4 py-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition">
+                Earned
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Static Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Card 1 */}
-          {achivementsBadges.map(({ name, timeEarned, imageUrl }) => {
-            return (
+          {/* Badges Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {achivementsBadges.map(({ name, timeEarned, imageUrl }) => (
               <div
                 key={name}
-                className="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 transition hover:shadow-lg"
+                className="flex items-center gap-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition"
               >
                 <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
                   <img
                     src={imageUrl}
-                    alt="Workout Streak Icon"
+                    alt={name + " Icon"}
                     className="w-6 h-6 object-contain"
                   />
                 </div>
@@ -60,8 +61,8 @@ export default function Achievements() {
                   </p>
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </DashboardLayout>

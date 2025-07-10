@@ -20,19 +20,18 @@ export default function Leaderboard() {
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
-          {/* Top 3 Gamified Leaders */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6 py-6">
             {/* 1st Place */}
             <div className="flex flex-col items-center bg-green-100 dark:bg-green-900 rounded-xl p-4 shadow-lg relative">
               <div className="absolute top-0 right-0 p-2 text-black text-sm rounded-full font-bold">
                 <img
-                  src={firstPosition} // Gold trophy
+                  src={firstPosition}
                   alt="1st Trophy"
                   className="w-6 h-6 mb-2"
                 />
               </div>
               <img
-                src={firstRanking} // Gold trophy
+                src={firstRanking}
                 alt="1st Trophy"
                 className="w-8 h-8 mb-2"
               />

@@ -117,9 +117,9 @@ export default function Leaderboard() {
           <div className="bg-gray-100 dark:bg-gray-900 rounded-b-xl">
             <div className="overflow-x-auto">
               <div className="grid grid-cols-12 px-6 py-3 text-sm font-semibold text-gray-600 dark:text-gray-400 border-t border-gray-300 dark:border-gray-700">
-                <div className="col-span-1 text-center">Rank</div>
-                <div className="col-span-5 text-center">User</div>
-                <div className="col-span-3 text-center">Xps</div>
+                <div className="col-span-1">Rank</div>
+                <div className="col-span-5 text-center sm:text-left">User</div>
+                <div className="col-span-3 text-right">Xps</div>
                 <div className="col-span-3 text-right">Streak</div>
               </div>
 

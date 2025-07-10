@@ -16,8 +16,7 @@ const achivementsBadges = [
 export default function Achievements() {
   return (
     <DashboardLayout>
-      <div className="w-full px-4 py-6">
-        {/* Header */}
+      <div className="w-full">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-black dark:text-white">
             Achievements

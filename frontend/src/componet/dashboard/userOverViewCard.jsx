@@ -13,7 +13,6 @@ export default function UserOverViewCard() {
     const userData =  JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem("token");
     if (!userData || !token) {
-      // Redirect to login if user data or token is not available
       window.location.href = "/login";
       return;
     }

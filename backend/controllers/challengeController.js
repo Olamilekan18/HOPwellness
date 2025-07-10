@@ -196,26 +196,34 @@ if (user.streak.count > 1 && lastDate && (today - lastDate) / (1000 * 60 * 60 * 
   // Badges
   const newBadges = [];
 
+  if (user.xp >= 5 && !user.badges.includes('xp-5')) {
+    user.badges.push('xp-5');
+    newBadges.push('xp-5');
+    await user.save(); // Save immediately to avoid badge duplication
+  }
+
   if (user.xp >= 50 && !user.badges.includes('xp-50')) {
     user.badges.push('xp-50');
     newBadges.push('xp-50');
+    await user.save(); // Save immediately to avoid badge duplication
   }
 
   if (user.xp >= 100 && !user.badges.includes('xp-100')) {
     user.badges.push('xp-100');
     newBadges.push('xp-100');
+    await user.save(); // Save immediately to avoid badge duplication
   }
 
   if (user.streak.count === 3 && !user.badges.includes('3-day-streak')) {
     user.badges.push('3-day-streak');
     newBadges.push('3-day-streak');
+    await user.save(); // Save immediately to avoid badge duplication
   }
 
   if (user.streak.count === 7 && !user.badges.includes('7-day-streak')) {
     user.badges.push('7-day-streak');
-    newBadges.push('7-day-streak');
+    newBadges.push('7-day-streak');  
   }
-
   await user.save();
 
   res.status(200).json({

@@ -1,5 +1,10 @@
 import DashboardLayout from "../../componet/dashboard/dashboardLayout";
 import firstPosition from "/badges/first.png";
+import secondPosition from "/badges/second.png";
+import thirdPosition from "/badges/third.png";
+import firstRanking from "/badges/rankingFirst.png";
+import secondRanking from "/badges/rankingSecond.png";
+import thirdRanking from "/badges/rankingThird.png";
 export default function Leaderboard() {
   return (
     <DashboardLayout>
@@ -26,7 +31,7 @@ export default function Leaderboard() {
                 />
               </div>
               <img
-                src={firstPosition} // Gold trophy
+                src={firstRanking} // Gold trophy
                 alt="1st Trophy"
                 className="w-8 h-8 mb-2"
               />
@@ -54,68 +59,76 @@ export default function Leaderboard() {
             </div>
 
             {/* 2nd Place */}
-            <div className="flex flex-col items-center bg-blue-100 dark:bg-blue-900 rounded-xl p-4 shadow-lg relative">
-              <div className="absolute top-0 right-0 p-2 bg-gray-300 text-black text-sm rounded-full font-bold">
-                #2
+            <div className="flex flex-col items-center bg-green-100 dark:bg-green-900 rounded-xl p-4 shadow-lg relative">
+              <div className="absolute top-0 right-0 p-2  text-black text-sm rounded-full font-bold">
+                <img
+                  src={secondPosition} // Gold trophy
+                  alt="1st Trophy"
+                  className="w-6 h-6 mb-2"
+                />
               </div>
               <img
-                src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" // Silver trophy
-                alt="2nd Trophy"
+                src={secondRanking} // Gold trophy
+                alt="1st Trophy"
                 className="w-8 h-8 mb-2"
               />
               <img
-                src="https://i.pravatar.cc/150?img=22"
-                alt="Mark Johnson"
-                className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
+                src="https://i.pravatar.cc/150?img=21"
+                alt="Emily Carter"
+                className="w-20 h-20 rounded-full border-4 border-green-400 object-cover"
               />
-              <h3 className="mt-3 text-lg font-semibold text-blue-800 dark:text-blue-200">
-                Mark Johnson
+              <h3 className="mt-3 text-lg font-semibold text-green-800 dark:text-green-200">
+                Emily Carter
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Contender 🥈
+                Champion 🏆
               </p>
               <div className="text-sm mt-1 text-gray-700 dark:text-gray-200">
-                Steps: <span className="font-semibold">18,700</span>
+                Steps: <span className="font-semibold">20,500</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200">
-                Calories: <span className="font-semibold">680 kcal</span>
+                Calories: <span className="font-semibold">750 kcal</span>
               </div>
               {/* Progress Bar */}
               <div className="w-full bg-gray-300 dark:bg-gray-600 rounded-full mt-4">
-                <div className="bg-blue-600 h-2 rounded-full w-full"></div>
+                <div className="bg-green-600 h-2 rounded-full w-full"></div>
               </div>
             </div>
 
             {/* 3rd Place */}
-            <div className="flex flex-col items-center bg-yellow-100 dark:bg-yellow-900 rounded-xl p-4 shadow-lg relative">
-              <div className="absolute top-0 right-0 p-2 bg-orange-500 text-black text-sm rounded-full font-bold">
-                #3
+            <div className="flex flex-col items-center bg-green-100 dark:bg-green-900 rounded-xl p-4 shadow-lg relative">
+              <div className="absolute top-0 right-0 p-2  text-black text-sm rounded-full font-bold">
+                <img
+                  src={thirdPosition}
+                  alt="1st Trophy"
+                  className="w-6 h-6 mb-2"
+                />
               </div>
               <img
-                src="https://cdn-icons-png.flaticon.com/512/2583/2583345.png" // Bronze trophy
-                alt="3rd Trophy"
+                src={thirdRanking}
+                alt="1st Trophy"
                 className="w-8 h-8 mb-2"
               />
               <img
-                src="https://i.pravatar.cc/150?img=23"
-                alt="Sophia Lee"
-                className="w-20 h-20 rounded-full border-4 border-yellow-400 object-cover"
+                src="https://i.pravatar.cc/150?img=21"
+                alt="Emily Carter"
+                className="w-20 h-20 rounded-full border-4 border-green-400 object-cover"
               />
-              <h3 className="mt-3 text-lg font-semibold text-yellow-800 dark:text-yellow-200">
-                Sophia Lee
+              <h3 className="mt-3 text-lg font-semibold text-green-800 dark:text-green-200">
+                Emily Carter
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Rising Star 🌟
+                Champion 🏆
               </p>
               <div className="text-sm mt-1 text-gray-700 dark:text-gray-200">
-                Steps: <span className="font-semibold">17,400</span>
+                Steps: <span className="font-semibold">20,500</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200">
-                Calories: <span className="font-semibold">620 kcal</span>
+                Calories: <span className="font-semibold">750 kcal</span>
               </div>
               {/* Progress Bar */}
               <div className="w-full bg-gray-300 dark:bg-gray-600 rounded-full mt-4">
-                <div className="bg-yellow-600 h-2 rounded-full w-full"></div>
+                <div className="bg-green-600 h-2 rounded-full w-full"></div>
               </div>
             </div>
           </div>

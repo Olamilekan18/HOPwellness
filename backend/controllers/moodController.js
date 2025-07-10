@@ -7,7 +7,7 @@ export const checkInMood = async (req, res) => {
   const { emoji, note } = req.body;
 
   try {
-    // 1. Check if user already checked in today
+   
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 

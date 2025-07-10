@@ -6,6 +6,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function SignUpForm() {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [showInitialPassword, setShowInitialPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -85,10 +86,28 @@ export default function SignUpForm() {
     return passwordLength && areTheyTheSame ? true : false;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const response = verifyInput();
     console.log(response);
+
+     try {
+    const res = await fetch(`${backendUrl}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(response),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      toast.error(data.message || "Registration failed");
+      return;
+    }
+    toast.success("Registration successful! You can now log in.");
+    // Optionally, redirect to login page here
+  } catch (err) {
+    toast.error("Network error");
+  }
   };
 
   return (
@@ -174,7 +193,7 @@ export default function SignUpForm() {
               </button>
             </div>
           </div>
-
+a
           <motion.button
             className="mt-5 tracking-wide font-semibold bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             whileHover={{ scale: 1.05 }}

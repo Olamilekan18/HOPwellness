@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Form() {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,13 +23,14 @@ export default function Form() {
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
-      localStorage.setItem('user', JSON.stringify(data.user));
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", data.token);
       if (!res.ok) {
         setError(data.message || "Login failed");
         return;
       }
       navigate("/dashboard");
+    // eslint-disable-next-line no-unused-vars
     } catch (err) {
       setError("Network error");
     }
@@ -64,7 +65,7 @@ export default function Form() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
 
@@ -74,7 +75,7 @@ export default function Form() {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
 
@@ -91,9 +92,7 @@ export default function Form() {
             </div>
           </div>
 
-          {error && (
-            <div className="text-red-500 text-sm mt-2">{error}</div>
-          )}
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 
           <motion.button
             className="mt-5 tracking-wide font-semibold bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL;
-      const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
   const [showInitialPassword, setShowInitialPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,9 +17,9 @@ export default function SignUpForm() {
   const [name, setName] = useState("");
 
   function verifyInput() {
-    const inputedName = name;
+    // const inputedName = name;
 
-     if (!validateEmail(email)) {
+    if (!validateEmail(email)) {
       toast.error(
         <div>
           <span>
@@ -56,9 +56,7 @@ export default function SignUpForm() {
     }
   }
 
-  function verifyFullName() {
-   
-  }
+
 
   function validateEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -79,22 +77,23 @@ export default function SignUpForm() {
     const response = verifyInput();
     console.log(response);
 
-     try {
-    const res = await fetch(`${backendUrl}/api/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(response),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      toast.error(data.message || "Registration failed");
-      return;
+    try {
+      const res = await fetch(`${backendUrl}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(response),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.message || "Registration failed");
+        return;
+      }
+      toast.success("Registration successful! You can now log in.");
+      navigate("/dashboard");
+    // eslint-disable-next-line no-unused-vars
+    } catch (err) {
+      toast.error("Network error");
     }
-    toast.success("Registration successful! You can now log in.");
-    navigate("/dashboard");
-  } catch (err) {
-    toast.error("Network error");
-  }
   };
 
   return (
@@ -180,7 +179,7 @@ export default function SignUpForm() {
               </button>
             </div>
           </div>
-a
+
           <motion.button
             className="mt-5 tracking-wide font-semibold bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             whileHover={{ scale: 1.05 }}

@@ -1,10 +1,50 @@
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { data } from "react-router-dom";
 
 export default function UserOverViewCard() {
   const [profilePicture, setProfilePicture] = useState("");
+  const [userName, setUserName] = useState("");
+  const [streak, setStreak] = useState(1); 
+  const [xp,setXp] = useState(0);
+  const [badges, setBadges] = useState([])
   useEffect(() => {
     const savedProfilePicture = localStorage.getItem("profilePicture");
+    const userData =  JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+    if (!userData || !token) {
+      // Redirect to login if user data or token is not available
+      window.location.href = "/login";
+      return;
+    }
+
+    const fetchStreak = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/user/me", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        const data = await response.json();
+        setStreak(data.streak || 1); 
+        setXp(data.xp || 0);
+      } catch (error) {
+        console.error("Error fetching user streak:", error);
+        setStreak(1); 
+        setXp(0);
+        setBadges(data.badges || 0);
+      }
+    };
+    if (userData && userData.name) {
+      setUserName(userData.name);
+    } else {
+      setUserName("Anonymous User");
+    }
     if (savedProfilePicture === null) {
       setProfilePicture(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
@@ -12,6 +52,7 @@ export default function UserOverViewCard() {
     } else {
       setProfilePicture(savedProfilePicture);
     }
+    fetchStreak();
   }, []);
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
@@ -26,12 +67,12 @@ export default function UserOverViewCard() {
           <div className="text-center sm:text-left">
             <div className="flex items-center justify-center sm:justify-start gap-3 mt-2 mb-4">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white transition-colors">
-                Thony Stone
+                {userName}
               </h2>
               <CheckCircle className="text-green-400" size={24} />
             </div>
             <span className="bg-green-500 text-white px-5 py-2 rounded-full text-xs sm:text-sm font-bold">
-              🔥 21 Streak
+              🔥 {streak.count + 1 } Day 
             </span>
           </div>
         </div>
@@ -57,7 +98,7 @@ export default function UserOverViewCard() {
               XPs
             </p>
             <p className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
-              64
+            {xp}
             </p>
           </div>
 
@@ -68,7 +109,7 @@ export default function UserOverViewCard() {
             </p>
             <div className="flex justify-center items-center gap-2">
               <p className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
-                5
+                {badges.length}
               </p>
             </div>
           </div>

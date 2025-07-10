@@ -3,9 +3,11 @@ import { FaGoogle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Form() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,12 +23,13 @@ export default function Form() {
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', data.token);
       if (!res.ok) {
         setError(data.message || "Login failed");
         return;
       }
-      // Handle successful login (e.g., save token, redirect)
-      alert("Login successful!");
+      navigate("/dashboard");
     } catch (err) {
       setError("Network error");
     }

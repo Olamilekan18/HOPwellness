@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
       const backendUrl = import.meta.env.VITE_BACKEND_URL;
+      const navigate = useNavigate();
   const [showInitialPassword, setShowInitialPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,21 +19,7 @@ export default function SignUpForm() {
   function verifyInput() {
     const inputedName = name;
 
-    if (!verifyFullName(inputedName)) {
-      toast.error(
-        <div>
-          <span>
-            Hey! Your full name is missing. Completing your profile will help us
-            track your fitness journey better.
-          </span>
-        </div>,
-        {
-          icon: false,
-          style: { backgroundColor: "#d4edda", color: "#155724" },
-          className: "toast-health-success",
-        }
-      );
-    } else if (!validateEmail(email)) {
+     if (!validateEmail(email)) {
       toast.error(
         <div>
           <span>
@@ -68,9 +56,8 @@ export default function SignUpForm() {
     }
   }
 
-  function verifyFullName(n) {
-    const doesNameIncludes = n.trim().includes(" ");
-    return doesNameIncludes;
+  function verifyFullName() {
+   
   }
 
   function validateEmail(email) {
@@ -104,7 +91,7 @@ export default function SignUpForm() {
       return;
     }
     toast.success("Registration successful! You can now log in.");
-    // Optionally, redirect to login page here
+    navigate("/dashboard");
   } catch (err) {
     toast.error("Network error");
   }

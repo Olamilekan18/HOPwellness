@@ -20,7 +20,7 @@ import defaultImage from "/blank-profile-picture-973460_960_720.webp";
 import { useEffect } from "react";
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState();
   const [profilePicture, setProfilePicture] = useState("");
   const menuItems = [
     {
@@ -93,7 +93,20 @@ export default function DashboardLayout({ children }) {
     } else {
       setProfilePicture(savedProfilePicture);
     }
+    const darkMode = localStorage.getItem("darkMode");
+
+    if (darkMode === null) {
+      setDarkMode(true);
+    } else {
+      setDarkMode(darkMode === "true");
+    }
   }, []);
+
+  useEffect(() => {
+    if (darkMode !== undefined) {
+      localStorage.setItem("darkMode", darkMode);
+    }
+  }, [darkMode]);
 
   return (
     <div

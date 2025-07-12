@@ -6,15 +6,9 @@ import { data } from "react-router-dom";
 export default function UserOverViewCard() {
   const [profilePicture, setProfilePicture] = useState("");
   const [userName, setUserName] = useState("");
-<<<<<<< HEAD
   const [streak, setStreak] = useState(1); 
   const [xp,setXp] = useState(0);
   const [badges, setBadges] = useState(0);
-=======
-  const [streak, setStreak] = useState(1);
-  const [xp, setXp] = useState(0);
-  const [badges, setBadges] = useState([]);
->>>>>>> 6cd32a2bfffe6ec63c1256c93ad4dd3bfa1401bc
   useEffect(() => {
     const savedProfilePicture = localStorage.getItem("profilePicture");
     const userData = JSON.parse(localStorage.getItem("user"));

@@ -68,7 +68,7 @@ const healthFitnessFAQ = [
 
 export default function FAQ() {
   return (
-    <div className="relative w-full bg-gradient-to-br from-green-100 via-teal-100 to-blue-100 px-6 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:rounded-lg sm:px-10">
+    <div className="relative w-full bg-gradient-to-br from-green-300 via-teal-200 to-blue-200 px-6 pb-8 ring-1 ring-gray-900/5 sm:mx-auto sm:rounded-lg sm:px-10">
       <div className="mx-auto px-5">
         <div className="flex flex-col items-center">
           <h2 className="mt-5 text-center text-3xl font-bold tracking-tight md:text-5xl">
@@ -79,34 +79,36 @@ export default function FAQ() {
           </p>
         </div>
         <div className="mx-auto mt-8 w-full divide-y divide-neutral-200">
-          {healthFitnessFAQ.map(({ question, answer }, idx) => {
-            return (
-              <div key={idx} className="py-5">
-                <details className="group">
-                  <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
-                    <span> {question}</span>
-                    <span className="transition group-open:rotate-180">
-                      <svg
-                        fill="none"
-                        height="24"
-                        shapeRendering="geometricPrecision"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        viewBox="0 0 24 24"
-                        width="24"
-                      >
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
-                    </span>
-                  </summary>
-                  <p className="group-open:animate-fadeIn mt-3 text-black">
-                    {answer}
-                  </p>
-                </details>
-              </div>
-            );
-          })}
+          {healthFitnessFAQ
+            .map(({ question, answer }, idx) => {
+              return (
+                <div key={idx} className="py-5">
+                  <details className="group">
+                    <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
+                      <span> {question}</span>
+                      <span className="transition group-open:rotate-180">
+                        <svg
+                          fill="none"
+                          height="24"
+                          shapeRendering="geometricPrecision"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          viewBox="0 0 24 24"
+                          width="24"
+                        >
+                          <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                      </span>
+                    </summary>
+                    <p className="group-open:animate-fadeIn mt-3 text-black">
+                      {answer}
+                    </p>
+                  </details>
+                </div>
+              );
+            })
+            .slice(0, 6)}
         </div>
       </div>
     </div>

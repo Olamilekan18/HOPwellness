@@ -39,7 +39,7 @@ const testimonialsMade = [
 
 export default function Testimonial() {
   return (
-    <section className="w-full min-h-screen bg-gradient-to-br from-green-300 via-teal-200 to-blue-200 py-16 px-4 flex flex-col items-center">
+    <section className="w-full min-h-screen bg-gradient-to-br from-green-100 via-teal-100 to-blue-100  py-16 px-4 flex flex-col items-center">
       <div className="max-w-4xl mx-auto text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-4 font-epilogue">
           Our trusted clients

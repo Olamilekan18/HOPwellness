@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const healthFitnessFAQ = [
   {
     question: "What is the best workout routine for weight loss?",
@@ -78,14 +80,22 @@ export default function FAQ() {
             Frequently asked questions
           </p>
         </div>
+
         <div className="mx-auto mt-8 w-full divide-y divide-neutral-200">
           {healthFitnessFAQ
             .map(({ question, answer }, idx) => {
               return (
-                <div key={idx} className="py-5">
+                <motion.div
+                  key={idx}
+                  className="py-5"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: idx * 0.2 }}
+                  viewport={{ once: true }}
+                >
                   <details className="group">
                     <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
-                      <span> {question}</span>
+                      <span>{question}</span>
                       <span className="transition group-open:rotate-180">
                         <svg
                           fill="none"
@@ -101,11 +111,16 @@ export default function FAQ() {
                         </svg>
                       </span>
                     </summary>
-                    <p className="group-open:animate-fadeIn mt-3 text-black">
+                    <motion.p
+                      className="group-open:animate-fadeIn mt-3 text-black"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                       {answer}
-                    </p>
+                    </motion.p>
                   </details>
-                </div>
+                </motion.div>
               );
             })
             .slice(0, 6)}

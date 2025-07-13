@@ -13,7 +13,7 @@ function App() {
       <WhyChooseUs />
       <Testimonial />
       <FAQ />
-      <Footer color="bg-gradient-to-r from-green-200 via-teal-200 to-blue-200" />
+      <Footer color="bg-gradient-to-r from-green-200 via-teal-200 to-blue-200 text-black border-t-1 border-black  body-font" />
     </>
   );
 }

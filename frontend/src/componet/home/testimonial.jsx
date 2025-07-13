@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const testimonialsMade = [
   {
     name: "Sarah Thompson",
@@ -39,7 +41,7 @@ const testimonialsMade = [
 
 export default function Testimonial() {
   return (
-    <section className="w-full min-h-screen bg-gradient-to-br from-green-100 via-teal-100 to-blue-100  py-16 px-4 flex flex-col items-center">
+    <section className="w-full min-h-screen bg-gradient-to-br from-green-100 via-teal-100 to-blue-100 py-16 px-4 flex flex-col items-center">
       <div className="max-w-4xl mx-auto text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-4 font-epilogue">
           Our trusted clients
@@ -54,13 +56,17 @@ export default function Testimonial() {
       <div className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {testimonialsMade.map(({ name, testimonial, image }, idx) => {
           return (
-            <div
+            <motion.div
               key={idx}
               className="relative text-center transition-transform duration-300 p-6 bg-white rounded-[30px] outline-1 outline-offset-[-1px] outline-[#f5f7f9] flex flex-col justify-center items-center gap-5  shadow-[0px_25px_52px_-12px_rgba(17,17,17,0.20)]"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: idx * 0.2 }}
+              viewport={{ once: true }}
             >
               <img
                 src={image}
-                alt="Hugo Pakula"
+                alt={name}
                 className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md"
               />
               <div className="space-y-6">
@@ -78,7 +84,7 @@ export default function Testimonial() {
                   className="w-6 h-6"
                 />
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

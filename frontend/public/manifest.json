@@ -1,7 +1,7 @@
 {
   "short_name": "HOP",
   "name": "Hop Fitness",
-  "description": "A simple React app to showcase PWA features",
+  "description": "Health is Wealth.",
   "icons": [
     {
       "src": "/vite.svg",

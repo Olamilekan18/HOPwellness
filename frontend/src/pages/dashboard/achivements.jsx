@@ -17,9 +17,7 @@ export default function Achievements() {
   return (
     <DashboardLayout>
       <div className="w-full">
-        {/* Inner Padding Wrapper */}
         <div className="px-6 py-6">
-          {/* Header */}
           <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
             <h2 className="text-2xl font-bold text-black dark:text-white">
               Achievements
@@ -34,7 +32,6 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Badges Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {achivementsBadges.map(({ name, timeEarned, imageUrl }) => (
               <div

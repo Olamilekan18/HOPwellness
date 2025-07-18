@@ -15,7 +15,7 @@ const dailyChallenge = [
     icon: FaBottleWater,
     id: "hydrate",
     title: "Hydration Goal",
-    description: "Drink at least 2 liters of water",
+    description: "Drink at least 2 liters of water everyday",
     completed: false,
     xpReward: 15,
   },
@@ -59,7 +59,7 @@ export default function DailyChallenge() {
                 className="p-5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-200 dark:border-gray-700"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 flex items-center justify-center dark:text-white text-green-500 text-xl bg-gray-200 dark:bg-green-800 rounded-full">
+                  <div className="w-10 h-10 flex items-center justify-center dark:text-white text-green-500 text-xl bg-gray-200 dark:bg-green-600 rounded-full">
                     <Icon />
                   </div>
                   <div className="flex-1">

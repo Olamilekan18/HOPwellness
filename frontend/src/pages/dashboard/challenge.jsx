@@ -50,7 +50,7 @@ export default function Challenge() {
       <section className="w-full px-4 py-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-            🎯 Challenge Route
+            Challenge
           </h2>
 
           <DailyChallenge />

@@ -15,14 +15,16 @@ const pieData = [
   { name: "Sad", value: 1, color: "#F44336" },
   { name: "Angry", value: 1, color: "#E91E63" },
 ];
+
 export default function MoodTrackerOverview() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 px-4 md:px-8">
+      {/* Left Side (Mood Selection and Notes) */}
+      <div className="space-y-8">
         <p className="text-lg font-semibold mb-6 dark:text-white">
           How are you feeling today?
         </p>
-        <div className="flex items-center justify-between mb-8 space-x-6">
+        <div className="flex items-center justify-between mb-8 space-x-4 sm:space-x-6">
           <div className="border-4 rounded-full p-2 border-purple-500 hover:bg-purple-100 transition">
             <FaSmileBeam size={40} className="text-green-600" />
           </div>
@@ -49,9 +51,7 @@ export default function MoodTrackerOverview() {
             <FaStickyNote />
             <span>Note</span>
           </div>
-          <p className="text-gray-800 dark:text-gray-300 mb-5">
-            Very excited to have met our new puppy!
-          </p>
+          <textarea className="text-gray-800 dark:text-gray-300 mb-5 w-full h-28 border-2 border-gray-700 dark:border-white rounded-2xl p-2 resize-none"></textarea>
 
           <div className="flex flex-wrap gap-2 mb-6">
             <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
@@ -67,47 +67,54 @@ export default function MoodTrackerOverview() {
               Add tag
             </button>
           </div>
+
+          <button className="px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition w-full">
+            Add Note
+          </button>
         </div>
       </div>
 
       {/* Right Side (Pie Chart) */}
-      <div className="p-6 rounded-xl shadow-lg dark:bg-gray-800">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="font-semibold text-xl text-gray-800 dark:text-white">
-            Mood Overview
-          </h3>
-          <div className="flex gap-2 text-sm">
-            <button className="bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md font-medium text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-              All time
-            </button>
-            <button className="bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md font-medium text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-              This month
-            </button>
-          </div>
-        </div>
+  <div className="p-6 rounded-xl shadow-lg dark:bg-gray-800">
+  <div className="flex justify-between items-center mb-6">
+    <h3 className="font-semibold text-xl text-gray-800 dark:text-white">
+      Mood Overview
+    </h3>
+    <div className="flex gap-2 text-sm">
+      <button className="bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md font-medium text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+        All time
+      </button>
+      <button className="bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-md font-medium text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+        This month
+      </button>
+    </div>
+  </div>
 
-        <div className="flex justify-center items-center relative">
-          <PieChart width={300} height={300}>
-            <Pie
-              data={pieData}
-              cx="50%"
-              cy="50%"
-              innerRadius={80}
-              outerRadius={120}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {pieData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-          </PieChart>
+  {/* Center the PieChart */}
+  <div className="flex justify-center items-center relative">
+    <PieChart width={250} height={250}>
+      <Pie
+        data={pieData}
+        cx="50%"
+        cy="50%"
+        innerRadius={80}
+        outerRadius={120}
+        fill="#8884d8"
+        dataKey="value"
+      >
+        {pieData.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={entry.color} />
+        ))}
+      </Pie>
+    </PieChart>
 
-          <div className="absolute text-center w-full top-1/2 transform -translate-y-1/2">
-            <FaSmile size={36} className="mx-auto text-green-400 mb-2" />
-          </div>
-        </div>
-      </div>
+    {/* Icon positioning fixed and centered */}
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <FaSmile size={36} className="mx-auto text-green-400 mb-2" />
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

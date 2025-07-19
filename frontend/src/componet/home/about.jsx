@@ -9,7 +9,7 @@ export default function AboutUs() {
           <motion.img
             src="https://img.freepik.com/free-photo/portrait-confident-female-doctor-hospital_23-2149370393.jpg?w=740"
             alt="Doctor"
-            className="rounded-2xl w-96 sm:w-[400px] shadow-xl z-10 relative"
+            className="rounded-2xl w-full sm:w-[400px] shadow-xl z-10 relative"
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.7 }}
@@ -18,7 +18,7 @@ export default function AboutUs() {
           <motion.img
             src="https://todaysparent.mblycdn.com/uploads/tp/2006/01/GettyImages-1368004438.jpg"
             alt="Checkup"
-            className="rounded-2xl w-72 sm:w-[350px] shadow-md absolute top-36 left-32 sm:left-56 z-0"
+            className="rounded-2xl w-full sm:w-[350px] shadow-md absolute top-36 left-0 sm:left-56 z-0"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.7 }}
@@ -94,7 +94,7 @@ export default function AboutUs() {
           </div>
 
           <a
-            href="#"
+            href="/login"
             className="mt-5 bg-green-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-800 transition-all duration-300 shadow-md"
           >
             Start Your Journey

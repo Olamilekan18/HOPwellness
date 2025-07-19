@@ -1,6 +1,20 @@
 import DashboardLayout from "../../componet/dashboard/dashboardLayout";
 import UserOverViewCard from "../../componet/dashboard/userOverViewCard";
+import firstPosition from "/badges/first.png";
+import secondPosition from "/badges/second.png";
+import thirdPosition from "/badges/third.png";
+import firstRanking from "/badges/rankingFirst.png";
+import secondRanking from "/badges/rankingSecond.png";
+import thirdRanking from "/badges/rankingThird.png";
 
+const badgeAcquired = [
+  firstPosition,
+  secondPosition,
+  thirdPosition,
+  firstRanking,
+  secondRanking,
+  thirdRanking,
+];
 export default function Dashboard() {
   return (
     <DashboardLayout>
@@ -9,39 +23,20 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-              Achievements
+              Achivements
             </h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-lg text-gray-700 dark:text-gray-300">
-                  Total Calories Burned
-                </span>
-                <span className="font-semibold text-xl text-green-500">
-                  1,500 kcal
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-lg text-gray-700 dark:text-gray-300">
-                  Steps Today
-                </span>
-                <span className="font-semibold text-xl text-blue-500">
-                  10,000 Steps
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-lg text-gray-700 dark:text-gray-300">
-                  Water Intake
-                </span>
-                <span className="font-semibold text-xl text-teal-500">3L</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-lg text-gray-700 dark:text-gray-300">
-                  Workouts Completed
-                </span>
-                <span className="font-semibold text-xl text-purple-500">
-                  3/3
-                </span>
-              </div>
+
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-6 mt-4">
+              {badgeAcquired.map((badges, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    className="flex justify-center items-center p-4 "
+                  >
+                    <img src={badges} alt={badges} className="w-14 h-14 " />
+                  </div>
+                );
+              })}
             </div>
           </div>
 

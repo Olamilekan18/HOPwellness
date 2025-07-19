@@ -52,9 +52,7 @@ export default function Challenge() {
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
             Challenge
           </h2>
-
           <DailyChallenge />
-
           <WeeklyChallenge />
         </div>
       </section>

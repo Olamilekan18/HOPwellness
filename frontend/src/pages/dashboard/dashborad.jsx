@@ -26,14 +26,18 @@ export default function Dashboard() {
               Achivements
             </h3>
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-6 mt-4">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
               {badgeAcquired.map((badges, idx) => {
                 return (
                   <div
                     key={idx}
-                    className="flex justify-center items-center p-4 "
+                    className="flex justify-center items-center p-4"
                   >
-                    <img src={badges} alt={badges} className="w-14 h-14 " />
+                    <img
+                      src={badges}
+                      alt={`Badge ${idx}`}
+                      className="w-14 h-14"
+                    />
                   </div>
                 );
               })}

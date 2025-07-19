@@ -9,10 +9,8 @@ export default function DashboardSettings() {
       const reader = new FileReader();
       reader.onload = (e) => {
         setProfilePicture(e.target.result);
-        
       };
       reader.readAsDataURL(e[0]);
-      
     }
   }
 
@@ -47,11 +45,11 @@ export default function DashboardSettings() {
             Profile Picture
           </h2>
           <div className="flex flex-col sm:flex-row sm:space-x-6 items-center">
-            <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-4 sm:mb-0">
+            <div className="w-32 h-32 border-2 border-green-400 dark:border-white bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-4 sm:mb-0">
               <img
                 src={profilePicture}
                 alt="Profile"
-                className="w-full h-full object-cover"
+                className="w-full h-full  object-cover"
               />
             </div>
             <div className="flex-1">

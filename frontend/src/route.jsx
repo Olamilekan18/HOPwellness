@@ -8,6 +8,7 @@ import CommingSoon from "./pages/dashboard/commingSoon";
 import Achievements from "./pages/dashboard/achivements";
 import Leaderboard from "./pages/dashboard/leaderboard";
 import Challenge from "./pages/dashboard/challenge";
+import MoodTracker from "./pages/dashboard/moodTracker";
 export default function Router() {
   return (
     <Routes>
@@ -21,7 +22,7 @@ export default function Router() {
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="achivements" element={<Achievements />} />
         <Route path="quizzes" element={<CommingSoon />} />
-        <Route path="moodtracker" element={<CommingSoon />} />
+        <Route path="moodtracker" element={<MoodTracker />} />
         <Route path="community" element={<CommingSoon />} />
         <Route path="settings" element={<DashboardSettings />} />
         <Route path="*" element={<CommingSoon />} />

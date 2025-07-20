@@ -1,6 +1,7 @@
 import DashboardLayout from "../../componet/dashboard/dashboardLayout";
 import MoodTrackerOverview from "./moodTracker/overviewSection";
 
+import PastMoodNote from "./moodTracker/pastMoodNote";
 export default function MoodTracker() {
   return (
     <DashboardLayout>
@@ -9,6 +10,7 @@ export default function MoodTracker() {
           Mood Tracker
         </h1>
         <MoodTrackerOverview />
+        <PastMoodNote />
       </div>
     </DashboardLayout>
   );

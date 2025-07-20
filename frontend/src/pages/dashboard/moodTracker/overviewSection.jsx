@@ -21,6 +21,7 @@ export default function MoodTrackerOverview() {
   const [mood, setMood] = useState();
   const [showAddTagSection, setShowAddTagSection] = useState(false);
   const [newTag, setNewTag] = useState("");
+  const [tags, setTags] = useState([]);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 px-4 md:px-8">
       <div className="space-y-8">
@@ -56,6 +57,8 @@ export default function MoodTrackerOverview() {
           showAddTagSection={showAddTagSection}
           setShowAddTagSection={setShowAddTagSection}
           mood={mood}
+          tags={tags}
+          setTags={setTags}
         />
       </div>
 

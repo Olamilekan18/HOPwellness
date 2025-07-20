@@ -41,5 +41,11 @@ export default function PieChartSection({ pieData }) {
 }
 
 PieChartSection.propTypes = {
-  pieData: PropTypes.node.isRequired,
+  pieData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+      color: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

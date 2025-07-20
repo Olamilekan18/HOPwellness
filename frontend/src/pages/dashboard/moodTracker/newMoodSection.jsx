@@ -6,7 +6,15 @@ export default function NewMoodSection({
   setShowAddTagSection,
   showAddTagSection,
   newTag,
+  tags,
+  setTags,
 }) {
+  function removeTag(id) {
+    console.log(tags[id]);
+    setTags((prev) => {
+      return prev.filter((tag) => tag !== tags[id]);
+    });
+  }
   return (
     <div className="relative bg-white border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-md dark:bg-gray-800 transition-all">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-5">
@@ -33,12 +41,20 @@ export default function NewMoodSection({
       />
 
       <div className="flex flex-wrap gap-2 mb-6">
-        {["Excited", "Family", "Love"].map((tag, index) => (
+        {tags.map((tag, index) => (
           <span
             key={index}
-            className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded-full text-xs hover:bg-gray-200 dark:hover:bg-gray-600"
           >
-            {tag} ✕
+            {tag}{" "}
+            <button
+              id={index}
+              onClick={(e) => {
+                removeTag(e.target.id);
+              }}
+            >
+              ✕
+            </button>
           </span>
         ))}
         <button
@@ -61,14 +77,21 @@ export default function NewMoodSection({
               setNewTag(e.target.value);
             }}
             onBlur={() => {
-              console.log(newTag);
+              if (newTag === "") {
+                console.log("You didnt input anything");
+              } else {
+                setTags((prev) => {
+                  return [...prev, newTag];
+                });
+              }
+              setShowAddTagSection(false);
+              setNewTag("");
             }}
             autoFocus
           />
         </div>
       ) : null}
 
-      {/* Button */}
       <button className="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all">
         Save Note
       </button>
@@ -77,9 +100,11 @@ export default function NewMoodSection({
 }
 
 NewMoodSection.propTypes = {
-  mood: PropTypes.node.isRequired,
-  setNewTag: PropTypes.node.isRequired,
-  newTag: PropTypes.node.isRequired,
-  showAddTagSection: PropTypes.node.isRequired,
-  setShowAddTagSection: PropTypes.node.isRequired,
+  mood: PropTypes.string,
+  setNewTag: PropTypes.func.isRequired,
+  newTag: PropTypes.string.isRequired,
+  showAddTagSection: PropTypes.bool.isRequired,
+  setShowAddTagSection: PropTypes.func.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setTags: PropTypes.func.isRequired,
 };

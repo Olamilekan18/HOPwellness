@@ -10,12 +10,7 @@ export default function ContactForm() {
               Lets talk about everything!
             </h2>
             <div className="text-gray-700 mt-8">
-              Hate forms? Send us an email instead{" "}
-              <span className="underline">
-                <a target="_BLANK" href="https://veilmail.io/irish-irish-geoff">
-                  https://veilmail.io/irish-geoff
-                </a>
-              </span>
+              We would love to hear from you.
             </div>
           </div>
           <div className="mt-8 text-center">
@@ -29,7 +24,7 @@ export default function ContactForm() {
             </span>
             <input
               name="fullname"
-              className="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              className="w-full bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               placeholder=""
             />
@@ -40,8 +35,8 @@ export default function ContactForm() {
             </span>
             <input
               name="email"
-              className="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-              type="text"
+              className="w-full bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              type="email"
             />
           </div>
           <div className="mt-8">
@@ -50,11 +45,11 @@ export default function ContactForm() {
             </span>
             <textarea
               name="message"
-              className="w-full h-32 bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              className="w-full h-32 bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             ></textarea>
           </div>
           <div className="mt-8">
-            <button className="uppercase text-sm font-bold tracking-wide bg-indigo-500 text-gray-100 p-3 rounded-lg w-full focus:outline-none focus:shadow-outline">
+            <button className="uppercase text-sm font-bold tracking-wide bg-green-500 hover:bg-green-700 cursor-pointer text-gray-100 p-3 rounded-lg w-full focus:outline-none focus:shadow-outline">
               Send Message
             </button>
           </div>

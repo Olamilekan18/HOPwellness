@@ -9,12 +9,14 @@ import Achievements from "./pages/dashboard/achivements";
 import Leaderboard from "./pages/dashboard/leaderboard";
 import Challenge from "./pages/dashboard/challenge";
 import MoodTracker from "./pages/dashboard/moodTracker";
+import AboutUs from "./pages/aboutUs";
 export default function Router() {
   return (
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/dashboard">
         <Route index element={<Dashboard />} />
         <Route path="nutrition" element={<CommingSoon />} />

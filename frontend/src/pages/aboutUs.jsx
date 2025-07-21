@@ -1,3 +1,10 @@
+import HomeNav from "../componet/header";
+import Footer from "../componet/home/footer";
 export default function AboutUs() {
-  return <h1>Hello</h1>;
+  return (
+    <>
+      <HomeNav />
+      <Footer color="bg-white border-t-1 border-black text-black" />
+    </>
+  );
 }

@@ -1,7 +1,7 @@
 import Svg from "./svg";
 export default function ContactForm() {
   return (
-    <form action="#" method="post">
+    <form method="post">
       <div className="text-center w-full"></div>
       <div className="max-w-screen-xl mt-5 px-8 grid gap-8 grid-cols-1 md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 py-16 mx-auto bg-white text-gray-900 rounded-lg shadow-lg">
         <div className="flex flex-col justify-between">
@@ -45,7 +45,7 @@ export default function ContactForm() {
             </span>
             <textarea
               name="message"
-              className="w-full h-32 bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              className="w-full h-32 bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline resize-none"
             ></textarea>
           </div>
           <div className="mt-8">

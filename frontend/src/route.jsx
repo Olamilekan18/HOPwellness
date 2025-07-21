@@ -10,6 +10,7 @@ import Leaderboard from "./pages/dashboard/leaderboard";
 import Challenge from "./pages/dashboard/challenge";
 import MoodTracker from "./pages/dashboard/moodTracker";
 import AboutUs from "./pages/aboutUs";
+import ContactPage from "./pages/contact";
 export default function Router() {
   return (
     <Routes>
@@ -17,6 +18,7 @@ export default function Router() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="/dashboard">
         <Route index element={<Dashboard />} />
         <Route path="nutrition" element={<CommingSoon />} />

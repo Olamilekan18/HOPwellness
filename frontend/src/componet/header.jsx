@@ -24,13 +24,13 @@ export default function HomeNav() {
           </div>
 
           <nav className="hidden md:flex gap-6 text-sm font-medium">
-            <a href="#" className="hover:text-green-600">
+            <a href="/aboutus" className="hover:text-green-600">
               About Us
             </a>
-            <a href="#" className="hover:text-green-600">
+            <a href="/clientsandresults" className="hover:text-green-600">
               Clients & Results
             </a>
-            <a href="#" className="hover:text-green-600">
+            <a href="/contact" className="hover:text-green-600">
               Contact
             </a>
           </nav>
@@ -96,19 +96,19 @@ export default function HomeNav() {
               className="md:hidden  px-4 py-4 space-y-4 shadow-inner"
             >
               <a
-                href="#"
+                href="/aboutus"
                 className="block text-sm font-medium hover:text-green-600"
               >
                 About Us
               </a>
               <a
-                href="#"
+                href="/clientsandresults"
                 className="block text-sm font-medium hover:text-green-600"
               >
                 Clients & Results
               </a>
               <a
-                href="#"
+                href="/contact"
                 className="block text-sm font-medium hover:text-green-600"
               >
                 Contact

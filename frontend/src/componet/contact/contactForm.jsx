@@ -26,7 +26,7 @@ export default function ContactForm() {
               name="fullname"
               className="w-full bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder=""
+              placeholder="Input your Full Name."
             />
           </div>
           <div className="mt-8">
@@ -37,6 +37,7 @@ export default function ContactForm() {
               name="email"
               className="w-full bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="email"
+              placeholder="Inpt your Email Address"
             />
           </div>
           <div className="mt-8">
@@ -46,6 +47,7 @@ export default function ContactForm() {
             <textarea
               name="message"
               className="w-full h-32 bg-gray-100 border-1 border-black text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline resize-none"
+              placeholder="Input your message here"
             ></textarea>
           </div>
           <div className="mt-8">

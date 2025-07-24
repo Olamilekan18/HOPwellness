@@ -32,7 +32,6 @@ export default function MotivationWidget() {
 
   return (
     <div className="w-full max-w-2xl mx-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md overflow-hidden transition">
-      {/* Gradient Header */}
       <div className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white">
         <Sparkles size={20} />
         <h2 className="text-md font-semibold tracking-wide">
@@ -40,7 +39,6 @@ export default function MotivationWidget() {
         </h2>
       </div>
 
-      {/* Content */}
       <div className="px-6 py-8 text-center space-y-6">
         <p className="text-2xl italic font-serif text-gray-800 dark:text-gray-100 transition-all duration-300">
           “{quote}”

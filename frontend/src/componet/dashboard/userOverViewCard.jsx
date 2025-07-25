@@ -1,6 +1,6 @@
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import defaultImage from "../../../public/blank-profile-picture-973460_960_720.webp";
+import defaultImage from "/blank-profile-picture-973460_960_720.webp";
 import { data } from "react-router-dom";
 
 export default function UserOverViewCard() {

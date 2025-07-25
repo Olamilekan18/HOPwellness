@@ -1,15 +1,11 @@
 import HomeNav from "../componet/header";
 import Footer from "../componet/home/footer";
-import Form from "../componet/login/form";
-import LoginForm from "../componet/login/login";
-
-export default function Login() {
+import ContactForm from "../componet/contact/contactForm";
+export default function ContactPage() {
   return (
     <>
       <HomeNav />
-      <LoginForm>
-        <Form />
-      </LoginForm>
+      <ContactForm />
       <Footer color="bg-white border-t-1 border-black text-black" />
     </>
   );

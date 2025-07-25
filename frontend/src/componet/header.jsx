@@ -12,30 +12,31 @@ export default function HomeNav() {
         transition={{ duration: 0.8 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <img
-              src="https://www.shutterstock.com/image-vector/fitness-logo-vector-symbol-icon-600nw-1926906863.jpg"
-              alt="Logo"
-              className="w-12 h-12 rounded-full"
-            />
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-wide">
-              HOP
-            </h1>
-          </div>
+          <a href="/">
+            <div className="flex items-center gap-3">
+              <img
+                src="https://www.shutterstock.com/image-vector/fitness-logo-vector-symbol-icon-600nw-1926906863.jpg"
+                alt="Logo"
+                className="w-12 h-12 rounded-full"
+              />
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-wide">
+                HOP
+              </h1>
+            </div>
+          </a>
 
           <nav className="hidden md:flex gap-6 text-sm font-medium">
-            <a href="#" className="hover:text-green-600">
+            <a href="/" className="hover:text-green-600">
+              Home
+            </a>
+            <a href="/aboutus" className="hover:text-green-600">
               About Us
             </a>
-            <a href="#" className="hover:text-green-600">
-              Clients & Results
-            </a>
-            <a href="#" className="hover:text-green-600">
+            <a href="/contact" className="hover:text-green-600">
               Contact
             </a>
           </nav>
 
-          {/* Auth buttons (desktop) */}
           <div className="hidden md:flex gap-3">
             <motion.a
               href="/login"
@@ -96,19 +97,19 @@ export default function HomeNav() {
               className="md:hidden  px-4 py-4 space-y-4 shadow-inner"
             >
               <a
-                href="#"
+                href="/"
+                className="block text-sm font-medium hover:text-green-600"
+              >
+                Home
+              </a>
+              <a
+                href="/aboutus"
                 className="block text-sm font-medium hover:text-green-600"
               >
                 About Us
               </a>
               <a
-                href="#"
-                className="block text-sm font-medium hover:text-green-600"
-              >
-                Clients & Results
-              </a>
-              <a
-                href="#"
+                href="/contact"
                 className="block text-sm font-medium hover:text-green-600"
               >
                 Contact

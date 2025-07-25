@@ -2,37 +2,41 @@ import { motion } from "framer-motion";
 
 export default function WhyChooseUs() {
   return (
-    <section className="overflow-hidden bg-gradient-to-br from-green-300 via-teal-200 to-blue-200  py-12 sm:py-20">
+    <section className="overflow-hidden bg-gradient-to-br from-green-300 via-teal-200 to-blue-200 py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-10 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           <motion.div
             className="lg:pr-10 lg:pt-4"
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
           >
             <div className="lg:max-w-lg">
               <motion.h2
                 className="text-sm font-semibold leading-7 text-black uppercase"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                viewport={{ once: true }}
               >
                 Why Choose Us
               </motion.h2>
               <motion.p
                 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+                viewport={{ once: true }}
               >
                 Wellness Backed by Results
               </motion.p>
               <motion.p
                 className="mt-6 text-lg leading-8 text-gray-800"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+                viewport={{ once: true }}
               >
                 HOP is more than a platform — it&apos;s your all-in-one guide
                 for mental, physical, and emotional wellness. Our team is here
@@ -40,12 +44,12 @@ export default function WhyChooseUs() {
               </motion.p>
 
               <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-800 lg:max-w-none">
-                {/* First Item */}
                 <motion.div
                   className="relative pl-10"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 1, duration: 0.6 }}
+                  viewport={{ once: true }}
                 >
                   <dt className="inline font-semibold text-gray-900">
                     <svg
@@ -60,19 +64,19 @@ export default function WhyChooseUs() {
                       />
                     </svg>
                     Personalized Wellness Plans:
-                  </dt>{" "}
+                  </dt>
                   <dd className="inline">
                     Track your goals and progress with routines crafted just for
                     you.
                   </dd>
                 </motion.div>
 
-                {/* Second Item */}
                 <motion.div
                   className="relative pl-10"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1, duration: 0.6 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 1.2, duration: 0.6 }}
+                  viewport={{ once: true }}
                 >
                   <dt className="inline font-semibold text-gray-900">
                     <svg
@@ -87,19 +91,19 @@ export default function WhyChooseUs() {
                       />
                     </svg>
                     Holistic Health Focus:
-                  </dt>{" "}
+                  </dt>
                   <dd className="inline">
                     We support both your physical strength and emotional
                     balance.
                   </dd>
                 </motion.div>
 
-                {/* Third Item */}
                 <motion.div
                   className="relative pl-10"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2, duration: 0.6 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 1.4, duration: 0.6 }}
+                  viewport={{ once: true }}
                 >
                   <dt className="inline font-semibold text-gray-900">
                     <svg
@@ -115,7 +119,7 @@ export default function WhyChooseUs() {
                       />
                     </svg>
                     Reward-Based System:
-                  </dt>{" "}
+                  </dt>
                   <dd className="inline">
                     Earn points and badges for consistency, effort, and results.
                   </dd>
@@ -125,8 +129,9 @@ export default function WhyChooseUs() {
               <motion.div
                 className="mt-10 flex flex-wrap items-center gap-4"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.4, duration: 0.6 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 1.6, duration: 0.6 }}
+                viewport={{ once: true }}
               >
                 <a
                   href="#"
@@ -138,7 +143,6 @@ export default function WhyChooseUs() {
             </div>
           </motion.div>
 
-          {/* Right Image with motion */}
           <motion.img
             src="https://img.freepik.com/free-photo/happy-woman-holding-dumbbells-sport-healthy-lifestyle_1303-17582.jpg?w=1080"
             alt="Fitness Wellness"
@@ -147,8 +151,9 @@ export default function WhyChooseUs() {
             height="600"
             loading="lazy"
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            viewport={{ once: true }}
           />
         </div>
       </div>

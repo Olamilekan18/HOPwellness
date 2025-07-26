@@ -1,62 +1,152 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { BsPatchCheckFill, BsPersonWalking } from "react-icons/bs";
 import { Sun } from "lucide-react";
 import { FaBottleWater } from "react-icons/fa6";
+import { FaAppleAlt } from "react-icons/fa";
 import { GiNightSleep } from "react-icons/gi";
-const dailyChallenge = [
-  {
-    icon: BsPatchCheckFill,
-    id: "check-in",
-    title: "Daily Check-In",
-    description: "Check in every day to build your streak",
-    completed: true,
-    xpReward: 10,
-  },
-  {
-    icon: FaBottleWater,
-    id: "hydrate",
-    title: "Hydration Goal",
-    description: "Drink at least 2 liters of water everyday",
-    completed: false,
-    xpReward: 15,
-  },
-  {
-    icon: BsPersonWalking,
-    id: "steps-10k",
-    title: "10,000 Steps",
-    description: "Walk 10,000 steps today",
-    completed: true,
-    xpReward: 20,
-  },
-  {
-    icon: Sun,
-    id: "stretch",
-    title: "Morning Stretch",
-    description: "Do a 5-minute stretching routine",
-    completed: true,
-    xpReward: 10,
-  },
-  {
-    icon: GiNightSleep,
-    id: "sleep-8hr",
-    title: "Sleep Goal",
-    description: "Get at least 8 hours of sleep",
-    completed: false,
-    xpReward: 20,
-  },
-];
+import { FiTarget } from "react-icons/fi";
+import { NotebookText, Brain, Wind } from "lucide-react";
+import { MdOutlineAirlineSeatLegroomNormal } from "react-icons/md";
+
+const challengeIcons = {
+  "check-in": BsPatchCheckFill,
+  "hydrate": FaBottleWater,
+  "steps-10k": BsPersonWalking,
+  "stretch": Sun,
+  "sleep-8hr": GiNightSleep,
+  "eat-fruit-veg": FaAppleAlt,
+  "journal": NotebookText,
+  "meditate": Brain,
+  "deep-breaths": Wind,
+  "posture-check": MdOutlineAirlineSeatLegroomNormal,
+};
+
+const DefaultIcon = FiTarget;
+
 export default function DailyChallenge() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [dailyChallenges, setDailyChallenges] = useState([]);
+
+  useEffect(() => {
+    const fetchAssignedChallenges = async () => {
+      try {
+        setLoading(true);
+        let token = null;
+        if (typeof window !== 'undefined') {
+          token = localStorage.getItem('token');
+        }
+        const response = await axios.get("/api/challenges/assigned", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setDailyChallenges(response.data.daily);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching daily challenges:", err);
+        setError(err.message || "Failed to fetch daily challenges.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAssignedChallenges();
+  }, []);
+
+  const handleCompleteChallenge = async (challengeToComplete) => {
+    setError(null);
+
+    const currentChallengeState = dailyChallenges.find(
+      c => c.challengeId === challengeToComplete.challengeId
+    );
+    const wasAlreadyCompleted = currentChallengeState ? currentChallengeState.completed : false;
+
+    if (!wasAlreadyCompleted) {
+      setDailyChallenges(prevChallenges =>
+        prevChallenges.map(c =>
+          c.challengeId === challengeToComplete.challengeId
+            ? { ...c, completed: true }
+            : c
+        )
+      );
+    }
+
+    try {
+      let token = null;
+      if (typeof window !== 'undefined') {
+        token = localStorage.getItem('token');
+      }
+
+      const apiUrl = `/api/challenges/${challengeToComplete.challengeId}/complete`;
+
+      await axios.post(
+        apiUrl,
+        {
+          type: "daily",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(`Challenge "${challengeToComplete.title}" marked as complete.`);
+
+    } catch (err) {
+      console.error("Error completing challenge:", err);
+      const errorMessage = err.response?.data?.message || err.message || "Failed to mark challenge as complete.";
+      setError(errorMessage);
+
+      if (!wasAlreadyCompleted && err.response?.status !== 400 && err.response?.data?.message !== 'You have already completed this challenge today.') {
+        setDailyChallenges(prevChallenges =>
+          prevChallenges.map(c =>
+            c.challengeId === challengeToComplete.challengeId
+              ? { ...c, completed: false }
+              : c
+          )
+        );
+      }
+      setTimeout(() => setError(null), 5000);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="text-center py-8 text-gray-600 dark:text-gray-300">
+        Loading daily challenges...
+      </div>
+    );
+  }
+
   return (
     <div>
       <h3 className="text-xl font-semibold text-black dark:text-gray-200 mb-4">
         Daily Challenges
       </h3>
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <strong className="font-bold">Error!</strong>
+          <span className="block sm:inline"> {error}</span>
+        </div>
+      )}
+
+      {!loading && dailyChallenges.length === 0 && (
+           <p className="text-gray-500 dark:text-gray-400">No daily challenges assigned for today.</p>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {dailyChallenge.map(
-          ({ icon: Icon, id, title, description, xpReward, completed }) => {
+        {dailyChallenges.map((challenge) => {
+            const Icon = challengeIcons[challenge.id] || DefaultIcon;
+            const isCompleted = challenge.completed || false;
+
             return (
               <div
-                key={id}
-                className="p-5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-200 dark:border-gray-700"
+                key={challenge.challengeId}
+                className={`p-5 bg-white dark:bg-gray-900 rounded-xl shadow border ${isCompleted ? 'border-green-500' : 'border-gray-200 dark:border-gray-700'}`}
+                style={{ transition: "transform 0.2s" }}
               >
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 flex items-center justify-center dark:text-white text-green-500 text-xl bg-gray-200 dark:bg-green-600 rounded-full">
@@ -64,10 +154,10 @@ export default function DailyChallenge() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                      {title}
+                      {challenge.title}
                     </h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {description}
+                      {challenge.description}
                     </p>
                   </div>
                 </div>
@@ -75,17 +165,32 @@ export default function DailyChallenge() {
                   <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
                     <div
                       className="bg-green-500 h-2 rounded-full"
-                      style={completed ? { width: "100%" } : { width: "0%" }}
+                      style={isCompleted ? { width: "100%" } : { width: "0%" }}
                     />
                   </div>
                   <p className="text-xs text-right text-green-500 mt-1 font-semibold">
-                    {xpReward} Xps
+                    {challenge.xpReward} Xps
                   </p>
+
+                  <div className="mt-4 text-right">
+                    {isCompleted ? (
+                      <span className="text-green-600 dark:text-green-400 font-semibold flex items-center justify-end">
+                        <BsPatchCheckFill className="mr-1 text-lg" /> Completed! 🎉
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => handleCompleteChallenge(challenge)}
+                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                      >
+                        Mark as Complete
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             );
-          }
-        )}
+          })
+        }
       </div>
     </div>
   );

@@ -43,11 +43,19 @@ streak: {
   assignedChallenges: {
   daily: [{
     challengeId: String,
-    date: Date 
+    date: Date,
+    completed: { 
+        type: Boolean,
+        default: false
+      }
   }],
   weekly: [{
     challengeId: String,
-    weekStart: Date 
+    weekStart: Date,
+    completed: { 
+        type: Boolean,
+        default: false
+      }
   }]
 },
 
@@ -64,7 +72,6 @@ streak: {
     ref: 'Mood'
   }],
 
-  badges: [String],
 
   journalEntries: [{
     type: mongoose.Schema.Types.ObjectId,

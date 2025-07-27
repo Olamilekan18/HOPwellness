@@ -180,9 +180,9 @@ export default function DailyChallenge() {
                     ) : (
                       <button
                         onClick={() => handleCompleteChallenge(challenge)}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        className="px-4 py-2 bg-green-500 text-white cursor-pointer rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                       >
-                        Mark as Complete
+                         Complete
                       </button>
                     )}
                   </div>

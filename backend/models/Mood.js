@@ -18,6 +18,15 @@ const moodSchema = new mongoose.Schema({
     trim: true
   },
 
+    title:{
+      type: String,
+      required: true,
+      trim: true
+    },
+    tags:{
+      type: [String],
+      default: []
+    },
   date: {
     type: Date,
     default: Date.now

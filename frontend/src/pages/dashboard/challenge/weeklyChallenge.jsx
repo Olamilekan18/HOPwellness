@@ -29,7 +29,7 @@ export default function WeeklyChallenge() {
         setLoading(true);
         let token = null;
         if (typeof window !== 'undefined') {
-          token = localStorage.getItem('token'); // Corrected localStorage access
+          token = localStorage.getItem('token');
         }
         const response = await axios.get("/api/challenges/assigned", {
           headers: {
@@ -50,19 +50,18 @@ export default function WeeklyChallenge() {
   }, []);
 
   const handleCompleteChallenge = async (challengeToComplete) => {
-    setError(null); // Clear previous errors
+    setError(null); 
 
     const currentChallengeState = weeklyChallenges.find(
       c => c.challengeId === challengeToComplete.challengeId
     );
     const wasAlreadyFullyCompleted = currentChallengeState ? currentChallengeState.completed : false;
 
-    // Optimistic UI Update: Increment completedCount and potentially mark as fully completed
     setWeeklyChallenges(prevChallenges =>
       prevChallenges.map(c => {
         if (c.challengeId === challengeToComplete.challengeId) {
           if (c.completed) {
-              return c; // If already fully completed, no optimistic change needed
+              return c; 
           }
           const newCompletedCount = (c.completedCount || 0) + 1;
           const newIsFullyCompleted = newCompletedCount >= (c.targetCount || 1);
@@ -79,7 +78,7 @@ export default function WeeklyChallenge() {
     try {
       let token = null;
       if (typeof window !== 'undefined') {
-        token = localStorage.getItem('token'); // Corrected localStorage access
+        token = localStorage.getItem('token'); 
       }
 
       const apiUrl = `/api/challenges/${challengeToComplete.challengeId}/complete`;
@@ -100,13 +99,9 @@ export default function WeeklyChallenge() {
 
     } catch (err) {
       console.error("Error completing weekly challenge:", err);
-      // Display backend's error message directly, or a fallback
       const errorMessage = err.response?.data?.message || err.message || "Failed to mark weekly challenge as complete.";
       setError(errorMessage);
 
-      // Revert optimistic UI update only if there was an actual error that means
-      // the backend did NOT accept the progress. If backend message is the 'already completed today',
-      // we don't revert the count, as that progress was effectively "counted" by the backend for the day.
       if (!wasAlreadyFullyCompleted && errorMessage !== 'You have already completed this challenge today.') {
           setWeeklyChallenges(prevChallenges =>
             prevChallenges.map(c => {
@@ -123,7 +118,7 @@ export default function WeeklyChallenge() {
             })
           );
       }
-      setTimeout(() => setError(null), 5000); // Clear error after 5 seconds
+      setTimeout(() => setError(null), 5000);
     }
   };
 
@@ -200,9 +195,9 @@ export default function WeeklyChallenge() {
                     ) : (
                       <button
                         onClick={() => handleCompleteChallenge(challenge)}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                       >
-                        Mark as Complete
+                         Complete
                       </button>
                     )}
                   </div>

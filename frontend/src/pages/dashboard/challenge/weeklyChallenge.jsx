@@ -12,7 +12,7 @@ const weeklyChallengeIcons = {
   "check-in": FiActivity,
   hydrate: FaBottleWater,
   "steps-10k": BsPersonWalking,
-  stretch: Sun,
+  "stretch": Sun,
   "sleep-8hr": GiNightSleep,
 };
 

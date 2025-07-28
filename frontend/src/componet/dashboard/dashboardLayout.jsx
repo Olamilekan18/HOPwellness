@@ -12,9 +12,10 @@ import {
   ChartAreaIcon,
   Award,
   User2,
-  CircleQuestionMark,
+  // CircleQuestionMark,
   Heart,
 } from "lucide-react";
+import { FaRobot } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import defaultImage from "/blank-profile-picture-973460_960_720.webp";
 import { useEffect } from "react";
@@ -44,6 +45,13 @@ export default function DashboardLayout({ children }) {
         window.location.pathname === "/dashboard/challenge" ? "active" : "",
     },
     {
+      name: "Ai Chatbot",
+      link: "/dashboard/ai-chatbot",
+      icon: <FaRobot size={18} />,
+      active:
+        window.location.pathname === "/dashboard/ai-chatbot" ? "active" : "",
+    },
+    {
       name: "leaderboards",
       link: "/dashboard/leaderboard",
       icon: <ChartAreaIcon size={18} />,
@@ -57,12 +65,12 @@ export default function DashboardLayout({ children }) {
       active:
         window.location.pathname === "/dashboard/achivements" ? "active" : "",
     },
-    {
-      name: "Quizzes",
-      link: "/dashboard/quizzes",
-      icon: <CircleQuestionMark size={18} />,
-      active: window.location.pathname === "/dashboard/quizzes" ? "active" : "",
-    },
+    // {
+    //   name: "Quizzes",
+    //   link: "/dashboard/quizzes",
+    //   icon: <CircleQuestionMark size={18} />,
+    //   active: window.location.pathname === "/dashboard/quizzes" ? "active" : "",
+    // },
     {
       name: "Mood Tracker",
       link: "/dashboard/moodtracker",

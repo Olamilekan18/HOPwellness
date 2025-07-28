@@ -1,21 +1,21 @@
 import { FaStickyNote } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { useState } from "react"; 
-import axios from "axios"; 
-
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 export default function NewMoodSection({
-  mood, 
+  mood,
   setNewTag,
   setShowAddTagSection,
   showAddTagSection,
   newTag,
   tags,
   setTags,
-  onMoodSaved, 
+  onMoodSaved,
 }) {
   const [noteTitle, setNoteTitle] = useState("");
   const [noteContent, setNoteContent] = useState("");
-  const [isSaving, setIsSaving] = useState(false); 
+  const [isSaving, setIsSaving] = useState(false);
 
   function removeTag(idToRemove) {
     setTags((prev) => prev.filter((_, index) => index !== idToRemove));
@@ -23,34 +23,82 @@ export default function NewMoodSection({
 
   const handleSaveNote = async () => {
     if (!mood) {
-      alert("Please select a mood first!");
+      toast.info("Please select a mood first!", {
+        position: "top-center",
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        icon: "😊",
+        style: {
+          background: "#0f5132",
+          color: "#f0f9ff",
+          fontWeight: "bold",
+          fontSize: "1rem",
+        },
+      });
       return;
     }
     if (!noteTitle.trim()) {
-      alert("Please enter a note title!");
+      toast.info("Please enter a note title!", {
+        position: "top-center",
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        icon: "🔥",
+        style: {
+          background: "#0f5132",
+          color: "#f0f9ff",
+          fontWeight: "bold",
+          fontSize: "1rem",
+        },
+      });
       return;
     }
 
     setIsSaving(true);
     try {
       const response = await axios.post(
-        '/api/mood/checkin', 
+        "/api/mood/checkin",
         {
-          emoji: mood, 
+          emoji: mood,
           title: noteTitle,
-          note: noteContent, 
+          note: noteContent,
           tags: tags,
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
 
       console.log("Mood saved successfully:", response.data);
-      alert("Mood saved successfully!");
+      toast.success("Mood saved successfully!", {
+        position: "top-center",
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        icon: "😊",
+        style: {
+          background: "#0f5132",
+          color: "#f0f9ff",
+          fontWeight: "bold",
+          fontSize: "1rem",
+        },
+      });
       setNoteTitle("");
       setNoteContent("");
       setTags([]);
@@ -61,9 +109,31 @@ export default function NewMoodSection({
         onMoodSaved();
       }
     } catch (error) {
-      console.error("Error saving mood:", error.response ? error.response.data : error.message);
-      alert(
-        `Failed to save mood: ${error.response?.data?.message || 'Please try again.'}`
+      console.error(
+        "Error saving mood:",
+        error.response ? error.response.data : error.message
+      );
+      toast.info(
+        `Failed to save mood: ${
+          error.response?.data?.message || "Please try again."
+        }`,
+        {
+          position: "top-center",
+          autoClose: 3500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          icon: "😊",
+          style: {
+            background: "#0f5132",
+            color: "#f0f9ff",
+            fontWeight: "bold",
+            fontSize: "1rem",
+          },
+        }
       );
     } finally {
       setIsSaving(false);
@@ -110,12 +180,12 @@ export default function NewMoodSection({
       <div className="flex flex-wrap gap-2 mb-6">
         {tags.map((tag, index) => (
           <span
-            key={index} 
+            key={index}
             className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded-full text-xs hover:bg-gray-200 dark:hover:bg-gray-600"
           >
             {tag}{" "}
             <button
-              onClick={() => removeTag(index)} 
+              onClick={() => removeTag(index)}
               className="ml-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
             >
               ✕
@@ -142,9 +212,9 @@ export default function NewMoodSection({
             onChange={(e) => {
               setNewTag(e.target.value);
             }}
-            onBlur={handleAddTagOnBlur} 
-            onKeyPress={(e) => { 
-              if (e.key === 'Enter') {
+            onBlur={handleAddTagOnBlur}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
                 handleAddTagOnBlur();
               }
             }}
@@ -156,7 +226,7 @@ export default function NewMoodSection({
       <button
         onClick={handleSaveNote}
         className="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all"
-        disabled={isSaving} 
+        disabled={isSaving}
       >
         {isSaving ? "Saving..." : "Save Note"}
       </button>

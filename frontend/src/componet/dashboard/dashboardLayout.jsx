@@ -116,6 +116,31 @@ export default function DashboardLayout({ children }) {
     }
   }, [darkMode]);
 
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        !event.target.closest("#profile-dropdown-btn") &&
+        !event.target.closest("#profile-dropdown-menu")
+      ) {
+        setProfileDropdownOpen(false);
+      }
+    }
+    if (profileDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileDropdownOpen]);
+
+  function handleLogout() {
+    localStorage.clear();
+    window.location.href = "/login";
+  }
+
   return (
     <div
       className={`flex h-screen bg-gray-50 dark:bg-gray-900 relative ${
@@ -165,7 +190,7 @@ export default function DashboardLayout({ children }) {
       </aside>
 
       <div className="flex-1 flex flex-col ml-0">
-        <header className="flex items-center justify-between bg-white dark:bg-gray-800 shadow-sm px-6 py-4 sticky top-0 z-60">
+        <header className="flex items-center justify-between bg-white dark:bg-gray-800 shadow-sm px-2 py-4 sticky top-0 z-60">
           <div className="flex items-center gap-4 w-full">
             <button
               className="md:hidden text-black dark:text-white z-60"
@@ -175,23 +200,42 @@ export default function DashboardLayout({ children }) {
             </button>
           </div>
 
-          <div className="flex items-center gap-4 pr-3">
-            <button className="p-2 bg-gray-100 dark:bg-white rounded-full hover:bg-gray-200 dark:hover:bg-gray-600">
+          <div className="flex items-center gap-4 pr-3 relative">
+            <button className="p-2 bg-gray-100 dark:bg-white rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer">
               <Bell size={18} />
             </button>
 
             <button
-              className="p-2 bg-gray-100 dark:bg-white rounded-full hover:bg-gray-200 dark:hover:bg-gray-600"
+              className="p-2 bg-gray-100 dark:bg-white rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
               onClick={() => setDarkMode(!darkMode)}
             >
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
-            <img
-              src={profilePicture}
-              alt="Profile"
-              className="w-9 h-9 rounded-full border-2 border-green-800 dark:border-white object-cover"
-            />
+            <button
+              id="profile-dropdown-btn"
+              className="focus:outline-none p-1 hover:bg-gray-200 dark:hover:bg-gray-600 w-10 h-10 cursor-pointer relative"
+              onClick={() => setProfileDropdownOpen((open) => !open)}
+            >
+              <img
+                src={profilePicture}
+                alt="Profile"
+                className=" object-cover rounded-full w-full h-full"
+              />
+            </button>
+            {profileDropdownOpen && (
+              <div
+                id="profile-dropdown-menu"
+                className="absolute right-0 top-14 mt-2 w-40 bg-white dark:bg-gray-700 rounded-lg shadow-lg z-50 py-2"
+              >
+                <button
+                  className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Log out
+                </button>
+              </div>
+            )}
           </div>
         </header>
 

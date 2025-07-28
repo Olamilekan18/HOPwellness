@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "../../componet/dashboard/dashboardLayout";
 import firstPosition from "/badges/first.png";
 import secondPosition from "/badges/second.png";
 import thirdPosition from "/badges/third.png";
 import firstRanking from "/badges/rankingFirst.png";
 import secondRanking from "/badges/rankingSecond.png";
-import thirdRanking from "/badges/rankingThird.png"; 
+import thirdRanking from "/badges/rankingThird.png";
 import ribbon from "/ribbon.png";
 
 export default function Leaderboard() {
@@ -16,7 +16,9 @@ export default function Leaderboard() {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/leaderboard/xp");
+        const response = await fetch(
+          "http://localhost:5000/api/leaderboard/xp"
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -33,7 +35,7 @@ export default function Leaderboard() {
     };
 
     fetchLeaderboard();
-  }, []); 
+  }, []);
 
   const topThreeUsers = leaderboardData.slice(0, 3).map((user, index) => {
     let positionImage, rankingImage;
@@ -50,29 +52,30 @@ export default function Leaderboard() {
 
     let title = "Novice";
     if (user.xp >= 100) {
-        title = "Adept";
+      title = "Adept";
     }
-    if (user.xp >= 500) { 
-        title = "Expert";
+    if (user.xp >= 500) {
+      title = "Expert";
     }
-    if (user.xp >= 1000) { 
-        title = "Master";
+    if (user.xp >= 1000) {
+      title = "Master";
     }
-    if (user.badges.includes('xp-100')) {
+    if (user.badges.includes("xp-100")) {
       title = "Achiever ✨";
     }
-    if (user.badges.includes('xp-500')) { 
-        title = "Veteran 🏅";
+    if (user.badges.includes("xp-500")) {
+      title = "Veteran 🏅";
     }
-    if (user.badges.includes('champion')) { 
-        title = "Champion 🏆";
+    if (user.badges.includes("champion")) {
+      title = "Champion 🏆";
     }
-
 
     return {
       position: positionImage,
       ranking: rankingImage,
-      imageUrl: user.imageUrl || `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`, // Use a random avatar if none provided
+      imageUrl:
+        user.imageUrl ||
+        `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`, // Use a random avatar if none provided
       name: user.name,
       xps: user.xp,
       badgeCount: user.badges ? user.badges.length : 0,
@@ -82,19 +85,27 @@ export default function Leaderboard() {
 
   const remainingUsers = leaderboardData.slice(3).map((user, index) => {
     return {
-      rank: index + 4, 
+      rank: index + 4,
       name: user.name,
       xps: user.xp,
-      badgeCount: user.badges ? user.badges.length : 0, 
-      avatar: user.imageUrl || `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`, // Use a random avatar if none provided
+      badgeCount: user.badges ? user.badges.length : 0,
+      avatar:
+        user.imageUrl ||
+        `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`, // Use a random avatar if none provided
     };
   });
 
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="w-full px-6 py-6 text-center text-gray-700 dark:text-gray-300">
-          Loading leaderboard...
+        <div className="container mx-auto mt-10 px-4 flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green-400 border-solid mb-4"></div>
+          <span className="text-lg font-medium text-green-600 dark:text-green-300">
+            Loading Leaderboards
+          </span>
+          <span className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            Please wait while we fetch the leaderboard.
+          </span>
         </div>
       </DashboardLayout>
     );
@@ -103,9 +114,7 @@ export default function Leaderboard() {
   if (error) {
     return (
       <DashboardLayout>
-        <div className="w-full px-6 py-6 text-center text-red-500">
-          {error}
-        </div>
+        <div className="w-full px-6 py-6 text-center text-red-500">{error}</div>
       </DashboardLayout>
     );
   }
@@ -132,7 +141,7 @@ export default function Leaderboard() {
                   imageUrl,
                   name,
                   xps,
-                  badgeCount, 
+                  badgeCount,
                   title,
                 }) => (
                   <div
@@ -174,7 +183,7 @@ export default function Leaderboard() {
                     <div className="text-sm text-gray-700 dark:text-gray-200">
                       Badges:{" "}
                       <span className="font-semibold">
-                        {badgeCount.toLocaleString()} 
+                        {badgeCount.toLocaleString()}
                       </span>
                     </div>
 
@@ -197,41 +206,43 @@ export default function Leaderboard() {
                 <div className="col-span-1">Rank</div>
                 <div className="col-span-5 text-center sm:text-left">User</div>
                 <div className="col-span-3 text-right">Xps</div>
-                <div className="col-span-3 text-right">Badges</div> 
+                <div className="col-span-3 text-right">Badges</div>
               </div>
 
               <div className="min-w-full">
                 {remainingUsers.length > 0 ? (
-                  remainingUsers.map(({ rank, avatar, name, badgeCount, xps }, idx) => (
-                    <div
-                      key={rank}
-                      className={`grid grid-cols-12 px-6 py-4 items-center text-sm ${
-                        idx % 2 === 0
-                          ? "bg-white dark:bg-gray-800"
-                          : "bg-gray-50 dark:bg-gray-900"
-                      }`}
-                    >
-                      <div className="col-span-1 font-semibold text-green-700 dark:text-green-300">
-                        {rank}
+                  remainingUsers.map(
+                    ({ rank, avatar, name, badgeCount, xps }, idx) => (
+                      <div
+                        key={rank}
+                        className={`grid grid-cols-12 px-6 py-4 items-center text-sm ${
+                          idx % 2 === 0
+                            ? "bg-white dark:bg-gray-800"
+                            : "bg-gray-50 dark:bg-gray-900"
+                        }`}
+                      >
+                        <div className="col-span-1 font-semibold text-green-700 dark:text-green-300">
+                          {rank}
+                        </div>
+                        <div className="col-span-5 flex items-center gap-3">
+                          <img
+                            src={avatar}
+                            alt={name}
+                            className="w-8 h-8 rounded-full object-cover border border-green-400 dark:border-green-600"
+                          />
+                          <span className="text-black dark:text-white">
+                            {name}
+                          </span>
+                        </div>
+                        <div className="col-span-3 text-right text-gray-700 dark:text-gray-300 font-semibold">
+                          {xps.toLocaleString()}
+                        </div>
+                        <div className="col-span-3 text-right text-green-600 dark:text-green-400 font-semibold">
+                          {badgeCount.toLocaleString()}
+                        </div>
                       </div>
-                      <div className="col-span-5 flex items-center gap-3">
-                        <img
-                          src={avatar}
-                          alt={name}
-                          className="w-8 h-8 rounded-full object-cover border border-green-400 dark:border-green-600"
-                        />
-                        <span className="text-black dark:text-white">
-                          {name}
-                        </span>
-                      </div>
-                      <div className="col-span-3 text-right text-gray-700 dark:text-gray-300 font-semibold">
-                        {xps.toLocaleString()}
-                      </div>
-                      <div className="col-span-3 text-right text-green-600 dark:text-green-400 font-semibold">
-                        {badgeCount.toLocaleString()} 
-                      </div>
-                    </div>
-                  ))
+                    )
+                  )
                 ) : (
                   <p className="text-center py-4 text-gray-600 dark:text-gray-400">
                     No other users to display.

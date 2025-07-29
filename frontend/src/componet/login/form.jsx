@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Form() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -26,11 +27,21 @@ export default function Form() {
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
       if (!res.ok) {
-        setError(data.message || "Login failed");
+        toast.error(data.message || "Login failed", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          style: { backgroundColor: "#22c55e", color: "#fff" },
+        });
         return;
       }
       navigate("/dashboard");
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
       setError("Network error");
     }
@@ -38,6 +49,7 @@ export default function Form() {
 
   return (
     <div className="mt-5 flex flex-col items-center">
+      <ToastContainer />
       <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
       <div className="w-full flex-1 mt-8">
         <div className="flex flex-col items-center">

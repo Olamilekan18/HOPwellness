@@ -2,6 +2,7 @@ import { FaStickyNote } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useState } from "react"; 
 import axios from "axios"; 
+import PastMoodNote from "./pastMoodNote";
 
 export default function NewMoodSection({
   mood, 

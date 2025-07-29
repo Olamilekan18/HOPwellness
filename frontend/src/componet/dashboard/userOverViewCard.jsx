@@ -6,8 +6,8 @@ import { data } from "react-router-dom";
 export default function UserOverViewCard() {
   const [profilePicture, setProfilePicture] = useState("");
   const [userName, setUserName] = useState("");
-  const [streak, setStreak] = useState(1); 
-  const [xp,setXp] = useState(0);
+  const [streak, setStreak] = useState(1);
+  const [xp, setXp] = useState(0);
   const [badges, setBadges] = useState(0);
   useEffect(() => {
     const savedProfilePicture = localStorage.getItem("profilePicture");
@@ -56,7 +56,6 @@ export default function UserOverViewCard() {
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
       <div className="p-6 rounded-3xl w-full max-w-5xl mx-auto transition-all duration-300">
-        {/* Profile Info Section */}
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
           <img
             src={profilePicture}
@@ -76,12 +75,9 @@ export default function UserOverViewCard() {
           </div>
         </div>
 
-        {/* Divider */}
         <hr className="border-dashed border-black dark:border-white mb-6" />
 
-        {/* Stats Grid Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {/* Achievements Card */}
           <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-1">
               Achievements
@@ -91,7 +87,6 @@ export default function UserOverViewCard() {
             </p>
           </div>
 
-          {/* XPs Card */}
           <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-1">
               XPs
@@ -101,7 +96,6 @@ export default function UserOverViewCard() {
             </p>
           </div>
 
-          {/* Badges Card */}
           <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-1">
               Badges
@@ -113,7 +107,6 @@ export default function UserOverViewCard() {
             </div>
           </div>
 
-          {/* Ranking Card */}
           <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
             <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-1">
               Ranking

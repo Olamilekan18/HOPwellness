@@ -19,6 +19,7 @@ import { FaRobot } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import defaultImage from "/blank-profile-picture-973460_960_720.webp";
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [darkMode, setDarkMode] = useState();
@@ -153,7 +154,7 @@ export default function DashboardLayout({ children }) {
           onClick={() => setSidebarOpen(false)}
         />
       )}
-
+      <ToastContainer />
       <aside
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"

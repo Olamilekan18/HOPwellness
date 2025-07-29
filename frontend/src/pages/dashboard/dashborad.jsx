@@ -44,7 +44,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Remaining Tasks Section */}
           <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
               Remaining Tasks for the Day

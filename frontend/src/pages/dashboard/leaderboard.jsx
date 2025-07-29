@@ -7,6 +7,7 @@ import firstRanking from "/badges/rankingFirst.png";
 import secondRanking from "/badges/rankingSecond.png";
 import thirdRanking from "/badges/rankingThird.png";
 import ribbon from "/ribbon.png";
+import defaultImage from "/blank-profile-picture-973460_960_720.webp";
 
 export default function Leaderboard() {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -73,9 +74,7 @@ export default function Leaderboard() {
     return {
       position: positionImage,
       ranking: rankingImage,
-      imageUrl:
-        user.imageUrl ||
-        `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`, // Use a random avatar if none provided
+      imageUrl: user.imageUrl || defaultImage, // Use a random avatar if none provided
       name: user.name,
       xps: user.xp,
       badgeCount: user.badges ? user.badges.length : 0,
@@ -89,9 +88,7 @@ export default function Leaderboard() {
       name: user.name,
       xps: user.xp,
       badgeCount: user.badges ? user.badges.length : 0,
-      avatar:
-        user.imageUrl ||
-        `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`, // Use a random avatar if none provided
+      avatar: user.imageUrl || defaultImage, // Use a random avatar if none provided
     };
   });
 

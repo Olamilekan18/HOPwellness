@@ -12,11 +12,9 @@ export default function Form() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError("");
     try {
       const res = await fetch(`${backendUrl}/api/auth/login`, {
         method: "POST",
@@ -36,14 +34,24 @@ export default function Form() {
           draggable: true,
           progress: undefined,
           theme: "colored",
-          style: { backgroundColor: "#22c55e", color: "#fff" },
+          style: { backgroundColor: "#dc2626", color: "#fff" },
         });
         return;
       }
       navigate("/dashboard");
       // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      setError("Network error");
+      toast.error("Network error", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
     }
   };
 
@@ -103,8 +111,6 @@ export default function Form() {
               </button>
             </div>
           </div>
-
-          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 
           <motion.button
             className="mt-5 tracking-wide font-semibold bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

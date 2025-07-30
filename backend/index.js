@@ -8,6 +8,8 @@ import moodRoutes from './routes/mood.js';
 import challengeRoutes from './routes/challenges.js';
 import userRoutes from './routes/user.js';
 import leaderboardRoutes from './routes/leaderboard.js';
+import communityRoutes from './routes/community.js';
+import postRoutes from './routes/post.js';
 
 dotenv.config();
 connectDB(); 
@@ -21,6 +23,8 @@ app.use('/api/mood', moodRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/community', communityRoutes);
+app.use('/api/posts', postRoutes);
 
 
 app.use(bodyParser.json());

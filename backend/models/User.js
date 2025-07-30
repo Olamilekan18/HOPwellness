@@ -19,6 +19,28 @@ const userSchema = new mongoose.Schema({
     required: true
   },
 
+  // username: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  //   trim: true
+  // },
+
+  communities: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Community'
+  }],
+
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+
   xp: {
     type: Number,
     default: 0
@@ -95,7 +117,11 @@ streak: {
     type: Date,
     default: Date.now
   }
-});
+},
+{
+  timestamps: true
+}
+);
 
 const User = mongoose.model('User', userSchema);
 export default User;

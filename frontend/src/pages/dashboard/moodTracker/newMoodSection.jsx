@@ -1,15 +1,8 @@
 import { FaStickyNote } from "react-icons/fa";
 import PropTypes from "prop-types";
-<<<<<<< HEAD
-import { useState } from "react"; 
-import axios from "axios"; 
-import PastMoodNote from "./pastMoodNote";
-
-=======
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
->>>>>>> c76bbd7613780c84a48dffcbe487f9cfa537d7d1
 export default function NewMoodSection({
   mood,
   setNewTag,
@@ -251,3 +244,6 @@ NewMoodSection.propTypes = {
   setTags: PropTypes.func.isRequired,
   onMoodSaved: PropTypes.func,
 };
+
+
+

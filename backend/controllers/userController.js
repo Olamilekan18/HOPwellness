@@ -89,3 +89,33 @@ export const updateUserProfile = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const followUser = async (req, res) => {
+  const { userId } = req.params;
+  const currentUser = await User.findById(req.user.id);
+
+  if (!currentUser.following.includes(userId)) {
+    currentUser.following.push(userId);
+    await currentUser.save();
+    
+    const followedUser = await User.findById(userId);
+    followedUser.followers.push(req.user.id);
+    await followedUser.save();
+  }
+
+  res.status(200).json({ message: 'Followed' });
+};
+
+export const unfollowUser = async (req, res) => {
+  const { userId } = req.params;
+  const currentUser = await User.findById(req.user.id);
+
+  currentUser.following = currentUser.following.filter(id => id.toString() !== userId);
+  await currentUser.save();
+
+  const unfollowedUser = await User.findById(userId);
+  unfollowedUser.followers = unfollowedUser.followers.filter(id => id.toString() !== req.user.id);
+  await unfollowedUser.save();
+
+  res.status(200).json({ message: 'Unfollowed' });
+};

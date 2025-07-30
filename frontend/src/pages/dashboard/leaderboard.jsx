@@ -111,7 +111,28 @@ export default function Leaderboard() {
   if (error) {
     return (
       <DashboardLayout>
-        <div className="w-full px-6 py-6 text-center text-red-500">{error}</div>
+        <div className="flex flex-col items-center justify-center min-h-[300px] px-6 py-10">
+          <div className="flex items-center gap-2 mb-3">
+            <svg
+              className="w-8 h-8 text-red-500"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01" />
+            </svg>
+            <span className="text-xl font-semibold text-red-600">Leaderboard Error</span>
+          </div>
+          <p className="text-base text-gray-700 dark:text-gray-300 mb-2">{error}</p>
+          <button
+            className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+            onClick={() => window.location.reload()}
+          >
+            Retry
+          </button>
+        </div>
       </DashboardLayout>
     );
   }

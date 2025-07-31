@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 export default function NutritionFoodScanner() {
   function getUploadedImage(e) {
@@ -63,8 +62,3 @@ export default function NutritionFoodScanner() {
     </div>
   );
 }
-
-NutritionFoodScanner.propTypes = {
-  uploadedImage: PropTypes.string.isRequired,
-  getUploadedImage: PropTypes.func.isRequired,
-};

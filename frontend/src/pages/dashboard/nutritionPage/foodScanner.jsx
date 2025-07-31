@@ -1,8 +1,16 @@
 import PropTypes from "prop-types";
-export default function NutritionFoodScanner({
-  getUploadedImage,
-  uploadedImage,
-}) {
+import { useState } from "react";
+export default function NutritionFoodScanner() {
+  function getUploadedImage(e) {
+    if (e[0] && e) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setuploadedImage(e.target.result);
+      };
+      reader.readAsDataURL(e[0]);
+    }
+  }
+  const [uploadedImage, setuploadedImage] = useState();
   return (
     <div className="w-full max-w-xl bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700 transition-all duration-300">
       <div

@@ -10,6 +10,7 @@ import userRoutes from './routes/user.js';
 import leaderboardRoutes from './routes/leaderboard.js';
 import communityRoutes from './routes/community.js';
 import postRoutes from './routes/post.js';
+import notificationRoutes from './routes/notification.js';
 
 dotenv.config();
 connectDB(); 
@@ -25,6 +26,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 
 app.use(bodyParser.json());

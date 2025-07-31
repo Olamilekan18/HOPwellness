@@ -1,20 +1,22 @@
 import Post from '../models/Post.js';
 import Community from '../models/Community.js';
 import Comment from '../models/Comment.js';
+import { sendNotification } from '../utils/sendNotification.js';
+import Notification from '../models/Notification.js';
 
 export const createPost = async (req, res) => {
   const { content } = req.body;
   const { communityId } = req.params;
 
   try {
-    const community = await Community.findById(communityId);
+    const community = await Community.findById(communityId).populate('members');
     if (!community) {
       return res.status(404).json({ message: 'Community not found' });
     }
 
     // Only members can post
     const isMember = community.members.some(
-      (member) => member.toString() === req.user.id
+      (member) => member._id.toString() === req.user.id
     );
 
     if (!isMember) {
@@ -24,16 +26,35 @@ export const createPost = async (req, res) => {
     const post = new Post({
       content,
       community: communityId,
+
       author: req.user.id
     });
 
+    // 🟢 First save the post to get its _id
     await post.save();
+
+    // 🔔 Notify other members
+    const memberIds = community.members
+      .filter(m => m._id.toString() !== req.user.id)
+      .map(m => m._id);
+
+    for (const memberId of memberIds) {
+      await sendNotification({
+        userId: memberId,
+        type: 'community_post',
+        message: `${req.user.name} posted in ${community.name}`,
+        fromUser: req.user.id,
+        post: post._id,
+        community: communityId
+      });
+    }
 
     res.status(201).json({ message: 'Post created in community', post });
   } catch (error) {
     res.status(500).json({ message: 'Error creating post', error: error.message });
   }
 };
+
 
 export const getPostById = async (req, res) => {
   const { postId } = req.params;
@@ -70,20 +91,32 @@ export const likePost = async (req, res) => {
     if (!post) return res.status(404).json({ message: 'Post not found' });
 
     const userId = req.user.id;
-
     const index = post.likes.indexOf(userId);
+    let message = '';
 
     if (index === -1) {
       // User has not liked before, so like it
       post.likes.push(userId);
-      await post.save();
-      return res.status(200).json({ message: 'Post liked' });
+      message = 'Post liked';
+
+      // Create notification if liker is not the post author
+      if (post.author.toString() !== userId) {
+        await sendNotification({
+          userId: post.author,                // Recipient: post author
+          type: 'like',                       // Notification type
+          message: `${req.user.name} liked your post`, // Custom message; adjust as needed
+          fromUser: userId,
+          post: postId
+        });
+      }
     } else {
       // User already liked, so unlike
       post.likes.splice(index, 1);
-      await post.save();
-      return res.status(200).json({ message: 'Post unliked' });
+      message = 'Post unliked';
     }
+
+    await post.save();
+    return res.status(200).json({ message });
   } catch (error) {
     res.status(500).json({ message: 'Failed to like/unlike post', error: error.message });
   }
@@ -95,7 +128,7 @@ export const commentOnPost = async (req, res) => {
   const { content } = req.body;
 
   try {
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate('author');
     if (!post) return res.status(404).json({ message: 'Post not found' });
 
     const newComment = new Comment({
@@ -105,6 +138,18 @@ export const commentOnPost = async (req, res) => {
     });
 
     await newComment.save();
+
+    // Notify post author (but don't notify if user is commenting on their own post)
+    if (post.author._id.toString() !== req.user.id.toString()) {
+      const notification = new Notification({
+        user: post.author._id,
+        type: 'comment',
+        message: `${req.user.name} commented on your post`,
+        post: postId
+      });
+
+      await notification.save();
+    }
 
     res.status(201).json({ message: 'Comment added', comment: newComment });
   } catch (error) {
@@ -141,3 +186,33 @@ export const getCommunityPosts = async (req, res) => {
   }
 };
 
+export const deletePost = async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await Post.findById(postId);
+    if (!post) return res.status(404).json({ message: 'Post not found' });  
+    if (post.author.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'You can only delete your own posts' });
+    }
+    await post.remove();
+    res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete post', error: error.message });
+  }
+}
+
+export const getPostsByCommunity = async (req, res) => {
+  const { communityId } = req.params;
+
+  try {
+    const posts = await Post.find({ community: communityId })
+      .populate('author', 'name') // populate author name
+      .populate('community', 'name') // optional: populate community name
+      .sort({ createdAt: -1 }); // newest first
+
+    res.status(200).json({ posts });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching posts', error: error.message });
+  }
+};

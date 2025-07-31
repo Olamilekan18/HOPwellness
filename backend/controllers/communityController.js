@@ -1,5 +1,7 @@
 import Community from '../models/Community.js';
 import User from '../models/User.js';
+import mongoose from 'mongoose';
+
 
 export const createCommunity = async (req, res) => {
   const { name, description } = req.body;
@@ -56,15 +58,23 @@ export const getAllCommunities = async (req, res) => {
 };
 
 export const getCommunityById = async (req, res) => {
+  const communityId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(communityId)) {
+    return res.status(400).json({ message: 'Invalid community ID' });
+  }
+
   try {
-    const community = await Community.findById(req.params.id)
-      .populate('members', 'name');
+    const community = await Community.findById(communityId).populate('members', 'name');
 
     if (!community) {
       return res.status(404).json({ message: 'Community not found' });
     }
 
-    // Optional: Only allow members to see more details
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
     const isMember = community.members.some(
       member => member._id.toString() === req.user.id
     );
@@ -75,7 +85,7 @@ export const getCommunityById = async (req, res) => {
 
     res.status(200).json(community);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching community' });
+    console.error(error); // log the full error
+    res.status(500).json({ message: 'Error fetching community', error: error.message });
   }
 };
-

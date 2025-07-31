@@ -65,7 +65,7 @@ export default function NutritionMealsSuggestion() {
           Personalized Meal Suggestions
         </h2>
 
-        {/* <div className="flex flex-wrap justify-center gap-4 mb-8">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button className="px-4 py-2 bg-green-300 text-black rounded-lg hover:bg-green-500 transition-colors">
             All Meals
           </button>
@@ -78,13 +78,7 @@ export default function NutritionMealsSuggestion() {
           <button className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors">
             Dinner
           </button>
-          <button className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors">
-            Healthy
-          </button>
-          <button className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors">
-            Quick & Easy
-          </button>
-        </div> */}
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {suggestion
@@ -131,14 +125,16 @@ export default function NutritionMealsSuggestion() {
         </div>
 
         <div className="text-center mt-8">
-          <button
-            onClick={() => {
-              setNumberOfSugesstion((numberofSugesstion += 3));
-            }}
-            className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl shadow-md transition-transform transform hover:scale-105"
-          >
-            See More Suggestions
-          </button>
+          {suggestion.length > numberofSugesstion ? (
+            <button
+              onClick={() => {
+                setNumberOfSugesstion((numberofSugesstion += 3));
+              }}
+              className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl shadow-md transition-transform transform hover:scale-105"
+            >
+              See More Suggestions
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

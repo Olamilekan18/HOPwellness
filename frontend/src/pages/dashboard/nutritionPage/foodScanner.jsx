@@ -38,12 +38,8 @@ export default function NutritionFoodScanner() {
 
   function getMockNutrition(dishName) {
     const lowerDish = dishName.toLowerCase();
-<<<<<<< HEAD
     
     // Find matching food type
-=======
-
->>>>>>> 9ca9dcee2d332a0c343757c485ef289ca2f95ad8
     for (const [food, data] of Object.entries(mockNutritionData)) {
       if (food !== "default" && lowerDish.includes(food)) {
         return {
@@ -55,12 +51,8 @@ export default function NutritionFoodScanner() {
         };
       }
     }
-<<<<<<< HEAD
     
     // Return default values if no match found
-=======
-
->>>>>>> 9ca9dcee2d332a0c343757c485ef289ca2f95ad8
     const defaultData = mockNutritionData.default;
     return {
       calories: { value: defaultData.calories, unit: "kcal" },
@@ -166,7 +158,6 @@ export default function NutritionFoodScanner() {
       setResult({
         dishName,
         confidence: recognitionData.recognition_results[0].prob || "N/A",
-<<<<<<< HEAD
         source: "image"
       });
 
@@ -174,19 +165,6 @@ export default function NutritionFoodScanner() {
       try {
         nutritionData = await trySpoonacularAPI(dishName);
       } catch {
-=======
-      });
-
-      let nutritionData = null;
-
-      try {
-        nutritionData = await trySpoonacularAPI(dishName);
-      } catch (spoonacularError) {
-        console.warn(
-          "Spoonacular failed, using mock data:",
-          spoonacularError.message
-        );
->>>>>>> 9ca9dcee2d332a0c343757c485ef289ca2f95ad8
         nutritionData = getMockNutrition(dishName);
       }
 
@@ -234,7 +212,6 @@ export default function NutritionFoodScanner() {
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-2 tracking-tight">
           🍽️ Food Nutrition Scanner
         </h1>
-<<<<<<< HEAD
         <p className="text-gray-600 dark:text-gray-400 text-sm">
           Upload a food image or type the food name to get nutrition info
         </p>
@@ -274,44 +251,6 @@ export default function NutritionFoodScanner() {
             ✏️ Type Food Name
           </button>
         </div>
-=======
-        <p className="text-gray-500 dark:text-gray-400 text-base">
-          Upload a food image to get dish recognition and nutrition info
-        </p>
-      </div>
-
-      <div className="relative border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-6 bg-gray-50 dark:bg-gray-800 hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">
-        <input
-          type="file"
-          accept="image/*"
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50"
-          onChange={(e) => getUploadedImage(e.target.files)}
-        />
-        <div className="text-center space-y-2">
-          <img
-            className="mx-auto h-14 w-14 opacity-80"
-            src="https://www.svgrepo.com/show/357902/image-upload.svg"
-            alt="Upload Icon"
-          />
-          <p className="text-gray-700 dark:text-gray-200 font-medium text-base">
-            <span className="text-green-600 dark:text-green-400 font-semibold underline cursor-pointer">
-              Browse
-            </span>{" "}
-            or drag & drop food image
-          </p>
-          <p className="text-xs text-gray-400 dark:text-gray-500">
-            PNG, JPG, GIF (Max 10MB)
-          </p>
-        </div>
-
-        {uploadedImage && (
-          <img
-            src={uploadedImage}
-            className="mt-4 mx-auto rounded-xl shadow-lg max-h-40 object-contain border border-gray-200 dark:border-gray-700"
-            alt="Preview"
-          />
-        )}
->>>>>>> 9ca9dcee2d332a0c343757c485ef289ca2f95ad8
       </div>
 
       {/* Input Section */}
@@ -378,17 +317,10 @@ export default function NutritionFoodScanner() {
       <div className="mt-8 flex justify-center">
         <button
           type="button"
-<<<<<<< HEAD
           onClick={analyzeFood}
           disabled={loading || (inputMode === 'image' ? !imageFile : !textInput.trim())}
           className={`w-full sm:w-auto px-6 py-3 font-semibold rounded-xl shadow-md transition-all duration-300 ${
             loading || (inputMode === 'image' ? !imageFile : !textInput.trim())
-=======
-          onClick={analyzeImage}
-          disabled={loading || !imageFile}
-          className={`w-full sm:w-auto px-6 py-3 font-semibold rounded-xl shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 ${
-            loading || !imageFile
->>>>>>> 9ca9dcee2d332a0c343757c485ef289ca2f95ad8
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-green-600 hover:bg-green-700 active:scale-95"
           } text-white`}
@@ -398,15 +330,9 @@ export default function NutritionFoodScanner() {
       </div>
 
       {result && (
-<<<<<<< HEAD
         <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-700 rounded-xl">
           <h3 className="text-lg font-bold text-gray-800 dark:text-white">
             {result.source === 'image' ? '🍛 Detected Dish:' : '🍽️ Food Item:'}
-=======
-        <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl shadow">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            🍛 Detected Dish
->>>>>>> 9ca9dcee2d332a0c343757c485ef289ca2f95ad8
           </h3>
           <p className="text-gray-900 dark:text-gray-200 text-xl mt-2 font-semibold">
             {result.dishName}

@@ -287,7 +287,6 @@ export default function NutritionMealsSuggestion() {
           Personalized Meal Suggestions
         </h2>
 
-        {/* Calorie Summary */}
         <div className="bg-green-50 dark:bg-gray-700 p-4 rounded-lg mb-6">
           <div className="flex justify-between items-center">
             <div>
@@ -305,7 +304,6 @@ export default function NutritionMealsSuggestion() {
           </div>
         </div>
 
-        {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button 
             onClick={() => handleFilter('All Meals')}
@@ -333,7 +331,6 @@ export default function NutritionMealsSuggestion() {
           </button>
         </div>
 
-        {/* Meal Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredMeals.map((meal, idx) => (
             <div
@@ -363,7 +360,6 @@ export default function NutritionMealsSuggestion() {
           ))}
         </div>
 
-        {/* Action Buttons */}
         <div className="flex justify-center gap-4 mt-8">
           <button
             onClick={generateRandomMeals}

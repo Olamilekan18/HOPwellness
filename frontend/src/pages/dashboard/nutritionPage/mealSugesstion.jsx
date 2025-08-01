@@ -249,7 +249,6 @@ export default function NutritionMealsSuggestion() {
   const [totalCalories, setTotalCalories] = useState(0);
   const [filter, setFilter] = useState('All Meals');
 
-  // Initialize with random meals
   useEffect(() => {
     generateRandomMeals();
   }, []);

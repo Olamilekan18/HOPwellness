@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function NutritionFoodScanner() {
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -6,13 +7,10 @@ export default function NutritionFoodScanner() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [nutrition, setNutrition] = useState(null);
-  const [inputMode, setInputMode] = useState('image'); // 'image' or 'text'
-  const [textInput, setTextInput] = useState('');
 
   const LOGMEAL_API_TOKEN = "fdcd45850fb7eeff7e0460a650413e209f99ad64";
   const SPOONACULAR_API_KEY = "4bb2d9ff7d4043d5bec0228027c7f346";
 
-  // Mock nutrition data for common foods (fallback when APIs fail)
   const mockNutritionData = {
     pizza: { calories: 266, fat: 10, protein: 11, carbs: 33 },
     burger: { calories: 295, fat: 14, protein: 15, carbs: 26 },
@@ -38,8 +36,12 @@ export default function NutritionFoodScanner() {
 
   function getMockNutrition(dishName) {
     const lowerDish = dishName.toLowerCase();
+<<<<<<< HEAD
     
     // Find matching food type
+=======
+
+>>>>>>> b3bb741b40068c7ddd837ecb055a02bab099cd6a
     for (const [food, data] of Object.entries(mockNutritionData)) {
       if (food !== "default" && lowerDish.includes(food)) {
         return {
@@ -51,8 +53,12 @@ export default function NutritionFoodScanner() {
         };
       }
     }
+<<<<<<< HEAD
     
     // Return default values if no match found
+=======
+
+>>>>>>> b3bb741b40068c7ddd837ecb055a02bab099cd6a
     const defaultData = mockNutritionData.default;
     return {
       calories: { value: defaultData.calories, unit: "kcal" },
@@ -119,22 +125,30 @@ export default function NutritionFoodScanner() {
     }
   }
 
- async function analyzeFood() {
-  setLoading(true);
-  setResult(null);
-  setNutrition(null);
-
-  if (inputMode === 'image') {
+  async function analyzeImage() {
     if (!imageFile) {
-      alert("No image selected");
-      setLoading(false);
+      toast.error("Please upload an image first", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
       return;
     }
+    setLoading(true);
+    setResult(null);
+    setNutrition(null);
 
     try {
       const formData = new FormData();
       formData.append("image", imageFile);
 
+      // Step 1: Recognize the dish using LogMeal
       const recognitionRes = await fetch(
         "https://api.logmeal.es/v2/image/recognition/dish",
         {
@@ -158,6 +172,7 @@ export default function NutritionFoodScanner() {
       setResult({
         dishName,
         confidence: recognitionData.recognition_results[0].prob || "N/A",
+<<<<<<< HEAD
         source: "image"
       });
 
@@ -165,46 +180,40 @@ export default function NutritionFoodScanner() {
       try {
         nutritionData = await trySpoonacularAPI(dishName);
       } catch {
-        nutritionData = getMockNutrition(dishName);
-      }
-
-      setNutrition(nutritionData);
-    } catch (err) {
-      console.error("Image analysis error:", err);
-      alert("Image error: " + err.message);
-    } finally {
-      setLoading(false);
-    }
-
-  } else {
-    const dishName = textInput.trim();
-    if (!dishName) {
-      alert("Please enter a food name.");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      setResult({ dishName, source: "text" });
+=======
+      });
 
       let nutritionData = null;
+
       try {
         nutritionData = await trySpoonacularAPI(dishName);
-      } catch {
+      } catch (spoonacularError) {
+        console.warn(
+          "Spoonacular failed, using mock data:",
+          spoonacularError.message
+        );
+>>>>>>> b3bb741b40068c7ddd837ecb055a02bab099cd6a
         nutritionData = getMockNutrition(dishName);
       }
 
       setNutrition(nutritionData);
-
     } catch (err) {
-      console.error("Text analysis error:", err);
-      alert("Text input error: " + err.message);
+      console.error("Analysis error:", err);
+      toast.error("Error: " + err.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
     } finally {
       setLoading(false);
     }
   }
-}
-
 
   return (
     <div className="w-full max-w-xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 border border-gray-200 dark:border-gray-800 transition-all duration-300">
@@ -212,6 +221,7 @@ export default function NutritionFoodScanner() {
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-2 tracking-tight">
           🍽️ Food Nutrition Scanner
         </h1>
+<<<<<<< HEAD
         <p className="text-gray-600 dark:text-gray-400 text-sm">
           Upload a food image or type the food name to get nutrition info
         </p>
@@ -251,88 +261,78 @@ export default function NutritionFoodScanner() {
             ✏️ Type Food Name
           </button>
         </div>
+=======
+        <p className="text-gray-500 dark:text-gray-400 text-base">
+          Upload a food image to get dish recognition and nutrition info
+        </p>
       </div>
 
-      {/* Input Section */}
-      {inputMode === 'image' ? (
-        <div className="relative border-4 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-6 bg-gray-50 dark:bg-gray-700 hover:shadow-md transition-shadow duration-300">
-          <input
-            type="file"
-            accept="image/*"
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50"
-            onChange={(e) => getUploadedImage(e.target.files)}
+      <div className="relative border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-6 bg-gray-50 dark:bg-gray-800 hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">
+        <input
+          type="file"
+          accept="image/*"
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50"
+          onChange={(e) => getUploadedImage(e.target.files)}
+        />
+        <div className="text-center space-y-2">
+          <img
+            className="mx-auto h-14 w-14 opacity-80"
+            src="https://www.svgrepo.com/show/357902/image-upload.svg"
+            alt="Upload Icon"
           />
-          <div className="text-center space-y-3">
-            <img
-              className="mx-auto h-16 w-16 opacity-80"
-              src="https://www.svgrepo.com/show/357902/image-upload.svg"
-              alt="Upload Icon"
-            />
-            <p className="text-gray-700 dark:text-gray-200 font-medium text-lg">
-              Drag & drop food image, or{" "}
-              <span className="text-green-600 dark:text-green-400 font-semibold underline cursor-pointer">
-                browse
-              </span>
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Accepted formats: PNG, JPG, GIF (Max 10MB)
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-200 font-medium text-base">
+            <span className="text-green-600 dark:text-green-400 font-semibold underline cursor-pointer">
+              Browse
+            </span>{" "}
+            or drag & drop food image
+          </p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            PNG, JPG, GIF (Max 10MB)
+          </p>
+        </div>
 
-          {uploadedImage && (
-            <img
-              src={uploadedImage}
-              className="mt-6 mx-auto rounded-lg shadow-md max-h-48 object-contain"
-              alt="Preview"
-            />
-          )}
-        </div>
-      ) : (
-        <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
-          <div className="text-center space-y-4">
-            <div className="mx-auto h-16 w-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-              <span className="text-2xl">🍎</span>
-            </div>
-            <div>
-              <label htmlFor="food-input" className="block text-gray-700 dark:text-gray-200 font-medium text-lg mb-2">
-                Enter Food Name
-              </label>
-              <input
-                id="food-input"
-                type="text"
-                value={textInput}
-                onChange={(e) => setTextInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && analyzeFood()}
-                placeholder="e.g., pizza, burger, salad..."
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
-              />
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Press Enter or click Analyze to get nutrition information
-            </p>
-          </div>
-        </div>
-      )}
+        {uploadedImage && (
+          <img
+            src={uploadedImage}
+            className="mt-4 mx-auto rounded-xl shadow-lg max-h-40 object-contain border border-gray-200 dark:border-gray-700"
+            alt="Preview"
+          />
+        )}
+>>>>>>> b3bb741b40068c7ddd837ecb055a02bab099cd6a
+      </div>
 
       <div className="mt-8 flex justify-center">
         <button
           type="button"
+<<<<<<< HEAD
           onClick={analyzeFood}
           disabled={loading || (inputMode === 'image' ? !imageFile : !textInput.trim())}
           className={`w-full sm:w-auto px-6 py-3 font-semibold rounded-xl shadow-md transition-all duration-300 ${
             loading || (inputMode === 'image' ? !imageFile : !textInput.trim())
+=======
+          onClick={analyzeImage}
+          disabled={loading || !imageFile}
+          className={`w-full sm:w-auto px-6 py-3 font-semibold rounded-xl shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 ${
+            loading || !imageFile
+>>>>>>> b3bb741b40068c7ddd837ecb055a02bab099cd6a
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-green-600 hover:bg-green-700 active:scale-95"
           } text-white`}
         >
-          {loading ? "🔍 Analyzing..." : inputMode === 'image' ? "🍽️ Analyze Image" : "🔍 Get Nutrition Info"}
+          {loading ? "🔍 Analyzing..." : "🍽️ Analyze Food"}
         </button>
       </div>
 
       {result && (
+<<<<<<< HEAD
         <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-700 rounded-xl">
           <h3 className="text-lg font-bold text-gray-800 dark:text-white">
             {result.source === 'image' ? '🍛 Detected Dish:' : '🍽️ Food Item:'}
+=======
+        <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl shadow">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            🍛 Detected Dish
+>>>>>>> b3bb741b40068c7ddd837ecb055a02bab099cd6a
           </h3>
           <p className="text-gray-900 dark:text-gray-200 text-xl mt-2 font-semibold">
             {result.dishName}
@@ -340,11 +340,6 @@ export default function NutritionFoodScanner() {
           {result.confidence && result.confidence !== "N/A" && (
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Confidence: {(result.confidence * 100).toFixed(1)}%
-            </p>
-          )}
-          {result.source === 'text' && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Source: Manual entry
             </p>
           )}
         </div>

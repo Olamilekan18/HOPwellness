@@ -82,9 +82,10 @@ export default function Community() {
               Share your healthy update 🌱
             </h2>
             <textarea
-              rows="3"
+              rows="6"
+              cols="10"
               placeholder="What’s one healthy thing you did today?"
-              className="w-full p-4 bg-green-50 dark:bg-gray-700 text-black dark:text-white border border-green-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-600 transition mb-3"
+              className="w-full p-4 bg-green-50 dark:bg-gray-700 text-black dark:text-white border border-green-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-600 transition mb-3 resize-none"
             ></textarea>
             <button className="bg-green-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-green-700 transition">
               Post

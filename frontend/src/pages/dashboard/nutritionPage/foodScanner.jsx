@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function NutritionFoodScanner() {
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -116,7 +117,17 @@ export default function NutritionFoodScanner() {
 
   async function analyzeImage() {
     if (!imageFile) {
-      alert("No image selected");
+      toast.error("Please upload an image first", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
       return;
     }
 
@@ -169,7 +180,17 @@ export default function NutritionFoodScanner() {
       setNutrition(nutritionData);
     } catch (err) {
       console.error("Analysis error:", err);
-      alert("Error: " + err.message);
+      toast.error("Error: " + err.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
     } finally {
       setLoading(false);
     }

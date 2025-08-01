@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import { badgeDefinitions } from "../utils/badgeDefinitions.js";
+import Community from "../models/Community.js";
 
 export const getUserProfile = async (req, res) => {
   try {
@@ -118,4 +119,16 @@ export const unfollowUser = async (req, res) => {
   await unfollowedUser.save();
 
   res.status(200).json({ message: 'Unfollowed' });
+};
+
+export const getUserCommunities = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate('communities');
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ communities: user.communities });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user communities', error: error.message });
+  }
 };

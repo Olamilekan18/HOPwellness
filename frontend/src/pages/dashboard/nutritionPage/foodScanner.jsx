@@ -38,7 +38,6 @@ export default function NutritionFoodScanner() {
   function getMockNutrition(dishName) {
     const lowerDish = dishName.toLowerCase();
     
-    // Find matching food type
     for (const [food, data] of Object.entries(mockNutritionData)) {
       if (food !== "default" && lowerDish.includes(food)) {
         return {
@@ -51,7 +50,6 @@ export default function NutritionFoodScanner() {
       }
     }
     
-    // Return default values if no match found
     const defaultData = mockNutritionData.default;
     return {
       calories: { value: defaultData.calories, unit: "kcal" },
@@ -245,7 +243,6 @@ async function analyzeFood() {
         </div>
       </div>
 
-      {/* Input Section */}
       {inputMode === 'image' ? (
         <div className="relative border-4 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-6 bg-gray-50 dark:bg-gray-700 hover:shadow-md transition-shadow duration-300">
           <input

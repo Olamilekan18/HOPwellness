@@ -43,12 +43,10 @@ export const getAssignedChallenges = async (req, res) => {
   const weekStart = getStartOfWeek();
   const weekStartStr = weekStart.toDateString();
 
-  // Get today's assigned challenges
   let todayAssigned = (user.assignedChallenges?.daily || []).filter(c =>
     new Date(c.date).toDateString() === todayStr
   );
 
-  // Prevent reassigning recently used challenges
   const recentDailyIds = (user.assignedChallenges?.daily || [])
     .filter(c => {
       const diff = (today - new Date(c.date)) / (1000 * 60 * 60 * 24);
@@ -154,7 +152,6 @@ if (!isAssigned) {
 }
 
 
-  // Find the challenge details
   const challenge = dailyChallenges.find(c => c.id === challengeId)
     || weeklyChallenges.find(c => c.id === challengeId);
     console.log(challenge)
@@ -163,16 +160,13 @@ if (!isAssigned) {
     return res.status(404).json({ message: 'Challenge not found' });
   }
 
-  // Mark as completed
   user.completedChallenges.push({
     challengeId,
     date: new Date()
   });
 
-  // Add XP
   user.xp += challenge.xpReward;
 
-  // Handle streak
 if (!user.streak || typeof user.streak.count !== 'number') {
   user.streak = { count: 0, lastDate: null };
 }
@@ -188,7 +182,6 @@ if (lastDate && lastDate.toDateString() === yesterday.toDateString()) {
 }
 
 user.streak.lastDate = today;
-// Reset streak if not completed for 2 days
 if (user.streak.count > 1 && lastDate && (today - lastDate) / (1000 * 60 * 60 * 24) > 1) {
   user.streak.count = 1; // Reset streak        
 }
@@ -199,7 +192,7 @@ if (user.streak.count > 1 && lastDate && (today - lastDate) / (1000 * 60 * 60 * 
   if (user.xp >= 5 && !user.badges.includes('xp-5')) {
     user.badges.push('xp-5');
     newBadges.push('xp-5');
-    await user.save(); // Save immediately to avoid badge duplication
+    await user.save(); 
   }
 
   if (user.xp >= 50 && !user.badges.includes('xp-50')) {

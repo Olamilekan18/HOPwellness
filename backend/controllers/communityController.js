@@ -1,6 +1,7 @@
 import Community from '../models/Community.js';
 import User from '../models/User.js';
 import mongoose from 'mongoose';
+import Post from '../models/Post.js';
 
 
 export const createCommunity = async (req, res) => {
@@ -85,7 +86,56 @@ export const getCommunityById = async (req, res) => {
 
     res.status(200).json(community);
   } catch (error) {
-    console.error(error); // log the full error
+    console.error(error); 
     res.status(500).json({ message: 'Error fetching community', error: error.message });
+  }
+};
+
+
+export const getCommunityStats = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const community = await Community.findById(id).populate('members');
+
+    if (!community) {
+      return res.status(404).json({ message: 'Community not found' });
+    }
+
+    const posts = await Post.find({ community: id }).populate('author');
+
+    const totalPosts = posts.length;
+
+    const userPostMap = {};
+    posts.forEach(post => {
+      const userId = post.author._id.toString();
+      userPostMap[userId] = (userPostMap[userId] || 0) + 1;
+    });
+
+    const mostActiveUserId = Object.keys(userPostMap).reduce((a, b) =>
+      userPostMap[a] > userPostMap[b] ? a : b
+    , null);
+
+    const mostActiveUser = mostActiveUserId
+      ? await User.findById(mostActiveUserId).select('name')
+      : null;
+
+    const recentPosts = posts
+      .sort((a, b) => b.createdAt - a.createdAt)
+      .slice(0, 5);
+
+    res.json({
+      totalMembers: community.members.length,
+      totalPosts,
+      mostActiveUser,
+      recentActivity: recentPosts.map(post => ({
+        id: post._id,
+        content: post.content,
+        author: post.author.name,
+        createdAt: post.createdAt,
+      })),
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching community stats', error: error.message });
   }
 };

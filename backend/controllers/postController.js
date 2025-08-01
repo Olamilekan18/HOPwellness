@@ -14,23 +14,20 @@ export const createPost = async (req, res) => {
       return res.status(404).json({ message: 'Community not found' });
     }
 
-    // Only members can post
     const isMember = community.members.some(
-      (member) => member._id.toString() === req.user.id
-    );
-
+  (member) => member._id.toString() === req.user.id
+);
     if (!isMember) {
       return res.status(403).json({ message: 'You are not a member of this community' });
     }
 
     const post = new Post({
       content,
+      image: req.file ? `/uploads/${req.file.filename}` : null,
       community: communityId,
-
       author: req.user.id
     });
 
-    // 🟢 First save the post to get its _id
     await post.save();
 
     // 🔔 Notify other members

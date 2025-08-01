@@ -130,7 +130,6 @@ export default function NutritionFoodScanner() {
       });
       return;
     }
-
     setLoading(true);
     setResult(null);
     setNutrition(null);

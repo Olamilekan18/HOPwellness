@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import { badgeDefinitions } from "../utils/badgeDefinitions.js";
 import Community from "../models/Community.js";
+import UserProfile from "../models/userProfile.js";
 
 export const getUserProfile = async (req, res) => {
   try {
@@ -132,3 +133,18 @@ export const getUserCommunities = async (req, res) => {
     res.status(500).json({ message: 'Error fetching user communities', error: error.message });
   }
 };
+
+export const getUserInfo = async (req, res) => {
+  try {
+    const profile = await UserProfile.findOne({ user: req.user.id });
+
+    if (!profile) return res.status(404).json({ message: 'Profile not found' });
+
+    const heightInMeters = profile.height / 100;
+    const bmi = (profile.weight / (heightInMeters ** 2)).toFixed(1);
+
+    res.json({ profile, bmi });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching profile', error });
+  }
+}

@@ -9,7 +9,7 @@ router.post('/join/:id', protect, joinCommunity);
 router.get('/', getAllCommunities);
 router.get('/:id', protect, getCommunityById);
 router.post('/leave/:id', protect, leaveCommunity);
-router.get('/:id/stats', protect, getCommunityStats); // Get community stats`
+router.get('/:id/stats', protect, getCommunityStats); 
 router
 
 export default router;

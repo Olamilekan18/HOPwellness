@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-
+import { SaladIcon } from "lucide-react";
 export default function NutritionOverlay({ type, setUseAddingItem }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
@@ -20,12 +20,7 @@ export default function NutritionOverlay({ type, setUseAddingItem }) {
         </button>
         <div className="flex flex-col items-center mb-6">
           <div className="bg-gradient-to-tr from-green-400 to-green-400 rounded-full p-3 mb-2 shadow-lg">
-            <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-              <path
-                d="M12 2C7 2 2 7 2 12c0 5 5 10 10 10s10-5 10-10c0-5-5-10-10-10zm0 18c-4.41 0-8-3.59-8-8 0-4.41 3.59-8 8-8 4.41 0 8 3.59 8 8 0 4.41-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"
-                fill="currentColor"
-              />
-            </svg>
+            <SaladIcon width={28} height={28} />
           </div>
           <h2 className="text-2xl font-extrabold text-gray-800 dark:text-white text-center">
             Add Food to{" "}

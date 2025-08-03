@@ -70,10 +70,42 @@ export default function NutritionTodaysMeals() {
   }
 
   const mealInfo = [
-    { label: "🌅 Breakfast", type: "Breakfast", color: "yellow" },
-    { label: "☀️ Lunch", type: "Lunch", color: "orange" },
-    { label: "🌙 Dinner", type: "Dinner", color: "blue" },
-    { label: "🍎 Snacks", type: "Snacks", color: "green" },
+    {
+      label: "🌅 Breakfast",
+      type: "Breakfast",
+      bg: "bg-yellow-50 dark:bg-yellow-900",
+      border: "border-yellow-200 dark:border-yellow-800",
+      text: "text-yellow-800 dark:text-yellow-200",
+      caloriesText: "text-yellow-600 dark:text-yellow-400",
+      button: "bg-yellow-600 hover:bg-yellow-700",
+    },
+    {
+      label: "☀️ Lunch",
+      type: "Lunch",
+      bg: "bg-orange-50 dark:bg-orange-900",
+      border: "border-orange-200 dark:border-orange-800",
+      text: "text-orange-800 dark:text-orange-200",
+      caloriesText: "text-orange-600 dark:text-orange-400",
+      button: "bg-orange-600 hover:bg-orange-700",
+    },
+    {
+      label: "🌙 Dinner",
+      type: "Dinner",
+      bg: "bg-blue-50 dark:bg-blue-900",
+      border: "border-blue-200 dark:border-blue-800",
+      text: "text-blue-800 dark:text-blue-200",
+      caloriesText: "text-blue-600 dark:text-blue-400",
+      button: "bg-blue-600 hover:bg-blue-700",
+    },
+    {
+      label: "🍎 Snacks",
+      type: "Snacks",
+      bg: "bg-green-50 dark:bg-green-900",
+      border: "border-green-200 dark:border-green-800",
+      text: "text-green-800 dark:text-green-200",
+      caloriesText: "text-green-600 dark:text-green-400",
+      button: "bg-green-600 hover:bg-green-700",
+    },
   ];
 
   const [useAddingItem, setUseAddingItem] = useState(false);
@@ -91,49 +123,43 @@ export default function NutritionTodaysMeals() {
         </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mealInfo.map(({ label, type, color }) => (
-            <div
-              key={type}
-              className={`bg-${color}-50 dark:bg-${color}-900 rounded-xl p-6 border border-${color}-200 dark:border-${color}-800`}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3
-                  className={`text-lg font-semibold text-${color}-800 dark:text-${color}-200`}
+          {mealInfo.map(
+            ({ label, type, bg, border, text, caloriesText, button }) => (
+              <div key={type} className={`${bg} rounded-xl p-6 ${border}`}>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className={`text-lg font-semibold ${text}`}>{label}</h3>
+                  <span className={`text-sm ${caloriesText}`}>
+                    {meals[type].reduce((sum, i) => sum + i.calories, 0)} cal
+                  </span>
+                </div>
+
+                <ul className="text-sm mb-2 space-y-1 text-gray-700 dark:text-gray-200">
+                  {meals[type].map((item, idx) => (
+                    <li key={idx}>
+                      • {item.name} ({item.calories} cal)
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  className={`w-full py-2 px-4 text-white rounded-lg transition-colors ${button}`}
+                  onClick={() => {
+                    handleAddItem(type);
+                    setType(type);
+                    setUseAddingItem(true);
+                  }}
                 >
-                  {label}
-                </h3>
-                <span
-                  className={`text-sm text-${color}-600 dark:text-${color}-400`}
-                >
-                  {meals[type].reduce((sum, i) => sum + i.calories, 0)} cal
-                </span>
+                  + Add Item
+                </button>
               </div>
-
-              <ul className="text-sm mb-2 space-y-1 text-gray-700 dark:text-gray-200">
-                {meals[type].map((item, idx) => (
-                  <li key={idx}>
-                    • {item.name} ({item.calories} cal)
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                className={`w-full py-2 px-4 bg-${color}-600 hover:bg-${color}-700 text-white rounded-lg transition-colors`}
-                onClick={() => {
-                  handleAddItem(type);
-                  setType(type);
-                  setUseAddingItem(true);
-                }}
-              >
-                + Add Item
-              </button>
-            </div>
-          ))}
+            )
+          )}
         </div>
+
         {useAddingItem ? (
           <NutritionOverlay type={type} setUseAddingItem={setUseAddingItem} />
         ) : null}
-        {/* Daily Summary */}
+
         <div className="mt-8 bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
             Today&apos;s Summary

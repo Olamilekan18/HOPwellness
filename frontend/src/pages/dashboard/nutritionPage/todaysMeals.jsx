@@ -11,7 +11,12 @@ export default function NutritionTodaysMeals() {
   };
 
   const [meals, setMeals] = useState(initialState);
-  const [totals, setTotals] = useState({ calories: 0, protein: 0, fat: 0, carbs: 0 });
+  const [totals, setTotals] = useState({
+    calories: 0,
+    protein: 0,
+    fat: 0,
+    carbs: 0,
+  });
 
   async function handleAddItem(mealType) {
     const item = prompt(`Enter food item for ${mealType}`);
@@ -19,7 +24,9 @@ export default function NutritionTodaysMeals() {
 
     try {
       const res = await fetch(
-        `https://api.spoonacular.com/recipes/guessNutrition?title=${encodeURIComponent(item)}&apiKey=${SPOONACULAR_API_KEY}`
+        `https://api.spoonacular.com/recipes/guessNutrition?title=${encodeURIComponent(
+          item
+        )}&apiKey=${SPOONACULAR_API_KEY}`
       );
       const data = await res.json();
 
@@ -44,14 +51,15 @@ export default function NutritionTodaysMeals() {
       setMeals(updatedMeals);
       updateTotals(updatedMeals);
     } catch (err) {
+      console.log(err);
       alert("Error fetching nutrition data.");
     }
   }
 
   function updateTotals(updatedMeals) {
     let totals = { calories: 0, protein: 0, fat: 0, carbs: 0 };
-    Object.values(updatedMeals).forEach(items => {
-      items.forEach(i => {
+    Object.values(updatedMeals).forEach((items) => {
+      items.forEach((i) => {
         totals.calories += i.calories;
         totals.protein += i.protein;
         totals.fat += i.fat;
@@ -82,17 +90,23 @@ export default function NutritionTodaysMeals() {
               className={`bg-${color}-50 dark:bg-${color}-900/20 rounded-xl p-6 border border-${color}-200 dark:border-${color}-800`}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className={`text-lg font-semibold text-${color}-800 dark:text-${color}-200`}>
+                <h3
+                  className={`text-lg font-semibold text-${color}-800 dark:text-${color}-200`}
+                >
                   {label}
                 </h3>
-                <span className={`text-sm text-${color}-600 dark:text-${color}-400`}>
+                <span
+                  className={`text-sm text-${color}-600 dark:text-${color}-400`}
+                >
                   {meals[type].reduce((sum, i) => sum + i.calories, 0)} cal
                 </span>
               </div>
 
               <ul className="text-sm mb-2 space-y-1 text-gray-700 dark:text-gray-200">
                 {meals[type].map((item, idx) => (
-                  <li key={idx}>• {item.name} ({item.calories} cal)</li>
+                  <li key={idx}>
+                    • {item.name} ({item.calories} cal)
+                  </li>
                 ))}
               </ul>
 
@@ -116,25 +130,33 @@ export default function NutritionTodaysMeals() {
               <div className="text-2xl font-bold text-gray-800 dark:text-white">
                 {Math.round(totals.calories)}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Calories</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Calories
+              </div>
             </div>
             <div>
               <div className="text-2xl font-bold text-red-600">
                 {Math.round(totals.protein)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Protein</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Protein
+              </div>
             </div>
             <div>
               <div className="text-2xl font-bold text-yellow-600">
                 {Math.round(totals.carbs)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Carbs</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Carbs
+              </div>
             </div>
             <div>
               <div className="text-2xl font-bold text-blue-600">
                 {Math.round(totals.fat)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Fat</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Fat
+              </div>
             </div>
           </div>
         </div>

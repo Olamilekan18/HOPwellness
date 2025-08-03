@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import NutritionOverlay from "./nutritonOverlay";
 const SPOONACULAR_API_KEY = "4bb2d9ff7d4043d5bec0228027c7f346";
 
 export default function NutritionTodaysMeals() {
@@ -76,6 +76,13 @@ export default function NutritionTodaysMeals() {
     { label: "🍎 Snacks", type: "Snacks", color: "green" },
   ];
 
+  const [useAddingItem, setUseAddingItem] = useState(false);
+  const [type, setType] = useState("");
+
+  const mealsAdded = [
+    { name: "Breakfast", calories: 500, protein: 20, carbs: 60, fat: 10 },
+    { name: "Lunch", calories: 500, protein: 20, carbs: 60, fat: 10 },
+  ];
   return (
     <div className="w-full max-w-4xl space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
@@ -87,7 +94,7 @@ export default function NutritionTodaysMeals() {
           {mealInfo.map(({ label, type, color }) => (
             <div
               key={type}
-              className={`bg-${color}-50 dark:bg-${color}-900/20 rounded-xl p-6 border border-${color}-200 dark:border-${color}-800`}
+              className={`bg-${color}-50 dark:bg-${color}-900 rounded-xl p-6 border border-${color}-200 dark:border-${color}-800`}
             >
               <div className="flex items-center justify-between mb-4">
                 <h3
@@ -112,14 +119,20 @@ export default function NutritionTodaysMeals() {
 
               <button
                 className={`w-full py-2 px-4 bg-${color}-600 hover:bg-${color}-700 text-white rounded-lg transition-colors`}
-                onClick={() => handleAddItem(type)}
+                onClick={() => {
+                  handleAddItem(type);
+                  setType(type);
+                  setUseAddingItem(true);
+                }}
               >
                 + Add Item
               </button>
             </div>
           ))}
         </div>
-
+        {useAddingItem ? (
+          <NutritionOverlay type={type} setUseAddingItem={setUseAddingItem} />
+        ) : null}
         {/* Daily Summary */}
         <div className="mt-8 bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
@@ -158,6 +171,52 @@ export default function NutritionTodaysMeals() {
                 Fat
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
+          <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
+            Food Log
+          </h3>
+          <div className="space-y-6">
+            {mealsAdded.length === 0 ? (
+              <div className="text-gray-500 dark:text-gray-400 text-center text-lg">
+                No foods logged yet. Add items to your meals above!
+              </div>
+            ) : (
+              mealsAdded.map((meal, idx) => (
+                <div
+                  key={idx}
+                  className="dark:bg-gray-700 p-4 rounded-xl shadow-md transition-all duration-300 ease-in-out transform hover:scale-105"
+                >
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="text-xl font-semibold text-gray-800 dark:text-white">
+                      {meal.type}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                      {meal.name}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-6">
+                    <div className="text-sm text-gray-700 dark:text-gray-200">
+                      <span className="font-medium">Calories:</span>{" "}
+                      {meal.calories} cal
+                    </div>
+                    <div className="text-sm text-gray-700 dark:text-gray-200">
+                      <span className="font-medium">Protein:</span>{" "}
+                      {meal.protein}g
+                    </div>
+                    <div className="text-sm text-gray-700 dark:text-gray-200">
+                      <span className="font-medium">Carbs:</span> {meal.carbs}g
+                    </div>
+                    <div className="text-sm text-gray-700 dark:text-gray-200">
+                      <span className="font-medium">Fat:</span> {meal.fat}g
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

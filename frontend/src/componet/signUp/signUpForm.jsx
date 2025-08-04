@@ -56,8 +56,6 @@ export default function SignUpForm() {
     }
   }
 
-
-
   function validateEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return emailRegex.test(email);
@@ -90,7 +88,7 @@ export default function SignUpForm() {
       }
       toast.success("Registration successful! You can now log in.");
       navigate("/dashboard");
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
       toast.error("Network error");
     }
@@ -181,7 +179,7 @@ export default function SignUpForm() {
           </div>
 
           <motion.button
-            className="mt-5 tracking-wide font-semibold bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+            className="mt-5 tracking-wide font-semibold cursor-pointer bg-green-800 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             type="submit"

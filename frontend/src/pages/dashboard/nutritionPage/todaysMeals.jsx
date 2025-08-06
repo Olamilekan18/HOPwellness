@@ -141,25 +141,26 @@ export default function NutritionTodaysMeals() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-8">
-      {/* Header and Description */}
+    <div className="w-full max-w-3xl mx-auto space-y-8">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
-        <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800 dark:text-white">
-          Log Your Meals for Today
+        <h2 className="text-4xl font-extrabold mb-2 text-center text-green-800 dark:text-green-200 drop-shadow-lg tracking-tight">
+          🍃 Today&apos;s Meals
         </h2>
-        <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Nutrition values are approximate and based on 100g servings.
+        <p className="text-center text-md text-green-700 dark:text-green-300 mb-8">
+          Track your nutrition and eat healthy! <br />
+          <span className="text-xs text-green-600 dark:text-green-400">
+            (Nutrition values are approximate per 100g serving)
+          </span>
         </p>
 
-        {/* Meal Logging Form */}
         <form
           onSubmit={handleAddItem}
-          className="flex gap-6 flex-wrap justify-center mb-8"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10"
         >
           <select
             value={currentMealType}
             onChange={(e) => setCurrentMealType(e.target.value)}
-            className="px-6 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition duration-200 ease-in-out"
+            className="px-5 py-3 rounded-xl border-2 border-green-400 bg-green-50 dark:bg-green-900/30 text-green-900 dark:text-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
             required
           >
             <option value="">Select Meal</option>
@@ -174,107 +175,96 @@ export default function NutritionTodaysMeals() {
             type="text"
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
-            placeholder="Enter food name..."
-            className="flex-1 px-6 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition duration-200 ease-in-out"
+            placeholder="Add food (e.g. Avocado Toast)"
+            className="flex-1 px-5 py-3 rounded-xl border-2 border-green-400 bg-green-50 dark:bg-green-900/30 text-green-900 dark:text-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
             required
           />
 
           <button
             type="submit"
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl transition duration-200 ease-in-out"
+            className="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition"
           >
-            Add
+            + Add
           </button>
         </form>
 
-        {/* Meal Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mealInfo.map(({ label, type, color }) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {mealInfo.map(({ label, type }) => (
             <div
               key={type}
-              className={`${colorClasses[color].bg} rounded-2xl p-6 ${colorClasses[color].border} shadow-lg`}
+              className="rounded-2xl p-5 bg-white/70 dark:bg-green-900/40 border-2 border-green-200 dark:border-green-700 shadow-lg"
             >
-              <div className="flex items-center justify-between mb-4">
-                <h3
-                  className={`font-semibold text-md ${colorClasses[color].text}`}
-                >
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-lg text-green-800 dark:text-green-200 flex items-center gap-2">
                   {label}
                 </h3>
-                <span className={`text-sm ${colorClasses[color].text}`}>
+                <span className="text-md font-semibold text-green-700 dark:text-green-300">
                   {meals[type].reduce((sum, i) => sum + i.calories, 0)} cal
                 </span>
               </div>
-
               <ul className="space-y-2">
-                {meals[type].map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="text-sm text-gray-700 dark:text-gray-200"
-                  >
-                    <span>
-                      • {item.name} ({item.calories} cal)
-                    </span>
+                {meals[type].length === 0 ? (
+                  <li className="text-green-400 italic text-sm">
+                    No items yet
                   </li>
-                ))}
+                ) : (
+                  meals[type].map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="text-sm text-green-900 dark:text-green-100 flex items-center gap-2"
+                    >
+                      <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
+                      <span className="font-medium">{item.name}</span>
+                      <span className="ml-auto text-xs text-green-700 dark:text-green-300">
+                        {item.calories} cal
+                      </span>
+                    </li>
+                  ))
+                )}
               </ul>
             </div>
           ))}
         </div>
 
-        {/* Today's Summary */}
-        <div className="mt-8 bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 shadow-lg">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-            Today&apos;s Summary
+        <div className="mt-10 bg-gradient-to-r from-green-200 via-green-100 to-green-50 dark:from-green-800 dark:via-green-900 dark:to-green-700 rounded-2xl p-7 shadow-xl border-2 border-green-300 dark:border-green-800">
+          <h3 className="text-2xl font-bold mb-4 text-green-900 dark:text-green-100 text-center">
+            🌱 Daily Nutrition Summary
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-gray-800 dark:text-white">
+              <div className="text-3xl font-extrabold text-green-700 dark:text-green-300">
                 {Math.round(totals.calories)}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-green-700 dark:text-green-300">
                 Calories
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-red-600">
+              <div className="text-3xl font-extrabold text-green-800 dark:text-green-200">
                 {Math.round(totals.protein)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-green-700 dark:text-green-300">
                 Protein
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-yellow-600">
+              <div className="text-3xl font-extrabold text-green-600 dark:text-green-400">
                 {Math.round(totals.carbs)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-green-700 dark:text-green-300">
                 Carbs
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600">
+              <div className="text-3xl font-extrabold text-green-500 dark:text-green-300">
                 {Math.round(totals.fat)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-green-700 dark:text-green-300">
                 Fat
               </div>
             </div>
           </div>
         </div>
-
-        {/* Last Added */}
-        {lastAdded && (
-          <div className="mt-8 p-6 rounded-xl bg-indigo-100 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-200 shadow-lg">
-            <strong>Last Added:</strong> {lastAdded.name} — {lastAdded.calories}{" "}
-            cal
-            {lastAdded.note && (
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                <span className="italic">Diabetes Note:</span>{" "}
-                <em>{lastAdded.note}</em>
-              </p>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

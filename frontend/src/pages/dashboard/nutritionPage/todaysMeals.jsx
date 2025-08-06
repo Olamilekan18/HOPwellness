@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import ConditionsList from "./diseaseCheck";
-
+import { toast } from "react-toastify";
 const SPOONACULAR_API_KEY = "4bb2d9ff7d4043d5bec0228027c7f346";
 
 export default function NutritionTodaysMeals() {
@@ -25,7 +25,7 @@ export default function NutritionTodaysMeals() {
   });
   const [currentMealType, setCurrentMealType] = useState("");
   const [currentInput, setCurrentInput] = useState("");
-  const [lastAdded, setLastAdded] = useState(null);
+  // const [lastAdded, setLastAdded] = useState(null);
 
   useEffect(() => {
     updateTotals(meals);
@@ -47,9 +47,20 @@ export default function NutritionTodaysMeals() {
         )}&apiKey=${SPOONACULAR_API_KEY}`
       );
       const data = await res.json();
+      console.log(data);
 
-      if (!data || data.status === "failure") {
-        alert("Nutrition info not found for: " + item);
+      if (!data || data.status === "error") {
+        toast.error(`Nutrition info not found for: ${item}`, {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          style: { backgroundColor: "#dc2626", color: "#fff" },
+        });
         return;
       }
 
@@ -86,10 +97,19 @@ export default function NutritionTodaysMeals() {
       };
 
       setMeals(updatedMeals);
-      setLastAdded(newItem);
       setCurrentInput("");
     } catch (err) {
-      alert("Error fetching nutrition data.");
+      toast.error("Error fetching nutrition data.", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
     }
   }
 

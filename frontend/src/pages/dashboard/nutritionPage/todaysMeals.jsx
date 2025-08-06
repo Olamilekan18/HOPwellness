@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import ConditionsList from "./diseaseCheck";
 
@@ -16,7 +17,12 @@ export default function NutritionTodaysMeals() {
     return saved ? JSON.parse(saved) : initialState;
   });
 
-  const [totals, setTotals] = useState({ calories: 0, protein: 0, fat: 0, carbs: 0 });
+  const [totals, setTotals] = useState({
+    calories: 0,
+    protein: 0,
+    fat: 0,
+    carbs: 0,
+  });
   const [currentMealType, setCurrentMealType] = useState("");
   const [currentInput, setCurrentInput] = useState("");
   const [lastAdded, setLastAdded] = useState(null);
@@ -36,7 +42,9 @@ export default function NutritionTodaysMeals() {
     const item = currentInput;
     try {
       const res = await fetch(
-        `https://api.spoonacular.com/recipes/guessNutrition?title=${encodeURIComponent(item)}&apiKey=${SPOONACULAR_API_KEY}`
+        `https://api.spoonacular.com/recipes/guessNutrition?title=${encodeURIComponent(
+          item
+        )}&apiKey=${SPOONACULAR_API_KEY}`
       );
       const data = await res.json();
 
@@ -51,7 +59,7 @@ export default function NutritionTodaysMeals() {
         protein: data.protein?.value || 0,
         fat: data.fat?.value || 0,
         carbs: data.carbs?.value || 0,
-        note: '',
+        note: "",
         safe: null,
       };
 
@@ -74,7 +82,7 @@ export default function NutritionTodaysMeals() {
 
       const updatedMeals = {
         ...meals,
-        [currentMealType]: [ newItem],
+        [currentMealType]: [newItem],
       };
 
       setMeals(updatedMeals);
@@ -87,8 +95,8 @@ export default function NutritionTodaysMeals() {
 
   function updateTotals(updatedMeals) {
     let totals = { calories: 0, protein: 0, fat: 0, carbs: 0 };
-    Object.values(updatedMeals).forEach(items => {
-      items.forEach(i => {
+    Object.values(updatedMeals).forEach((items) => {
+      items.forEach((i) => {
         totals.calories += i.calories;
         totals.protein += i.protein;
         totals.fat += i.fat;
@@ -133,48 +141,63 @@ export default function NutritionTodaysMeals() {
   };
 
   return (
-    <div className="w-full max-w-4xl space-y-6">
+    <div className="w-full max-w-4xl mx-auto space-y-8">
+      {/* Header and Description */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-white">
+        <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800 dark:text-white">
           Log Your Meals for Today
         </h2>
-        <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-6">Nutrition values are approximate and based on 100g servings.</p>
+        <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-6">
+          Nutrition values are approximate and based on 100g servings.
+        </p>
 
-        <form onSubmit={handleAddItem} className="mb-6 flex gap-4 flex-wrap">
+        {/* Meal Logging Form */}
+        <form
+          onSubmit={handleAddItem}
+          className="flex gap-6 flex-wrap justify-center mb-8"
+        >
           <select
             value={currentMealType}
-            onChange={e => setCurrentMealType(e.target.value)}
-            className="px-4 py-2 rounded-lg border"
+            onChange={(e) => setCurrentMealType(e.target.value)}
+            className="px-6 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition duration-200 ease-in-out"
             required
           >
             <option value="">Select Meal</option>
-            {mealInfo.map(m => (
-              <option key={m.type} value={m.type}>{m.label}</option>
+            {mealInfo.map((m) => (
+              <option key={m.type} value={m.type}>
+                {m.label}
+              </option>
             ))}
           </select>
 
           <input
             type="text"
             value={currentInput}
-            onChange={e => setCurrentInput(e.target.value)}
+            onChange={(e) => setCurrentInput(e.target.value)}
             placeholder="Enter food name..."
-            className="flex-1 px-4 py-2 rounded-lg border"
+            className="flex-1 px-6 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition duration-200 ease-in-out"
             required
           />
 
-          <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+          <button
+            type="submit"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl transition duration-200 ease-in-out"
+          >
             Add
           </button>
         </form>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Meal Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {mealInfo.map(({ label, type, color }) => (
             <div
               key={type}
-              className={`${colorClasses[color].bg} rounded-xl p-6 ${colorClasses[color].border}`}
+              className={`${colorClasses[color].bg} rounded-2xl p-6 ${colorClasses[color].border} shadow-lg`}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className={`text-lg font-semibold ${colorClasses[color].text}`}>
+                <h3
+                  className={`font-semibold text-md ${colorClasses[color].text}`}
+                >
                   {label}
                 </h3>
                 <span className={`text-sm ${colorClasses[color].text}`}>
@@ -182,61 +205,77 @@ export default function NutritionTodaysMeals() {
                 </span>
               </div>
 
-              <ul className="text-sm mb-2 space-y-1 text-gray-700 dark:text-gray-200">
+              <ul className="space-y-2">
                 {meals[type].map((item, idx) => (
-                  <li key={idx}>• {item.name} ({item.calories} cal)</li>
+                  <li
+                    key={idx}
+                    className="text-sm text-gray-700 dark:text-gray-200"
+                  >
+                    <span>
+                      • {item.name} ({item.calories} cal)
+                    </span>
+                  </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
-          <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
+        {/* Today's Summary */}
+        <div className="mt-8 bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 shadow-lg">
+          <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
             Today&apos;s Summary
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-2xl font-bold text-gray-800 dark:text-white">
+              <div className="text-3xl font-bold text-gray-800 dark:text-white">
                 {Math.round(totals.calories)}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Calories</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Calories
+              </div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-red-600">
+              <div className="text-3xl font-bold text-red-600">
                 {Math.round(totals.protein)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Protein</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Protein
+              </div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-yellow-600">
+              <div className="text-3xl font-bold text-yellow-600">
                 {Math.round(totals.carbs)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Carbs</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Carbs
+              </div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-3xl font-bold text-blue-600">
                 {Math.round(totals.fat)}g
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Fat</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Fat
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Last Added */}
         {lastAdded && (
-          <div className="mt-6 p-4 rounded-lg bg-indigo-100 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-200">
-            <strong>Last Added:</strong> {lastAdded.name} — {lastAdded.calories} cal
+          <div className="mt-8 p-6 rounded-xl bg-indigo-100 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-200 shadow-lg">
+            <strong>Last Added:</strong> {lastAdded.name} — {lastAdded.calories}{" "}
+            cal
             {lastAdded.note && (
-              <p className="mt-1 text-sm">
-                Diabetes Note: <em>{lastAdded.note}</em>
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <span className="italic">Diabetes Note:</span>{" "}
+                <em>{lastAdded.note}</em>
               </p>
             )}
           </div>
         )}
       </div>
-      <div> 
-        {/* <ConditionsList /> */}
-    </div>
     </div>
   );
 }

@@ -29,7 +29,7 @@ export default function Community() {
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
           <h1 className="text-xl md:text-2xl font-bold text-green-700 dark:text-green-300 flex items-center gap-2">
             <a href="/dashboard" className="flex items-center gap-2">
-              <ArrowBigLeft />
+              <ArrowBigLeft width={24} height={24} />
             </a>
             <span role="img" aria-label="leaf">
               🌿
@@ -45,7 +45,7 @@ export default function Community() {
             </button>
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="bg-green-200 dark:bg-gray-700 text-green-800 dark:text-green-300 px-4 py-2 rounded-lg font-medium hover:bg-green-300 dark:hover:bg-gray-600 transition"
+              className="bg-green-200 dark:bg-gray-700 text-green-800 dark:text-green-300 px-4 py-2 rounded-lg font-medium hover:bg-green-300 dark:hover:bg-gray-600 cursor-pointer transition"
               aria-label="Toggle Dark Mode"
             >
               {darkMode ? <Sun /> : <Moon />}

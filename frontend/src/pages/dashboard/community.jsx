@@ -1,7 +1,7 @@
 import { Moon, Sun, ArrowBigLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 export default function Community() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState("");
 
   useEffect(() => {
     const darkMode = localStorage.getItem("darkMode");

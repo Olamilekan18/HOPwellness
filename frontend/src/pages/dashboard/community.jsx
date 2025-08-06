@@ -1,6 +1,5 @@
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, ArrowBigLeft } from "lucide-react";
 import { useState, useEffect } from "react";
-
 export default function Community() {
   const [darkMode, setDarkMode] = useState(true);
 
@@ -29,6 +28,9 @@ export default function Community() {
       <header className="bg-white dark:bg-gray-800 shadow-sm px-4 md:px-6 py-5 sticky top-0 z-50 border-b border-green-100 dark:border-gray-700">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
           <h1 className="text-xl md:text-2xl font-bold text-green-700 dark:text-green-300 flex items-center gap-2">
+            <a href="/dashboard" className="flex items-center gap-2">
+              <ArrowBigLeft />
+            </a>
             <span role="img" aria-label="leaf">
               🌿
             </span>{" "}

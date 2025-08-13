@@ -22,6 +22,10 @@ export const checkStreak = async (req, res) => {
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
 
+  if (!user.streak || typeof user.streak !== 'object') {
+  user.streak = { count: 0, lastDate: null };
+}
+
   const lastDate = user.streak?.lastDate
     ? new Date(user.streak.lastDate)
     : null;

@@ -139,3 +139,16 @@ export const getCommunityStats = async (req, res) => {
     res.status(500).json({ message: 'Error fetching community stats', error: error.message });
   }
 };
+
+export const getUserCommunities = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const userCommunities = await Community.find({ members: userId });
+
+    res.status(200).json(userCommunities);
+  } catch (error) {
+    console.error('Error getting user communities:', error);
+    res.status(500).json({ message: 'Failed to fetch user communities' });
+  }
+};

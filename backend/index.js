@@ -17,7 +17,6 @@ dotenv.config();
 connectDB(); 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
@@ -34,7 +33,6 @@ app.use('/api/nutrition', nutritionRoutes);
 
 app.use(bodyParser.json());
 
-// API route
 app.get("/", (req, res) => {
   res.send("✅ API is running...");
 });
@@ -44,6 +42,5 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
 });
 
-// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

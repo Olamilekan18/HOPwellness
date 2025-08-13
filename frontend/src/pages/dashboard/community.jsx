@@ -1,23 +1,97 @@
-import { Moon, Sun, ArrowBigLeft } from "lucide-react";
+import { Moon, Sun, Plus, Users, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-export default function Community() {
-  const [darkMode, setDarkMode] = useState("");
+import axios from "axios";
+
+export default function Communities() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [joinedCommunities, setJoinedCommunities] = useState([]);
+  const [allCommunities, setAllCommunities] = useState([]);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [form, setForm] = useState({ name: "", icon: "", description: "" });
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const darkMode = localStorage.getItem("darkMode");
-
-    if (darkMode === null) {
-      setDarkMode(true);
-    } else {
-      setDarkMode(darkMode === "true");
-    }
+    const stored = localStorage.getItem("darkMode");
+    setDarkMode(stored === null ? true : stored === "true");
+    fetchAllCommunities();
+    fetchJoinedCommunities();
   }, []);
 
   useEffect(() => {
-    if (darkMode !== undefined) {
-      localStorage.setItem("darkMode", darkMode);
-    }
+    localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
+
+  const fetchAllCommunities = async () => {
+    try {
+      const { data } = await axios.get("/api/community");
+      setAllCommunities(data);
+    } catch (error) {
+      console.error("Failed to fetch all communities:", error);
+    }
+  };
+
+  const fetchJoinedCommunities = async () => {
+         try {
+        const res = await axios.get('/api/community/my', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setJoinedCommunities(res.data);
+      }  catch (error) {
+      console.error("Failed to fetch joined communities:", error);
+    }
+  };
+
+const handleJoin = async (id) => {
+  try {
+    await axios.post(`/api/community/join/${id}`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    alert("Joined community!");
+
+    // Refresh the UI without waiting for backend streak.count fix
+    fetchAllCommunities();
+    fetchJoinedCommunities();
+
+    // Force full page reload
+    window.location.reload();
+
+  } catch (error) {
+    console.error("Join failed:", error.response?.data || error.message);
+
+    // If the error is about streak.count, ignore it
+    if (error.response?.data?.message?.includes("streak")) {
+      console.warn("Ignoring streak.count error");
+      window.location.reload();
+    }
+  }
+};
+
+  const handleCreate = async () => {
+    try {
+    await axios.post("/api/community/create", form, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });      setShowCreateModal(false);
+      setForm({ name: "", icon: "", description: "" });
+      fetchAllCommunities();
+      fetchJoinedCommunities();
+    } catch (error) {
+      console.error("Creation failed:", error);
+    }
+  };
+
+  const isJoined = (id) => joinedCommunities.some((c) => c._id === id);
+
+  // Communities that user hasn't joined yet
+  const unjoinedCommunities = allCommunities.filter(
+    (c) => !isJoined(c._id)
+  );
 
   return (
     <div
@@ -26,26 +100,14 @@ export default function Community() {
       }`}
     >
       <header className="bg-white dark:bg-gray-800 shadow-sm px-4 md:px-6 py-5 sticky top-0 z-50 border-b border-green-100 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-xl md:text-2xl font-bold text-green-700 dark:text-green-300 flex items-center gap-2">
-            <a href="/dashboard" className="flex items-center gap-2">
-              <ArrowBigLeft width={24} height={24} />
-            </a>
-            <span role="img" aria-label="leaf">
-              🌿
-            </span>{" "}
-            Health Community
+            🌿 Explore Communities
           </h1>
-          <div className="flex gap-2 flex-wrap">
-            <button className="bg-green-100 text-green-800 dark:bg-gray-700 dark:text-green-300 px-4 py-2 rounded-lg font-medium hover:bg-green-200 dark:hover:bg-gray-600 transition">
-              Join
-            </button>
-            <button className="bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition">
-              Create
-            </button>
+          <div className="flex gap-2">
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="bg-green-200 dark:bg-gray-700 text-green-800 dark:text-green-300 px-4 py-2 rounded-lg font-medium hover:bg-green-300 dark:hover:bg-gray-600 cursor-pointer transition"
+              className="bg-green-200 dark:bg-gray-700 text-green-800 dark:text-green-300 px-4 py-2 rounded-lg font-medium hover:bg-green-300 dark:hover:bg-gray-600 transition"
               aria-label="Toggle Dark Mode"
             >
               {darkMode ? <Sun /> : <Moon />}
@@ -54,122 +116,136 @@ export default function Community() {
         </div>
       </header>
 
-      {/* Main Layout */}
-      <div className="flex flex-col lg:flex-row max-w-7xl mx-auto mt-6 gap-6 px-4">
-        {/* Left Sidebar */}
-        <aside className="w-full lg:w-64 bg-green-50 dark:bg-gray-800 border border-green-100 dark:border-gray-700 p-6 rounded-xl overflow-y-auto max-h-[calc(100vh-120px)]">
-          <h2 className="font-semibold text-lg text-green-700 dark:text-green-300 mb-4">
-            Topics
+      <main className="max-w-7xl mx-auto px-4 py-10">
+        {/* My Communities */}
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold text-green-800 dark:text-green-200 mb-4">
+            My Communities
           </h2>
-          <ul className="space-y-3 text-green-900 dark:text-green-200 text-sm">
-            <li className="hover:text-green-600 cursor-pointer">
-              🧘‍♀️ Mindfulness
-            </li>
-            <li className="hover:text-green-600 cursor-pointer">
-              🥗 Nutrition
-            </li>
-            <li className="hover:text-green-600 cursor-pointer">🏃 Fitness</li>
-            <li className="hover:text-green-600 cursor-pointer">💤 Sleep</li>
-            <li className="hover:text-green-600 cursor-pointer">
-              💬 Community
-            </li>
-          </ul>
-        </aside>
-
-        {/* Main Feed */}
-        <main className="flex-1 space-y-8">
-          {/* Create Post Area */}
-          <div className="bg-white dark:bg-gray-800 border border-green-100 dark:border-gray-700 rounded-2xl shadow p-6">
-            <h2 className="text-lg font-semibold text-green-700 dark:text-green-300 mb-3">
-              Share your healthy update 🌱
-            </h2>
-            <textarea
-              rows="6"
-              cols="10"
-              placeholder="What’s one healthy thing you did today?"
-              className="w-full p-4 bg-green-50 dark:bg-gray-700 text-black dark:text-white border border-green-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-600 transition mb-3 resize-none"
-            ></textarea>
-            <button className="bg-green-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-green-700 transition">
-              Post
-            </button>
-          </div>
-
-          {/* Example Post */}
-          <div className="bg-white dark:bg-gray-800 border border-green-100 dark:border-gray-700 rounded-2xl shadow p-6">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <img
-                  src="https://randomuser.me/api/portraits/men/32.jpg"
-                  alt="Avatar"
-                  className="w-10 h-10 rounded-full border border-green-400"
+          {joinedCommunities.length === 0 ? (
+            <p className="text-gray-500 dark:text-gray-400">You haven't joined any communities yet.</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {joinedCommunities.map((community) => (
+                <CommunityCard
+                  key={community._id}
+                  community={community}
+                  isJoined={true}
                 />
-                <div>
-                  <p className="font-semibold text-green-800 dark:text-green-300">
-                    Wade Warren
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    58 minutes ago
-                  </p>
-                </div>
-              </div>
-              <button className="text-green-600 dark:text-green-400 bg-green-50 dark:bg-gray-700 px-3 py-1 rounded hover:bg-green-100 dark:hover:bg-gray-600 text-sm font-medium">
-                + Follow
-              </button>
+              ))}
             </div>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Started my morning with yoga and green smoothie 🍵. Feeling
-              refreshed and grounded. Small habits build a strong mind and body!
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <img
-                src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
-                alt="Jog selfie"
-                className="rounded-lg object-cover h-44 w-full"
+          )}
+        </div>
+
+        {/* All Other Communities */}
+        <div className="mb-10 flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-green-800 dark:text-green-200">
+            Discover New Communities
+          </h2>
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition font-medium"
+          >
+            <Plus size={18} /> Create Community
+          </button>
+        </div>
+
+        {unjoinedCommunities.length === 0 ? (
+          <p className="text-gray-500 dark:text-gray-400">You're part of all communities!</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {unjoinedCommunities.map((community) => (
+              <CommunityCard
+                key={community._id}
+                community={community}
+                onJoin={() => handleJoin(community._id)}
               />
-              <img
-                src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
-                alt="Healthy food"
-                className="rounded-lg object-cover h-44 w-full"
-              />
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 flex justify-between">
-              <span>💬 14 Replies</span>
-              <span>👁 19,028 Views</span>
-            </div>
+            ))}
+          </div>
+        )}
+      </main>
+
+      {/* Create Modal */}
+      {showCreateModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-md">
+            <h3 className="text-xl font-semibold mb-4 text-green-700 dark:text-green-300">
+              Create a New Community
+            </h3>
             <input
               type="text"
-              placeholder="Reply to this post..."
-              className="mt-4 w-full bg-green-50 dark:bg-gray-700 text-black dark:text-white px-4 py-2 rounded border border-green-200 dark:border-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-green-300 dark:focus:ring-green-600"
+              placeholder="Name"
+              className="w-full mb-3 px-4 py-2 rounded border border-green-300 dark:border-gray-600 bg-green-50 dark:bg-gray-800 text-black dark:text-white"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
+            <input
+              type="text"
+              placeholder="Icon (e.g. 🏃)"
+              className="w-full mb-3 px-4 py-2 rounded border border-green-300 dark:border-gray-600 bg-green-50 dark:bg-gray-800 text-black dark:text-white"
+              value={form.icon}
+              onChange={(e) => setForm({ ...form, icon: e.target.value })}
+            />
+            <textarea
+              placeholder="Short Description"
+              className="w-full mb-4 px-4 py-2 rounded border border-green-300 dark:border-gray-600 bg-green-50 dark:bg-gray-800 text-black dark:text-white"
+              value={form.description}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowCreateModal(false)}
+                className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCreate}
+                className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700"
+              >
+                Create
+              </button>
+            </div>
           </div>
-        </main>
+        </div>
+      )}
+    </div>
+  );
+}
 
-        {/* Right Sidebar */}
-        <aside className="w-full lg:w-64 bg-green-50 dark:bg-gray-800 border border-green-100 dark:border-gray-700 p-6 rounded-xl overflow-y-auto max-h-[calc(100vh-120px)]">
-          <h2 className="font-semibold text-lg text-green-700 dark:text-green-300 mb-4">
-            Popular Groups 🌟
-          </h2>
-          <ul className="space-y-4 text-sm text-green-900 dark:text-green-200">
-            <li className="flex justify-between items-center">
-              <span>🥗 Nutrition Circle</span>
-              <button className="text-green-600 dark:text-green-400 bg-green-100 dark:bg-gray-700 px-3 py-1 rounded hover:bg-green-200 dark:hover:bg-gray-600 text-xs font-semibold">
-                Join
-              </button>
-            </li>
-            <li className="flex justify-between items-center">
-              <span>🧘 Zen Minds</span>
-              <button className="text-green-600 dark:text-green-400 bg-green-100 dark:bg-gray-700 px-3 py-1 rounded hover:bg-green-200 dark:hover:bg-gray-600 text-xs font-semibold">
-                Join
-              </button>
-            </li>
-            <li className="flex justify-between items-center">
-              <span>🏃 Move More</span>
-              <button className="text-green-600 dark:text-green-400 bg-green-100 dark:bg-gray-700 px-3 py-1 rounded hover:bg-green-200 dark:hover:bg-gray-600 text-xs font-semibold">
-                Join
-              </button>
-            </li>
-          </ul>
-        </aside>
+// Reusable card component
+function CommunityCard({ community, isJoined, onJoin }) {
+  return (
+    <div className="bg-white dark:bg-gray-800 border border-green-100 dark:border-gray-700 rounded-xl p-6 shadow hover:shadow-lg transition">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="text-3xl">{community.icon || "🌐"}</div>
+        <div>
+          <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">
+            {community.name}
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            {community.description}
+          </p>
+        </div>
+      </div>
+      <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+        <div className="flex items-center gap-1">
+          <Users size={16} /> {community.members?.length ?? 0} members
+        </div>
+        {isJoined ? (
+          <span className="text-green-600 dark:text-green-400 bg-green-100 dark:bg-gray-700 px-3 py-1 rounded text-xs font-semibold flex items-center gap-1">
+            <Check size={14} /> Joined
+          </span>
+        ) : (
+          <button
+            onClick={onJoin}
+            className="text-green-600 dark:text-green-400 bg-green-100 dark:bg-gray-700 px-3 py-1 rounded hover:bg-green-200 dark:hover:bg-gray-600 text-xs font-semibold"
+          >
+            Join
+          </button>
+        )}
       </div>
     </div>
   );

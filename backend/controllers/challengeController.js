@@ -171,6 +171,10 @@ if (!user.streak || typeof user.streak.count !== 'number') {
   user.streak = { count: 0, lastDate: null };
 }
 
+if (!user.streak || typeof user.streak !== 'object') {
+  user.streak = { count: 0, lastDate: null };
+}
+
 const lastDate = user.streak.lastDate ? new Date(user.streak.lastDate) : null;
 const yesterday = new Date(today);
 yesterday.setDate(today.getDate() - 1);
@@ -183,7 +187,7 @@ if (lastDate && lastDate.toDateString() === yesterday.toDateString()) {
 
 user.streak.lastDate = today;
 if (user.streak.count > 1 && lastDate && (today - lastDate) / (1000 * 60 * 60 * 24) > 1) {
-  user.streak.count = 1; // Reset streak        
+  user.streak.count = 1;       
 }
 
   // Badges
@@ -198,19 +202,19 @@ if (user.streak.count > 1 && lastDate && (today - lastDate) / (1000 * 60 * 60 * 
   if (user.xp >= 50 && !user.badges.includes('xp-50')) {
     user.badges.push('xp-50');
     newBadges.push('xp-50');
-    await user.save(); // Save immediately to avoid badge duplication
+    await user.save(); 
   }
 
   if (user.xp >= 100 && !user.badges.includes('xp-100')) {
     user.badges.push('xp-100');
     newBadges.push('xp-100');
-    await user.save(); // Save immediately to avoid badge duplication
+    await user.save(); 
   }
 
   if (user.streak.count === 3 && !user.badges.includes('3-day-streak')) {
     user.badges.push('3-day-streak');
     newBadges.push('3-day-streak');
-    await user.save(); // Save immediately to avoid badge duplication
+    await user.save(); 
   }
 
   if (user.streak.count === 7 && !user.badges.includes('7-day-streak')) {

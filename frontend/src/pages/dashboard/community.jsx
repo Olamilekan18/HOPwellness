@@ -1,252 +1,209 @@
-import { Moon, Sun, Plus, Users, Check } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { ArrowLeft, Activity } from "lucide-react";
 
-export default function Communities() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [joinedCommunities, setJoinedCommunities] = useState([]);
-  const [allCommunities, setAllCommunities] = useState([]);
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [form, setForm] = useState({ name: "", icon: "", description: "" });
+import Layout from "./components/Layout";
+import CommunityCard from "./components/CommunityCard";
+import RightRail from "./components/RightRail";
+import StatCard from "./components/StatCard";
+import PostItem from "./components/PostItem";
+import PostComposer from "./components/PostComposer";
+
+export default function CommunitiesPage() {
+  const [joined, setJoined] = useState([]);
+  const [all, setAll] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const stored = localStorage.getItem("darkMode");
-    setDarkMode(stored === null ? true : stored === "true");
-    fetchAllCommunities();
-    fetchJoinedCommunities();
+    fetchAll();
+    fetchJoined();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
-
-  const fetchAllCommunities = async () => {
+  const fetchAll = async () => {
     try {
       const { data } = await axios.get("/api/community");
-      setAllCommunities(data);
-    } catch (error) {
-      console.error("Failed to fetch all communities:", error);
+      setAll(data);
+    } catch (e) {
+      console.error("getAll failed", e);
     }
   };
 
-  const fetchJoinedCommunities = async () => {
-         try {
-        const res = await axios.get('/api/community/my', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        setJoinedCommunities(res.data);
-      }  catch (error) {
-      console.error("Failed to fetch joined communities:", error);
-    }
-  };
-
-const handleJoin = async (id) => {
-  try {
-    await axios.post(`/api/community/join/${id}`, null, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    alert("Joined community!");
-
-    // Refresh the UI without waiting for backend streak.count fix
-    fetchAllCommunities();
-    fetchJoinedCommunities();
-
-    // Force full page reload
-    window.location.reload();
-
-  } catch (error) {
-    console.error("Join failed:", error.response?.data || error.message);
-
-    // If the error is about streak.count, ignore it
-    if (error.response?.data?.message?.includes("streak")) {
-      console.warn("Ignoring streak.count error");
-      window.location.reload();
-    }
-  }
-};
-
-  const handleCreate = async () => {
+  const fetchJoined = async () => {
     try {
-    await axios.post("/api/community/create", form, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });      setShowCreateModal(false);
-      setForm({ name: "", icon: "", description: "" });
+      const { data } = await axios.get("/api/community/my", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setJoined(data);
+    } catch (e) {
+      console.error("getMy failed", e);
+    }
+  };
+
+  const openCommunity = async (id) => {
+    setLoading(true);
+    try {
+      const detail = await axios.get(`/api/community/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setSelected(detail.data);
+      const stat = await axios.get(`/api/community/${id}/stats`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setStats(stat.data);
+    } catch (e) {
+      console.error("openCommunity failed", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+ const handleJoin = async (id) => {
+    try {
+      await axios.post(`/api/community/join/${id}`, null, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      alert("Joined community!");
       fetchAllCommunities();
       fetchJoinedCommunities();
+      window.location.reload();
     } catch (error) {
-      console.error("Creation failed:", error);
+      console.error("Join failed:", error.response?.data || error.message);
+      if (error.response?.data?.message?.includes("streak")) {
+        console.warn("Ignoring streak.count error");
+        window.location.reload();
+      }
     }
   };
-
-  const isJoined = (id) => joinedCommunities.some((c) => c._id === id);
-
-  // Communities that user hasn't joined yet
-  const unjoinedCommunities = allCommunities.filter(
-    (c) => !isJoined(c._id)
-  );
+  const isJoined = (id) => joined.some((c) => c._id === id);
+  const unjoined = all.filter((c) => !isJoined(c._id));
 
   return (
-    <div
-      className={`min-h-screen bg-gradient-to-b from-green-50 via-white to-green-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ${
-        darkMode ? "dark" : ""
-      }`}
+    <Layout
+      current="communities"
+      right={<RightRail />}
     >
-      <header className="bg-white dark:bg-gray-800 shadow-sm px-4 md:px-6 py-5 sticky top-0 z-50 border-b border-green-100 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl md:text-2xl font-bold text-green-700 dark:text-green-300 flex items-center gap-2">
-            🌿 Explore Communities
-          </h1>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="bg-green-200 dark:bg-gray-700 text-green-800 dark:text-green-300 px-4 py-2 rounded-lg font-medium hover:bg-green-300 dark:hover:bg-gray-600 transition"
-              aria-label="Toggle Dark Mode"
-            >
-              {darkMode ? <Sun /> : <Moon />}
-            </button>
+      {!selected ? (
+        <>
+          {/* headline */}
+          <div className="bg-white dark:bg-gray-900 border border-emerald-100 rounded-2xl shadow-sm p-5">
+            <h2 className="text-2xl font-bold text-green-100">Communities</h2>
+            <p className="text-sm  text-white">
+              Join groups that match your vibe. Click a joined community to open its feed.
+            </p>
           </div>
-        </div>
-      </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-10">
-        {/* My Communities */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold text-green-800 dark:text-green-200 mb-4">
-            My Communities
-          </h2>
-          {joinedCommunities.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400">You haven't joined any communities yet.</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {joinedCommunities.map((community) => (
-                <CommunityCard
-                  key={community._id}
-                  community={community}
-                  isJoined={true}
-                />
-              ))}
+          {/* My Communities */}
+          <section>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-semibold dark:text-green-300 text-emerald-900">My Communities</h3>
             </div>
-          )}
-        </div>
+            {joined.length === 0 ? (
+              <div className="text-sm text-emerald-900/70">You haven’t joined any communities yet.</div>
+            ) : (
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                {joined.map((c) => (
+                  <CommunityCard
+                    key={c._id}
+                    community={c}
+                    isJoined
+                    onOpen={() => openCommunity(c._id)}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
 
-        {/* All Other Communities */}
-        <div className="mb-10 flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-green-800 dark:text-green-200">
-            Discover New Communities
-          </h2>
+          {/* Discover */}
+          <section className="pt-6">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-semibold text-emerald-900">Discover</h3>
+            </div>
+            {unjoined.length === 0 ? (
+              <div className="text-sm text-emerald-900/70">You’re in all communities 🎉</div>
+            ) : (
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                {unjoined.map((c) => (
+                  <CommunityCard
+                    key={c._id}
+                    community={c}
+                    onJoin={() => handleJoin(c._id)}
+                    onOpen={() => openCommunity(c._id)}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        </>
+      ) : (
+        <>
+          {/* Back */}
           <button
-            onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition font-medium"
+            onClick={() => { setSelected(null); setStats(null); }}
+            className="inline-flex items-center gap-2 text-emerald-800 hover:underline"
           >
-            <Plus size={18} /> Create Community
+            <ArrowLeft size={18} /> Back to Communities
           </button>
-        </div>
 
-        {unjoinedCommunities.length === 0 ? (
-          <p className="text-gray-500 dark:text-gray-400">You're part of all communities!</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {unjoinedCommunities.map((community) => (
-              <CommunityCard
-                key={community._id}
-                community={community}
-                onJoin={() => handleJoin(community._id)}
-              />
-            ))}
-          </div>
-        )}
-      </main>
-
-      {/* Create Modal */}
-      {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-50">
-          <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-md">
-            <h3 className="text-xl font-semibold mb-4 text-green-700 dark:text-green-300">
-              Create a New Community
-            </h3>
-            <input
-              type="text"
-              placeholder="Name"
-              className="w-full mb-3 px-4 py-2 rounded border border-green-300 dark:border-gray-600 bg-green-50 dark:bg-gray-800 text-black dark:text-white"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-            />
-            <input
-              type="text"
-              placeholder="Icon (e.g. 🏃)"
-              className="w-full mb-3 px-4 py-2 rounded border border-green-300 dark:border-gray-600 bg-green-50 dark:bg-gray-800 text-black dark:text-white"
-              value={form.icon}
-              onChange={(e) => setForm({ ...form, icon: e.target.value })}
-            />
-            <textarea
-              placeholder="Short Description"
-              className="w-full mb-4 px-4 py-2 rounded border border-green-300 dark:border-gray-600 bg-green-50 dark:bg-gray-800 text-black dark:text-white"
-              value={form.description}
-              onChange={(e) =>
-                setForm({ ...form, description: e.target.value })
-              }
-            />
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleCreate}
-                className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700"
-              >
-                Create
-              </button>
+          {/* Banner */}
+          <section className="mt-3 bg-gradient-to-r from-emerald-600 to-emerald-400 rounded-2xl p-6 text-white shadow-sm">
+            <div className="flex items-center gap-4">
+              <div className="text-6xl">{selected.icon || "🌿"}</div>
+              <div>
+                <h2 className="text-3xl font-extrabold">{selected.name}</h2>
+                <p className="opacity-90">{selected.description}</p>
+              </div>
             </div>
-          </div>
-        </div>
+          </section>
+
+          {/* Stats */}
+          <section className="grid md:grid-cols-3 gap-4">
+            <StatCard title="Members" value={stats?.totalMembers ?? "—"}  />
+            <StatCard title="Total Posts" value={stats?.totalPosts ?? "—"} />
+            <StatCard title="Most Active" value={stats?.mostActiveUser?.name ?? "—"} />
+          </section>
+
+          {/* Feed + Members */}
+          <section className="grid lg:grid-cols-3 gap-6">
+            {/* Feed */}
+            <div className="lg:col-span-2 space-y-4">
+              <div className="flex items-center gap-2 text-emerald-900">
+                <Activity size={18} />
+                <h3 className="font-semibold dark:text-white  ">Community feed</h3>
+              </div>
+
+              <PostComposer disabled />
+
+              {loading ? (
+                <div className="text-sm text-emerald-900/70">Loading…</div>
+              ) : stats?.recentActivity?.length ? (
+                stats.recentActivity.map((p) => (
+                  <PostItem key={p.id} post={p} />
+                ))
+              ) : (
+                <div className="text-sm text-emerald-900/70">No posts yet.</div>
+              )}
+            </div>
+
+            {/* Members */}
+            <aside className="space-y-3">
+              <div className="bg-white rounded-2xl border dark:bg-gray-900 border-emerald-100 shadow-sm p-4">
+                <h4 className="font-semibold text-emerald-900 mb-3 dark:text-white">Members</h4>
+                <ul className="space-y-2 dark:text-white max-h-[480px] overflow-auto pr-1">
+                  {selected.members.map((m) => (
+                    <li key={m._id} className="flex items-center gap-3 dark:text-white">
+                      <span className="h-8 w-8 rounded-full bg-emerald-200" />
+                      <span className="text-sm text-emerald-900">{m.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+          </section>
+        </>
       )}
-    </div>
-  );
-}
-
-// Reusable card component
-function CommunityCard({ community, isJoined, onJoin }) {
-  return (
-    <div className="bg-white dark:bg-gray-800 border border-green-100 dark:border-gray-700 rounded-xl p-6 shadow hover:shadow-lg transition">
-      <div className="flex items-center gap-3 mb-3">
-        <div className="text-3xl">{community.icon || "🌐"}</div>
-        <div>
-          <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">
-            {community.name}
-          </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {community.description}
-          </p>
-        </div>
-      </div>
-      <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400 mt-4">
-        <div className="flex items-center gap-1">
-          <Users size={16} /> {community.members?.length ?? 0} members
-        </div>
-        {isJoined ? (
-          <span className="text-green-600 dark:text-green-400 bg-green-100 dark:bg-gray-700 px-3 py-1 rounded text-xs font-semibold flex items-center gap-1">
-            <Check size={14} /> Joined
-          </span>
-        ) : (
-          <button
-            onClick={onJoin}
-            className="text-green-600 dark:text-green-400 bg-green-100 dark:bg-gray-700 px-3 py-1 rounded hover:bg-green-200 dark:hover:bg-gray-600 text-xs font-semibold"
-          >
-            Join
-          </button>
-        )}
-      </div>
-    </div>
+    </Layout>
   );
 }

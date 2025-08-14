@@ -30,7 +30,7 @@ export default function Layout({ children, right, current }) {
   const navItems = useMemo(
     () => [
       { name: "Home", icon: Home, path: "/dashboard" },
-      { name: "Communities", icon: Users, path: "/community" },
+      { name: "Communities", icon: Users, path: "/dashboard/community" },
       { name: "Nutrition", icon: LeafIcon, path: "/dashboard/nutrition" },
       { name: "Challenge", icon: WeightIcon, path: "/dashboard/challenge" },
       { name: "Settings", icon: Settings2Icon, path: "/dashboard/settings" },

@@ -51,9 +51,8 @@ export default function EachCommunityPage() {
     <Layout current="communities" right={<RightRail />}>
       {selected && (
         <>
-          {/* Back Button */}
           <button
-            onClick={() => navigate(`/dashboard/community`)}
+            onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900 font-medium transition-all ease-in-out"
           >
             <ArrowLeft size={18} />{" "}

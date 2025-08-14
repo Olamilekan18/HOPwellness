@@ -47,7 +47,6 @@ export default function EachCommunityPage() {
               <PostComposer
                 communityId={selected?._id}
                 onPost={() => openCommunity(selected._id)}
-                className="bg-white p-6 rounded-2xl shadow"
               />
 
               {loading ? (

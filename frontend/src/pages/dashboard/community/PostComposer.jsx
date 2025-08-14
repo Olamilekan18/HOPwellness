@@ -31,19 +31,20 @@ const PostComposer = ({ communityId, onPostCreated }) => {
   };
 
   return (
-    <div className="p-4 bg-white rounded shadow dark:bg-gray-900">
+    <div className="p-6 bg-white rounded-2xl  dark:bg-gray-900">
       <textarea
-        className="w-full p-2 border rounded resize-none dark:text-white"
-        rows="4"
+        className="w-full p-4 border border-gray-300 rounded-lg shadow-sm resize-none dark:bg-gray-800 dark:text-white dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+        rows="7"
         placeholder="What's on your mind?"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         disabled={loading}
       />
+
       <button
         onClick={handleNewPost}
         disabled={loading}
-        className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+        className="mt-4 w-full py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 active:bg-emerald-700 transition-colors duration-200 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50"
       >
         {loading ? "Posting..." : "Post"}
       </button>

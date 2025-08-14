@@ -1,16 +1,38 @@
 import { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 const PostComposer = ({ communityId, onPostCreated }) => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleNewPost = async () => {
-    if (!content.trim()) return alert("Post cannot be empty!");
-
+    if (!content.trim())
+      return toast.error("Post cannot be empty!", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#10b981", color: "#fff" },
+      });
     const token = localStorage.getItem("token"); // ✅ ensure token exists
-    if (!token) return alert("You must be logged in");
+    if (!token)
+      return toast.error("You must be logged in!", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
 
     setLoading(true);
     try {
@@ -19,12 +41,32 @@ const PostComposer = ({ communityId, onPostCreated }) => {
         { content },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert("Post created!");
+      toast.success("Post created!", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#10b981", color: "#fff" },
+      });
       setContent("");
       if (onPostCreated) onPostCreated();
     } catch (err) {
       console.error(err);
-      alert("Failed to post");
+      toast.error("Failed to post", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        style: { backgroundColor: "#dc2626", color: "#fff" },
+      });
     } finally {
       setLoading(false);
     }

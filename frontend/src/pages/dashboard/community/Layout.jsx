@@ -10,6 +10,7 @@ import {
   Sun,
 } from "lucide-react";
 import PropTypes from "prop-types";
+import { ToastContainer } from "react-toastify";
 
 export default function Layout({ children, right, current }) {
   const [darkMode, setDarkMode] = useState(false);
@@ -40,6 +41,7 @@ export default function Layout({ children, right, current }) {
 
   return (
     <div className="dark:bg-gray-900 transition-colors duration-300">
+      <ToastContainer />
       <div className="min-h-screen   bg-[#F1F8F6] dark:bg-gray-900 transition-colors duration-300">
         <header className="bg-white dark:bg-gray-800 border-b border-emerald-100 dark:border-gray-700 shadow-sm px-4 py-3 transition-colors duration-300">
           <div className="container mx-auto flex items-center justify-between flex-wrap">

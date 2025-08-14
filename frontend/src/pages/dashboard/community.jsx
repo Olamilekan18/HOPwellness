@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Layout from "./components/Layout";
-import CommunityCard from "./components/CommunityCard";
-import RightRail from "./components/RightRail";
+import Layout from "./community/Layout";
+import CommunityCard from "./community/CommunityCard";
+import RightRail from "./community/RightRail";
 import { useNavigate } from "react-router-dom";
 
 export default function CommunitiesPage() {
@@ -86,7 +86,7 @@ export default function CommunitiesPage() {
 
   return (
     <Layout current="communities" right={<RightRail />}>
-      <>
+      <div className="mt-5 p-5">
         <div className="bg-white dark:bg-gray-800 border border-emerald-200 dark:border-emerald-600 rounded-3xl shadow-xl p-6">
           <div className="flex items-center space-x-3 mb-4">
             <svg
@@ -170,7 +170,7 @@ export default function CommunitiesPage() {
             </div>
           )}
         </section>
-      </>
+      </div>
     </Layout>
   );
 }

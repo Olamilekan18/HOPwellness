@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const PostComposer = ({ communityId, onPostCreated }) => {
   const [content, setContent] = useState("");
@@ -29,7 +30,6 @@ const PostComposer = ({ communityId, onPostCreated }) => {
     }
   };
 
-
   return (
     <div className="p-4 bg-white rounded shadow dark:bg-gray-900">
       <textarea
@@ -52,3 +52,8 @@ const PostComposer = ({ communityId, onPostCreated }) => {
 };
 
 export default PostComposer;
+
+PostComposer.propTypes = {
+  communityId: PropTypes.string.isRequired,
+  onPostCreated: PropTypes.func,
+};

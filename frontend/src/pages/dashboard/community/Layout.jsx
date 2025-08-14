@@ -145,22 +145,18 @@ export default function Layout({ children, right, current }) {
           </div>
         </header>
 
-        <div className="mt-5 p-5">
+        <>
           <main className="col-span-9 xl:col-span-7 space-y-6 text-emerald-900 dark:text-gray-100 transition-colors duration-300">
             {children}
           </main>
-
-          {/* <aside className="hidden xl:block col-span-3 space-y-6">
-            {right}
-          </aside> */}
-        </div>
+        </>
       </div>
     </div>
   );
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   right: PropTypes.node,
   current: PropTypes.string.isRequired,
 };

@@ -29,7 +29,10 @@ export default function Router() {
         <Route path="achivements" element={<Achievements />} />
         <Route path="quizzes" element={<CommingSoon />} />
         <Route path="moodtracker" element={<MoodTracker />} />
-        <Route path="community" element={<Community />} />
+        <Route path="community">
+          <Route index element={<Community />} />
+          <Route path=":communityId" element={<Community />} />
+        </Route>
         <Route path="settings" element={<DashboardSettings />} />
         <Route path="*" element={<CommingSoon />} />
       </Route>

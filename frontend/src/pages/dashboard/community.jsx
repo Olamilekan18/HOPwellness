@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ArrowLeft, Activity } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import CommunityCard from "./components/CommunityCard";
@@ -16,6 +17,7 @@ export default function CommunitiesPage() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
+  const { communityId } = useParams();
 
   useEffect(() => {
     fetchAll();
@@ -60,6 +62,13 @@ export default function CommunitiesPage() {
     }
   };
 
+const reloadCommunity = () => {
+  if (selected?._id) {
+    openCommunity(selected._id);
+  }
+};
+
+
  const handleJoin = async (id) => {
     try {
       await axios.post(`/api/community/join/${id}`, null, {
@@ -87,15 +96,13 @@ export default function CommunitiesPage() {
     >
       {!selected ? (
         <>
-          {/* headline */}
           <div className="bg-white dark:bg-gray-900 border border-emerald-100 rounded-2xl shadow-sm p-5">
-            <h2 className="text-2xl font-bold text-green-100">Communities</h2>
-            <p className="text-sm  text-white">
+            <h2 className="text-2xl font-bold text-green-300">Communities</h2>
+            <p className="text-sm  dark:text-white">
               Join groups that match your vibe. Click a joined community to open its feed.
             </p>
           </div>
 
-          {/* My Communities */}
           <section>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-lg font-semibold dark:text-green-300 text-emerald-900">My Communities</h3>
@@ -116,7 +123,6 @@ export default function CommunitiesPage() {
             )}
           </section>
 
-          {/* Discover */}
           <section className="pt-6">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-lg font-semibold text-emerald-900">Discover</h3>
@@ -142,12 +148,11 @@ export default function CommunitiesPage() {
           {/* Back */}
           <button
             onClick={() => { setSelected(null); setStats(null); }}
-            className="inline-flex items-center gap-2 text-emerald-800 hover:underline"
+            className="inline-flex items-center gap-2 text-green-900 hover:underline dark:text-green-200"
           >
             <ArrowLeft size={18} /> Back to Communities
           </button>
 
-          {/* Banner */}
           <section className="mt-3 bg-gradient-to-r from-emerald-600 to-emerald-400 rounded-2xl p-6 text-white shadow-sm">
             <div className="flex items-center gap-4">
               <div className="text-6xl">{selected.icon || "🌿"}</div>
@@ -158,24 +163,21 @@ export default function CommunitiesPage() {
             </div>
           </section>
 
-          {/* Stats */}
           <section className="grid md:grid-cols-3 gap-4">
             <StatCard title="Members" value={stats?.totalMembers ?? "—"}  />
             <StatCard title="Total Posts" value={stats?.totalPosts ?? "—"} />
             <StatCard title="Most Active" value={stats?.mostActiveUser?.name ?? "—"} />
           </section>
 
-          {/* Feed + Members */}
           <section className="grid lg:grid-cols-3 gap-6">
-            {/* Feed */}
+
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center gap-2 text-emerald-900">
                 <Activity size={18} />
                 <h3 className="font-semibold dark:text-white  ">Community feed</h3>
               </div>
 
-              <PostComposer disabled />
-
+<PostComposer communityId={selected?._id} onPost = {reloadCommunity} />
               {loading ? (
                 <div className="text-sm text-emerald-900/70">Loading…</div>
               ) : stats?.recentActivity?.length ? (
@@ -187,7 +189,6 @@ export default function CommunitiesPage() {
               )}
             </div>
 
-            {/* Members */}
             <aside className="space-y-3">
               <div className="bg-white rounded-2xl border dark:bg-gray-900 border-emerald-100 shadow-sm p-4">
                 <h4 className="font-semibold text-emerald-900 mb-3 dark:text-white">Members</h4>

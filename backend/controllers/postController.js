@@ -58,17 +58,17 @@ export const getPostById = async (req, res) => {
 
   try {
     const post = await Post.findById(postId)
-      .populate('author', 'name')               // show author's name
-      .populate('community', 'name')            // show community name
-      .populate('likes', 'name');               // show who liked the post
+      .populate('author', 'name')               
+      .populate('community', 'name')            
+      .populate('likes', 'name');              
 
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
 
     const comments = await Comment.find({ post: postId })
-      .populate('author', 'name')               // include comment author's name
-      .sort({ createdAt: -1 });                 // newest comments first
+      .populate('author', 'name')               
+      .sort({ createdAt: -1 });                 
 
     res.status(200).json({
       post,
@@ -92,22 +92,19 @@ export const likePost = async (req, res) => {
     let message = '';
 
     if (index === -1) {
-      // User has not liked before, so like it
       post.likes.push(userId);
       message = 'Post liked';
 
-      // Create notification if liker is not the post author
       if (post.author.toString() !== userId) {
         await sendNotification({
-          userId: post.author,                // Recipient: post author
-          type: 'like',                       // Notification type
-          message: `${req.user.name} liked your post`, // Custom message; adjust as needed
+          userId: post.author,                
+          type: 'like',                       
+          message: `${req.user.name} liked your post`, 
           fromUser: userId,
           post: postId
         });
       }
     } else {
-      // User already liked, so unlike
       post.likes.splice(index, 1);
       message = 'Post unliked';
     }
@@ -136,7 +133,6 @@ export const commentOnPost = async (req, res) => {
 
     await newComment.save();
 
-    // Notify post author (but don't notify if user is commenting on their own post)
     if (post.author._id.toString() !== req.user.id.toString()) {
       const notification = new Notification({
         user: post.author._id,
@@ -159,8 +155,8 @@ export const getCommunityPosts = async (req, res) => {
 
   try {
     const posts = await Post.find({ community: communityId })
-      .populate('author', 'name profilePic') // show author details
-      .sort({ createdAt: -1 }); // newest first
+      .populate('author', 'name profilePic') 
+      .sort({ createdAt: -1 }); 
 
     const postsWithDetails = await Promise.all(
       posts.map(async post => {
@@ -204,9 +200,9 @@ export const getPostsByCommunity = async (req, res) => {
 
   try {
     const posts = await Post.find({ community: communityId })
-      .populate('author', 'name') // populate author name
-      .populate('community', 'name') // optional: populate community name
-      .sort({ createdAt: -1 }); // newest first
+      .populate('author', 'name') 
+      .populate('community', 'name') 
+      .sort({ createdAt: -1 }); 
 
     res.status(200).json({ posts });
   } catch (error) {

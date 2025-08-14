@@ -1,27 +1,54 @@
-export default function PostComposer({ disabled = true, onCreate }) {
+import React, { useState } from "react";
+import axios from "axios";
+
+const PostComposer = ({ communityId, onPostCreated }) => {
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleNewPost = async () => {
+    if (!content.trim()) return alert("Post cannot be empty!");
+
+    const token = localStorage.getItem("token"); // ✅ ensure token exists
+    if (!token) return alert("You must be logged in");
+
+    setLoading(true);
+    try {
+      await axios.post(
+        `/api/posts/community/${communityId}`,
+        { content },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Post created!");
+      setContent("");
+      if (onPostCreated) onPostCreated();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to post");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-emerald-100 shadow-sm p-4">
-      <div className="flex items-start gap-3">
-        <div className="h-10 w-10 bg-emerald-200 rounded-full" />
-        <div className="flex-1">
-          <textarea
-            disabled={disabled}
-            placeholder={disabled ? "Post creation coming soon…" : "What’s on your mind?"}
-            className="w-full resize-none rounded-xl text-gray-900  border border-emerald-200 bg-emerald-50 p-3 text-sm outline-none focus:ring-2 focus:ring-emerald-300"
-            rows={3}
-          />
-          <div className="mt-3 flex items-center justify-end">
-            <button
-              disabled={disabled}
-              onClick={onCreate}
-              className={`px-4 py-2 rounded-full text-sm font-medium 
-              ${disabled ? "bg-emerald-200 text-white" : "bg-emerald-600 hover:bg-emerald-700 text-white"}`}
-            >
-              Post
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className="p-4 bg-white rounded shadow dark:bg-gray-900">
+      <textarea
+        className="w-full p-2 border rounded resize-none dark:text-white"
+        rows="4"
+        placeholder="What's on your mind?"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        disabled={loading}
+      />
+      <button
+        onClick={handleNewPost}
+        disabled={loading}
+        className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+      >
+        {loading ? "Posting..." : "Post"}
+      </button>
     </div>
   );
-}
+};
+
+export default PostComposer;

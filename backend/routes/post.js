@@ -8,7 +8,7 @@ const router = express.Router();
 router.post(
   '/community/:communityId',
   protect,
-  upload.single('image'), // for image upload
+  upload.single('image'), 
   createPost
 );
 router.post('/:postId/like', protect, likePost);

@@ -53,7 +53,6 @@ export default function Layout({ children, right, current = "communities" }) {
               </a>
             ))}
 
-            {/* Dark mode toggle */}
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-full bg-emerald-100 dark:bg-gray-700 hover:bg-emerald-200 dark:hover:bg-gray-600 transition-colors duration-200"

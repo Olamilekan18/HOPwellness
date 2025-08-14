@@ -1,6 +1,7 @@
 import { Users, Check } from "lucide-react";
 
 export default function CommunityCard({ community, isJoined, onJoin, onOpen }) {
+    
   return (
     <div
       className="bg-white dark:bg-gray-800  rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition cursor-pointer overflow-hidden"
@@ -16,7 +17,7 @@ export default function CommunityCard({ community, isJoined, onJoin, onOpen }) {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between dark:bg-gray-900">
+        <div className="mt-4 flex items-center justify-between ">
           <div className="flex items-center gap-1 text- dark:text-white text-emerald-900/80">
             <Users size={16} /> {community.members?.length ?? 0} members
           </div>

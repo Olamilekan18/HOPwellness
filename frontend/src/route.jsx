@@ -13,6 +13,7 @@ import AboutUs from "./pages/aboutUs";
 import ContactPage from "./pages/contact";
 import Community from "./pages/dashboard/community";
 import Nutrition from "./pages/dashboard/nutrition";
+import EachCommunityPage from "./pages/dashboard/eachCommunityPage";
 export default function Router() {
   return (
     <Routes>
@@ -31,7 +32,7 @@ export default function Router() {
         <Route path="moodtracker" element={<MoodTracker />} />
         <Route path="community">
           <Route index element={<Community />} />
-          <Route path=":communityId" element={<Community />} />
+          <Route path=":communityId" element={<EachCommunityPage />} />
         </Route>
         <Route path="settings" element={<DashboardSettings />} />
         <Route path="*" element={<CommingSoon />} />

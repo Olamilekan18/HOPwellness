@@ -42,7 +42,6 @@ export default function EachCommunityPage() {
         <>
           <EachCommunityPageHeader navigate={navigate} selected={selected} />
 
-          {/* MAIN CONTENT */}
           <div className="mt-16 grid lg:grid-cols-3 px-5 py-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
               <PostComposer

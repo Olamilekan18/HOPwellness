@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useMemo, useEffect, useState } from "react";
 import {
   Home,
@@ -149,9 +150,9 @@ export default function Layout({ children, right, current }) {
             {children}
           </main>
 
-          <aside className="hidden xl:block col-span-3 space-y-6">
+          {/* <aside className="hidden xl:block col-span-3 space-y-6">
             {right}
-          </aside>
+          </aside> */}
         </div>
       </div>
     </div>

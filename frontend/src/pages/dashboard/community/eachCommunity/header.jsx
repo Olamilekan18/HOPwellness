@@ -24,43 +24,6 @@ export default function EachCommunityPageHeader({ navigate, selected }) {
               {selected.description}
             </p>
           </div>
-
-          <div className="flex space-x-2 justify-center sm:justify-start">
-            <img
-              className="border-2 border-white rounded-full h-12 w-12"
-              src="https://randomuser.me/api/portraits/men/32.jpg"
-              alt="Avatar"
-            />
-            <img
-              className="border-2 border-white rounded-full h-12 w-12"
-              src="https://randomuser.me/api/portraits/women/31.jpg"
-              alt="Avatar"
-            />
-            <img
-              className="border-2 border-white rounded-full h-12 w-12"
-              src="https://randomuser.me/api/portraits/men/33.jpg"
-              alt="Avatar"
-            />
-            <img
-              className="border-2 border-white rounded-full h-12 w-12"
-              src="https://randomuser.me/api/portraits/women/32.jpg"
-              alt="Avatar"
-            />
-            <img
-              className="border-2 border-white rounded-full h-12 w-12"
-              src="https://randomuser.me/api/portraits/men/44.jpg"
-              alt="Avatar"
-            />
-            <img
-              className="border-2 border-white rounded-full h-12 w-12"
-              src="https://randomuser.me/api/portraits/women/42.jpg"
-              alt="Avatar"
-            />
-            {/* Plus Icon for remaining members */}
-            <span className="flex items-center justify-center bg-white text-sm text-gray-800 font-semibold border-2 border-gray-200 rounded-full h-12 w-12">
-              +999
-            </span>
-          </div>
         </div>
       </div>
 

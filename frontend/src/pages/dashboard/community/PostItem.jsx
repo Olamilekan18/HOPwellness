@@ -1,7 +1,7 @@
 import { MessageCircle, Share, ThumbsUp } from "lucide-react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -9,57 +9,87 @@ export default function PostItem({
   post,
   comments: initialComments,
   likeCount: initialLikeCount,
-  currentUser,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
   const token = localStorage.getItem("token");
-  const [liked, setLiked] = useState(post.likes?.includes(currentUser?._id));
-  const [likeCount, setLikeCount] = useState(initialLikeCount || 0);
+  const currentUserId = localStorage.getItem("userId");
+
+  const [liked, setLiked] = useState(
+    post.likes?.some((user) => user._id === currentUserId)
+  );
+  const [likeCount, setLikeCount] = useState(
+    initialLikeCount ?? post.likes?.length ?? 0
+  );
   const [likeLoading, setLikeLoading] = useState(false);
 
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState(initialComments || []);
   const [commentText, setCommentText] = useState("");
   const [commentLoading, setCommentLoading] = useState(false);
+
   if (!token) return null;
 
-  const handleLike = async () => {
-    if (likeLoading) return;
-    setLikeLoading(true);
-    try {
-      await axios.post(
-        `/api/posts/${post._id}/like`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+const handleLike = async () => {
+  if (likeLoading) return;
+  setLikeLoading(true);
+
+  try {
+    const res = await axios.post(
+      `/api/posts/${post._id}/like`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    console.log(res.data);
+
+    if (
+      res.data &&
+      typeof res.data.likesCount === "number" &&
+      typeof res.data.likedByUser === "boolean"
+    ) {
+      setLiked(res.data.likedByUser);
+      setLikeCount(res.data.likesCount);
+    } else {
       setLiked((prev) => !prev);
       setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
-    } catch (err) {
-      console.error("Error liking post", err);
-    } finally {
-      setLikeLoading(false);
     }
-  };
+  } catch (err) {
+    console.error("Error liking post:", err.response?.data || err);
+    toast.error(err.response?.data?.message || "Error liking post");
+  } finally {
+    setLikeLoading(false);
+  }
+};
 
-  const handleComment = async (e) => {
-    e.preventDefault();
-    if (!commentText.trim()) return;
-    setCommentLoading(true);
-    try {
-      const res = await axios.post(
-        `/api/posts/${post._id}/comment`,
-        { content: commentText },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setComments((prev) => [...prev, res.data.comment]);
+
+const handleComment = async (e) => {
+  e.preventDefault();
+  if (!commentText.trim()) return;
+
+  setCommentLoading(true);
+  try {
+    const res = await axios.post(
+      `/api/posts/${post._id}/comment`,
+      { content: commentText },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    if (res.data && res.data.comment) {
+      // Add the new comment to the top
+      setComments((prev) => [res.data.comment, ...prev]);
       setCommentText("");
-    } catch (err) {
-      console.error("Error adding comment", err);
-    } finally {
-      setCommentLoading(false);
+    } else {
+      toast.error("Failed to post comment");
     }
-  };
+  } catch (err) {
+    console.error("Error adding comment", err.response?.data || err);
+    toast.error(err.response?.data?.message || "Error adding comment");
+  } finally {
+    setCommentLoading(false);
+  }
+};
+
 
   const handleShare = (post) => {
     if (navigator.share) {
@@ -67,19 +97,30 @@ export default function PostItem({
         .share({
           title: post?.title || "Check this out",
           text: post?.content ? post.content.slice(0, 100) + "..." : "",
-          url: `${window.location.origin}/posts/${post._id}`,
+          url: `${location.pathname}/posts/${post._id}`,
         })
-        .catch((err) => {
-          console.error("Error sharing:", err);
-        });
+        .catch((err) => console.error("Error sharing:", err));
     } else {
       toast.error("Sharing not supported on this browser.");
     }
   };
 
+  useEffect(() => {
+  axios.get(`/api/posts/${post._id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then(res => {
+      setLikeCount(res.data.likeCount);
+      setComments(res.data.comments); // ← this will now always have populated authors
+    })
+    .catch(err => console.error(err));
+}, [post._id, token]);
+
+
   return (
     <div className="bg-white rounded-2xl border border-emerald-200 dark:bg-gray-800 shadow-lg p-4">
       <article className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+        {/* Avatar */}
         <div className="flex-shrink-0 sm:w-10 sm:h-10 w-10 h-10 mx-auto sm:mx-0">
           <img
             className="w-full h-full rounded-full object-cover"
@@ -89,6 +130,7 @@ export default function PostItem({
         </div>
 
         <div className="flex-1 min-w-0 ml-2">
+          {/* Header */}
           <div className="flex justify-between items-center mb-2 flex-col sm:flex-row">
             <div className="flex items-baseline space-x-1 text-sm min-w-0">
               <span className="font-medium text-gray-900 dark:text-gray-100 truncate hover:text-emerald-600 hover:underline cursor-pointer">
@@ -102,18 +144,18 @@ export default function PostItem({
 
             <a
               className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline hover:text-emerald-800 cursor-pointer dark:hover:text-emerald-200"
-              onClick={() => {
-                navigate(`${location.pathname}/posts/${post._id}`);
-              }}
+              onClick={() => navigate(`${location.pathname}/posts/${post._id}`)}
             >
               View More
             </a>
           </div>
 
+          {/* Content */}
           <p className="text-gray-800 dark:text-gray-100 text-sm sm:text-base leading-relaxed mb-4">
             {post.content}
           </p>
 
+          {/* Image */}
           {post.image && (
             <div className="mt-4 rounded-xl overflow-hidden">
               <img
@@ -126,6 +168,7 @@ export default function PostItem({
             </div>
           )}
 
+          {/* Actions */}
           <div className="flex justify-between items-center mt-4 text-gray-500 dark:text-gray-400 text-xs sm:text-sm space-x-4 sm:space-x-0 flex-row">
             <button
               aria-label="like"
@@ -140,6 +183,7 @@ export default function PostItem({
               <ThumbsUp />
               <span>{likeCount}</span>
             </button>
+
             <button
               aria-label="comment"
               className="flex items-center space-x-1 group hover:text-green-500 dark:hover:text-green-400 p-2 rounded-full hover:bg-green-50 dark:hover:bg-green-900 transition-colors duration-200 mb-2 sm:mb-0"
@@ -148,6 +192,7 @@ export default function PostItem({
               <MessageCircle />
               <span>{comments.length}</span>
             </button>
+
             <button
               aria-label="share"
               onClick={() => handleShare(post)}
@@ -158,6 +203,7 @@ export default function PostItem({
             </button>
           </div>
 
+          {/* Comments */}
           {showComments && (
             <div className="mt-4">
               <div className="mb-2 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
@@ -170,24 +216,26 @@ export default function PostItem({
                   </div>
                 )}
                 {comments.map((c) => (
-                  <div key={c._id} className="flex items-start space-x-2">
-                    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-bold">
-                      {c.author?.name?.[0]?.toUpperCase() || "A"}
-                    </div>
-                    <div>
-                      <div className="text-xs font-medium text-gray-900 dark:text-gray-100">
-                        {c.author?.name || "Anonymous"}
-                        <span className="ml-2 text-gray-400 dark:text-gray-500 text-xs">
-                          {new Date(c.createdAt).toLocaleString()}
-                        </span>
-                      </div>
-                      <div className="text-xs text-gray-700 dark:text-gray-200">
-                        {c.content}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+          <div key={c._id} className="flex items-start space-x-2">
+            <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-bold">
+              {c.author?.name?.[0]?.toUpperCase() || "A"}
+            </div>
+        <div>
+      <div className="text-xs font-medium text-gray-900 dark:text-gray-100">
+        {c.author?.name || "Anonymous"}
+        <span className="ml-2 text-gray-400 dark:text-gray-500 text-xs">
+          {new Date(c.createdAt).toLocaleString()}
+        </span>
+      </div>
+      <div className="text-xs text-gray-700 dark:text-gray-200">
+        {c.content}
+      </div>
+    </div>
+  </div>
+))}
+
               </div>
+
               <form
                 className="flex items-center mt-3 space-x-2"
                 onSubmit={handleComment}

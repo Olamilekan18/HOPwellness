@@ -86,6 +86,13 @@ export default function SignUpForm() {
         toast.error(data.message || "Registration failed");
         return;
       }
+
+      if (data.user && data.user.id) {
+    localStorage.setItem('userId', data.user.id);
+  }
+
+    const userData = localStorage.getItem("userId");
+      console.log("User ID saved to local storage:", userData);
       toast.success("Registration successful! You can now log in.");
       navigate("/dashboard");
       // eslint-disable-next-line no-unused-vars

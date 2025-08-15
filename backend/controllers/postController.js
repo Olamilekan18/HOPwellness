@@ -80,42 +80,74 @@ export const getPostById = async (req, res) => {
   }
 };
 
-export const likePost = async (req, res) => {
-  const { postId } = req.params;
 
+
+//   try {
+//     const post = await Post.findById(postId);
+//     if (!post) return res.status(404).json({ message: 'Post not found' });
+
+//     const userId = req.user.id;
+//     const index = post.likes.indexOf(userId);
+//     let message = '';
+
+//     if (index === -1) {
+//       post.likes.push(userId);
+//       message = 'Post liked';
+
+//       if (post.author.toString() !== userId) {
+//         await sendNotification({
+//           userId: post.author,                
+//           type: 'like',                       
+//           message: `${req.user.name} liked your post`, 
+//           fromUser: userId,
+//           post: postId
+//         });
+//       }
+//     } else {
+//       post.likes.splice(index, 1);
+//       message = 'Post unliked';
+//     }
+
+//     await post.save();
+//     return res.status(200).json({ message });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Failed to like/unlike post', error: error.message });
+//   }
+// };
+
+export const likePost = async (req, res) => {
+
+  const { postId } = req.params;
   try {
     const post = await Post.findById(postId);
-    if (!post) return res.status(404).json({ message: 'Post not found' });
 
-    const userId = req.user.id;
-    const index = post.likes.indexOf(userId);
-    let message = '';
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
 
-    if (index === -1) {
-      post.likes.push(userId);
-      message = 'Post liked';
+    const alreadyLiked = post.likes.includes(req.user._id);
 
-      if (post.author.toString() !== userId) {
-        await sendNotification({
-          userId: post.author,                
-          type: 'like',                       
-          message: `${req.user.name} liked your post`, 
-          fromUser: userId,
-          post: postId
-        });
-      }
+    if (alreadyLiked) {
+      // Unlike
+      post.likes = post.likes.filter(
+        (userId) => userId.toString() !== req.user._id.toString()
+      );
     } else {
-      post.likes.splice(index, 1);
-      message = 'Post unliked';
+      // Like
+      post.likes.push(req.user._id);
     }
 
     await post.save();
-    return res.status(200).json({ message });
+
+    res.json({
+      message: alreadyLiked ? "Post unliked" : "Post liked",
+      likesCount: post.likes.length,
+      likedByUser: !alreadyLiked,
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to like/unlike post', error: error.message });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-
 
 export const commentOnPost = async (req, res) => {
   const { postId } = req.params;

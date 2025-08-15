@@ -36,4 +36,3 @@ const reportSchema = new mongoose.Schema({
 
 const Report = mongoose.model('Report', reportSchema);
 export default Report;
-// This schema captures weekly user activity, including XP gained, challenges completed, badges unlocked, and mood summary.

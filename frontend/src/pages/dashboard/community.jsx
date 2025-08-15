@@ -136,7 +136,7 @@ export default function CommunitiesPage() {
               {joined.map((c) => (
                 <div
                   key={c._id}
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-105"
+                  className="transition-shadow duration-300 ease-in-out transform hover:scale-105"
                 >
                   <CommunityCard
                     community={c}

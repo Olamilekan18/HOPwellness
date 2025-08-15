@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { MessageCircle, Share, ThumbsUp } from "lucide-react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -30,66 +31,64 @@ export default function PostItem({
 
   if (!token) return null;
 
-const handleLike = async () => {
-  if (likeLoading) return;
-  setLikeLoading(true);
+  const handleLike = async () => {
+    if (likeLoading) return;
+    setLikeLoading(true);
 
-  try {
-    const res = await axios.post(
-      `/api/posts/${post._id}/like`,
-      {},
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    try {
+      const res = await axios.post(
+        `/api/posts/${post._id}/like`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-    console.log(res.data);
+      console.log(res.data);
 
-    if (
-      res.data &&
-      typeof res.data.likesCount === "number" &&
-      typeof res.data.likedByUser === "boolean"
-    ) {
-      setLiked(res.data.likedByUser);
-      setLikeCount(res.data.likesCount);
-    } else {
-      setLiked((prev) => !prev);
-      setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
+      if (
+        res.data &&
+        typeof res.data.likesCount === "number" &&
+        typeof res.data.likedByUser === "boolean"
+      ) {
+        setLiked(res.data.likedByUser);
+        setLikeCount(res.data.likesCount);
+      } else {
+        setLiked((prev) => !prev);
+        setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
+      }
+    } catch (err) {
+      console.error("Error liking post:", err.response?.data || err);
+      toast.error(err.response?.data?.message || "Error liking post");
+    } finally {
+      setLikeLoading(false);
     }
-  } catch (err) {
-    console.error("Error liking post:", err.response?.data || err);
-    toast.error(err.response?.data?.message || "Error liking post");
-  } finally {
-    setLikeLoading(false);
-  }
-};
+  };
 
+  const handleComment = async (e) => {
+    e.preventDefault();
+    if (!commentText.trim()) return;
 
-const handleComment = async (e) => {
-  e.preventDefault();
-  if (!commentText.trim()) return;
+    setCommentLoading(true);
+    try {
+      const res = await axios.post(
+        `/api/posts/${post._id}/comment`,
+        { content: commentText },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-  setCommentLoading(true);
-  try {
-    const res = await axios.post(
-      `/api/posts/${post._id}/comment`,
-      { content: commentText },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    if (res.data && res.data.comment) {
-      // Add the new comment to the top
-      setComments((prev) => [res.data.comment, ...prev]);
-      setCommentText("");
-    } else {
-      toast.error("Failed to post comment");
+      if (res.data && res.data.comment) {
+        // Add the new comment to the top
+        setComments((prev) => [res.data.comment, ...prev]);
+        setCommentText("");
+      } else {
+        toast.error("Failed to post comment");
+      }
+    } catch (err) {
+      console.error("Error adding comment", err.response?.data || err);
+      toast.error(err.response?.data?.message || "Error adding comment");
+    } finally {
+      setCommentLoading(false);
     }
-  } catch (err) {
-    console.error("Error adding comment", err.response?.data || err);
-    toast.error(err.response?.data?.message || "Error adding comment");
-  } finally {
-    setCommentLoading(false);
-  }
-};
-
+  };
 
   const handleShare = (post) => {
     if (navigator.share) {
@@ -106,16 +105,16 @@ const handleComment = async (e) => {
   };
 
   useEffect(() => {
-  axios.get(`/api/posts/${post._id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-    .then(res => {
-      setLikeCount(res.data.likeCount);
-      setComments(res.data.comments); // ← this will now always have populated authors
-    })
-    .catch(err => console.error(err));
-}, [post._id, token]);
-
+    axios
+      .get(`/api/posts/${post._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setLikeCount(res.data.likeCount);
+        setComments(res.data.comments); // ← this will now always have populated authors
+      })
+      .catch((err) => console.error(err));
+  }, [post._id, token]);
 
   return (
     <div className="bg-white rounded-2xl border border-emerald-200 dark:bg-gray-800 shadow-lg p-4">
@@ -172,15 +171,11 @@ const handleComment = async (e) => {
           <div className="flex justify-between items-center mt-4 text-gray-500 dark:text-gray-400 text-xs sm:text-sm space-x-4 sm:space-x-0 flex-row">
             <button
               aria-label="like"
-              className={`flex items-center space-x-1 group p-2 rounded-full transition-colors duration-200 mb-2 sm:mb-0 ${
-                liked
-                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-900"
-                  : "hover:text-green-500 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900"
-              }`}
+              className={`flex items-center space-x-1 group p-2 rounded-full transition-colors duration-200 mb-2 sm:mb-0`}
               onClick={handleLike}
               disabled={likeLoading}
             >
-              <ThumbsUp />
+              <ThumbsUp fill={`${liked ? "green" : "transparent"}`} />
               <span>{likeCount}</span>
             </button>
 
@@ -216,24 +211,23 @@ const handleComment = async (e) => {
                   </div>
                 )}
                 {comments.map((c) => (
-          <div key={c._id} className="flex items-start space-x-2">
-            <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-bold">
-              {c.author?.name?.[0]?.toUpperCase() || "A"}
-            </div>
-        <div>
-      <div className="text-xs font-medium text-gray-900 dark:text-gray-100">
-        {c.author?.name || "Anonymous"}
-        <span className="ml-2 text-gray-400 dark:text-gray-500 text-xs">
-          {new Date(c.createdAt).toLocaleString()}
-        </span>
-      </div>
-      <div className="text-xs text-gray-700 dark:text-gray-200">
-        {c.content}
-      </div>
-    </div>
-  </div>
-))}
-
+                  <div key={c._id} className="flex items-start space-x-2">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-bold">
+                      {c.author?.name?.[0]?.toUpperCase() || "A"}
+                    </div>
+                    <div>
+                      <div className="text-xs font-medium text-gray-900 dark:text-gray-100">
+                        {c.author?.name || "Anonymous"}
+                        <span className="ml-2 text-gray-400 dark:text-gray-500 text-xs">
+                          {new Date(c.createdAt).toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-700 dark:text-gray-200">
+                        {c.content}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
 
               <form

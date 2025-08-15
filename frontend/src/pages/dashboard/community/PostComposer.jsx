@@ -98,6 +98,6 @@ const PostComposer = ({ communityId, onPostCreated }) => {
 export default PostComposer;
 
 PostComposer.propTypes = {
-  communityId: PropTypes.string.isRequired,
+  communityId: PropTypes.string,
   onPostCreated: PropTypes.func,
 };

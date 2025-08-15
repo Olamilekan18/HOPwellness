@@ -32,7 +32,12 @@ export default function Router() {
         <Route path="moodtracker" element={<MoodTracker />} />
         <Route path="community">
           <Route index element={<Community />} />
-          <Route path=":communityId" element={<EachCommunityPage />} />
+          <Route path=":communityId">
+            <Route index element={<EachCommunityPage />} />
+            <Route path="posts">
+              <Route path=":postId" element={<h1>Post {":postId"}</h1>} />
+            </Route>
+          </Route>
         </Route>
         <Route path="settings" element={<DashboardSettings />} />
         <Route path="*" element={<CommingSoon />} />

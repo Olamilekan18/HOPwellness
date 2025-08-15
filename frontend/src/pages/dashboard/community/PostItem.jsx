@@ -96,6 +96,15 @@ export default function PostItem({
                 {new Date(post.createdAt).toLocaleString()}
               </span>
             </div>
+
+            <a
+              className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline hover:text-emerald-800 cursor-pointer dark:hover:text-emerald-200"
+              onClick={() => {
+                console.log("View More clicked!");
+              }}
+            >
+              View More
+            </a>
           </div>
 
           <p className="text-gray-800 dark:text-gray-100 text-sm sm:text-base leading-relaxed mb-4">

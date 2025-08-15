@@ -2,13 +2,15 @@ import { MessageCircle, Share, ThumbsUp } from "lucide-react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
-
-export default function PostItem({ post, comments: initialComments, likeCount: initialLikeCount, currentUser }) {
+export default function PostItem({
+  post,
+  comments: initialComments,
+  likeCount: initialLikeCount,
+  currentUser,
+}) {
   const token = localStorage.getItem("token");
-  if (!token) return null;
-
   const [liked, setLiked] = useState(post.likes?.includes(currentUser?._id));
   const [likeCount, setLikeCount] = useState(initialLikeCount || 0);
   const [likeLoading, setLikeLoading] = useState(false);
@@ -17,6 +19,7 @@ export default function PostItem({ post, comments: initialComments, likeCount: i
   const [comments, setComments] = useState(initialComments || []);
   const [commentText, setCommentText] = useState("");
   const [commentLoading, setCommentLoading] = useState(false);
+  if (!token) return null;
 
   const handleLike = async () => {
     if (likeLoading) return;
@@ -55,27 +58,26 @@ export default function PostItem({ post, comments: initialComments, likeCount: i
     }
   };
 
-const handleShare = (post) => {
-  if (navigator.share) {
-    navigator
-      .share({
-        title: post?.title || "Check this out",
-        text: post?.content ? post.content.slice(0, 100) + "..." : "",
-        url: `${window.location.origin}/posts/${post._id}`,
-      })
-      .catch((err) => {
-        console.error("Error sharing:", err);
-      });
-  } else {
-    toast.error("Sharing not supported on this browser.");
-  }
-};
-
+  const handleShare = (post) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: post?.title || "Check this out",
+          text: post?.content ? post.content.slice(0, 100) + "..." : "",
+          url: `${window.location.origin}/posts/${post._id}`,
+        })
+        .catch((err) => {
+          console.error("Error sharing:", err);
+        });
+    } else {
+      toast.error("Sharing not supported on this browser.");
+    }
+  };
 
   return (
     <div className="bg-white rounded-2xl border border-emerald-200 dark:bg-gray-800 shadow-lg p-4">
       <article className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-        <div className="flex-shrink-0 sm:w-14 sm:h-14 w-12 h-12 mx-auto sm:mx-0">
+        <div className="flex-shrink-0 sm:w-10 sm:h-10 w-10 h-10 mx-auto sm:mx-0">
           <img
             className="w-full h-full rounded-full object-cover"
             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
@@ -83,8 +85,7 @@ const handleShare = (post) => {
           />
         </div>
 
-        <div className="flex-1 min-w-0">
-
+        <div className="flex-1 min-w-0 ml-2">
           <div className="flex justify-between items-center mb-2 flex-col sm:flex-row">
             <div className="flex items-baseline space-x-1 text-sm min-w-0">
               <span className="font-medium text-gray-900 dark:text-gray-100 truncate hover:text-emerald-600 hover:underline cursor-pointer">
@@ -105,7 +106,9 @@ const handleShare = (post) => {
             <div className="mt-4 rounded-xl overflow-hidden">
               <img
                 src={post.image}
-                alt={`${post.author?.name} | ${new Date(post.createdAt).toLocaleString()}`}
+                alt={`${post.author?.name} | ${new Date(
+                  post.createdAt
+                ).toLocaleString()}`}
                 className="w-full object-cover aspect-video rounded-xl"
               />
             </div>
@@ -134,14 +137,13 @@ const handleShare = (post) => {
               <span>{comments.length}</span>
             </button>
             <button
-            aria-label="share"
-            onClick={() => handleShare(post)} 
-            className="flex items-center space-x-1 group hover:text-green-500 dark:hover:text-green-400 p-2 rounded-full hover:bg-green-50 dark:hover:bg-green-900 transition-colors duration-200 mb-2 sm:mb-0"
->
-  <Share />
-  <span>Share</span>
-</button>
-
+              aria-label="share"
+              onClick={() => handleShare(post)}
+              className="flex items-center space-x-1 group hover:text-green-500 dark:hover:text-green-400 p-2 rounded-full hover:bg-green-50 dark:hover:bg-green-900 transition-colors duration-200 mb-2 sm:mb-0"
+            >
+              <Share />
+              <span>Share</span>
+            </button>
           </div>
 
           {showComments && (
@@ -204,17 +206,19 @@ const handleShare = (post) => {
 
 PostItem.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     author: PropTypes.shape({
       _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
     }).isRequired,
     content: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     image: PropTypes.string,
-    likes: PropTypes.array
+    likes: PropTypes.array,
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string,
   }).isRequired,
   comments: PropTypes.array,
   likeCount: PropTypes.number,
-  currentUser: PropTypes.object.isRequired
+  currentUser: PropTypes.object,
 };

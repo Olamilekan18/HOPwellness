@@ -177,7 +177,8 @@ const reloadCommunity = () => {
                 <h3 className="font-semibold dark:text-white  ">Community feed</h3>
               </div>
 
-<PostComposer communityId={selected?._id} onPost = {reloadCommunity} />
+              <PostComposer communityId={selected?._id} onPost = {reloadCommunity} />
+              
               {loading ? (
                 <div className="text-sm text-emerald-900/70">Loading…</div>
               ) : stats?.recentActivity?.length ? (

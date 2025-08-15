@@ -8,7 +8,7 @@ const PostComposer = ({ communityId, onPostCreated }) => {
   const handleNewPost = async () => {
     if (!content.trim()) return alert("Post cannot be empty!");
 
-    const token = localStorage.getItem("token"); // ✅ ensure token exists
+    const token = localStorage.getItem("token"); 
     if (!token) return alert("You must be logged in");
 
     setLoading(true);

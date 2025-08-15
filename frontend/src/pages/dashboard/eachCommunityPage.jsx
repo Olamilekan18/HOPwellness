@@ -56,7 +56,29 @@ export default function EachCommunityPage() {
                   <PostItem key={p.id} post={p} />
                 ))
               ) : (
-                <div className="text-sm text-gray-500">No posts yet.</div>
+                <div className="flex flex-col items-center justify-center mt-10 space-y-4">
+                  <svg
+                    className="w-16 h-16 text-emerald-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 4v16m8-8H4"
+                    ></path>
+                  </svg>
+                  <span className="text-2xl sm:text-3xl font-semibold text-emerald-700">
+                    No posts yet.
+                  </span>
+                  <p className="text-sm sm:text-base text-gray-600 text-center">
+                    Be the first to share something exciting! Add your post and
+                    start the conversation.
+                  </p>
+                </div>
               )}
             </div>
 

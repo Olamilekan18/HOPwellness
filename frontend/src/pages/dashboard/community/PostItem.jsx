@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function PostItem({
   post,
@@ -10,6 +11,8 @@ export default function PostItem({
   likeCount: initialLikeCount,
   currentUser,
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const token = localStorage.getItem("token");
   const [liked, setLiked] = useState(post.likes?.includes(currentUser?._id));
   const [likeCount, setLikeCount] = useState(initialLikeCount || 0);
@@ -100,7 +103,7 @@ export default function PostItem({
             <a
               className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline hover:text-emerald-800 cursor-pointer dark:hover:text-emerald-200"
               onClick={() => {
-                console.log("View More clicked!");
+                navigate(`${location.pathname}/posts/${post._id}`);
               }}
             >
               View More

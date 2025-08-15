@@ -14,6 +14,7 @@ import ContactPage from "./pages/contact";
 import Community from "./pages/dashboard/community";
 import Nutrition from "./pages/dashboard/nutrition";
 import EachCommunityPage from "./pages/dashboard/eachCommunityPage";
+import EachPostDetails from "./pages/dashboard/community/eachCommunity/posts/eachPostDetails";
 export default function Router() {
   return (
     <Routes>
@@ -35,7 +36,7 @@ export default function Router() {
           <Route path=":communityId">
             <Route index element={<EachCommunityPage />} />
             <Route path="posts">
-              <Route path=":postId" element={<h1>Post {":postId"}</h1>} />
+              <Route path=":postId" element={<EachPostDetails />} />
             </Route>
           </Route>
         </Route>

@@ -24,14 +24,16 @@ export default function EachCommunityLayout({
   const openCommunity = async (id) => {
     setLoading(true);
     try {
-      const detail = await axios.get(`/api/community/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setSelected(detail.data);
       const stat = await axios.get(`/api/community/${id}/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStats(stat.data);
+
+      const detail = await axios.get(`/api/community/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSelected(detail.data);
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -47,7 +49,6 @@ export default function EachCommunityLayout({
             <div className="lg:col-span-2 space-y-6">{children}</div>
 
             <div className="space-y-6">
-              {/* Community Stats */}
               <div className="rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-emerald-200 dark:border-emerald-700">
                 <h4 className="font-semibold mb-4 text-emerald-900 dark:text-white">
                   Community Stats
@@ -71,7 +72,6 @@ export default function EachCommunityLayout({
                 </div>
               </div>
 
-              {/* Members List */}
               <div className="rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-emerald-200 dark:border-emerald-700">
                 <div className="flex justify-between items-center mb-4">
                   <h4 className="font-semibold text-emerald-900 dark:text-white">
@@ -114,4 +114,5 @@ EachCommunityLayout.propTypes = {
   children: PropTypes.node.isRequired,
   communityId: PropTypes.string.isRequired,
   setLoading: PropTypes.func,
+  selected: PropTypes.object,
 };

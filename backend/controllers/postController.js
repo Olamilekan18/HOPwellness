@@ -133,6 +133,8 @@ export const commentOnPost = async (req, res) => {
 
     await newComment.save();
 
+    const populatedComment = await newComment.populate('author', 'name');
+
     if (post.author._id.toString() !== req.user.id.toString()) {
       const notification = new Notification({
         user: post.author._id,
@@ -144,7 +146,7 @@ export const commentOnPost = async (req, res) => {
       await notification.save();
     }
 
-    res.status(201).json({ message: 'Comment added', comment: newComment });
+    res.status(201).json({ message: 'Comment added', comment: populatedComment });
   } catch (error) {
     res.status(500).json({ message: 'Failed to comment', error: error.message });
   }

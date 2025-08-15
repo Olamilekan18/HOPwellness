@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Layout from "./community/Layout";
@@ -8,12 +7,14 @@ import PostItem from "./community/PostItem";
 import PostComposer from "./community/PostComposer";
 import axios from "axios";
 import EachCommunityPageHeader from "./community/eachCommunity/header";
+
 export default function EachCommunityPage() {
   const navigate = useNavigate();
   const { communityId } = useParams();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [posts, setPosts] = useState([]);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -23,14 +24,23 @@ export default function EachCommunityPage() {
   const openCommunity = async (id) => {
     setLoading(true);
     try {
+      // 1. Get community details
       const detail = await axios.get(`/api/community/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelected(detail.data);
+
+      // 2. Get stats
       const stat = await axios.get(`/api/community/${id}/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStats(stat.data);
+
+      // 3. Get posts for this community (fresh likes/comments)
+      const postsRes = await axios.get(`/api/posts/community/${id}/posts`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPosts(postsRes.data);
     } finally {
       setLoading(false);
     }
@@ -46,14 +56,20 @@ export default function EachCommunityPage() {
             <div className="lg:col-span-2 space-y-6">
               <PostComposer
                 communityId={selected?._id}
-                onPost={() => openCommunity(selected._id)}
+                onPost={() => openCommunity(selected._id)} // refresh after post
               />
 
               {loading ? (
                 <div className="text-sm text-gray-500">Loading...</div>
-              ) : stats?.recentActivity?.length ? (
-                stats.recentActivity.map((p) => (
-                  <PostItem key={p.id} post={p} />
+              ) : posts.length ? (
+                posts.map((p) => (
+                  <PostItem
+                    key={p._id}
+                    post={p}
+                    comments={p.comments || []}
+                    likeCount={p.likes?.length || 0}
+                    currentUser={selected.currentUser} // if you have this
+                  />
                 ))
               ) : (
                 <div className="flex flex-col items-center justify-center mt-10 space-y-4">
@@ -83,6 +99,7 @@ export default function EachCommunityPage() {
             </div>
 
             <div className="space-y-6">
+              {/* Community Stats */}
               <div className="rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-emerald-200 dark:border-emerald-700">
                 <h4 className="font-semibold mb-4 text-emerald-900 dark:text-white">
                   Community Stats
@@ -105,6 +122,8 @@ export default function EachCommunityPage() {
                   />
                 </div>
               </div>
+
+              {/* Members List */}
               <div className="rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-emerald-200 dark:border-emerald-700">
                 <div className="flex justify-between items-center mb-4">
                   <h4 className="font-semibold text-emerald-900 dark:text-white">

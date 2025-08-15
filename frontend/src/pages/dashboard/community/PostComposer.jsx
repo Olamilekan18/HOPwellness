@@ -20,7 +20,7 @@ const PostComposer = ({ communityId, onPostCreated }) => {
         theme: "colored",
         style: { backgroundColor: "#10b981", color: "#fff" },
       });
-    const token = localStorage.getItem("token"); // ✅ ensure token exists
+    const token = localStorage.getItem("token"); 
     if (!token)
       return toast.error("You must be logged in!", {
         position: "top-center",
@@ -54,6 +54,7 @@ const PostComposer = ({ communityId, onPostCreated }) => {
       });
       setContent("");
       if (onPostCreated) onPostCreated();
+      window.location.reload(); 
     } catch (err) {
       console.error(err);
       toast.error("Failed to post", {

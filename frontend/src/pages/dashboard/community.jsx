@@ -5,15 +5,16 @@ import Layout from "./community/Layout";
 import CommunityCard from "./community/CommunityCard";
 import RightRail from "./community/RightRail";
 import { useNavigate } from "react-router-dom";
+import CreateCommunityForm from "./community/CreateCommunityForm";
 
 export default function CommunitiesPage() {
   const navigate = useNavigate();
   const [joined, setJoined] = useState([]);
   const [all, setAll] = useState([]);
-  // const [selected, setSelected] = useState(null);
-  // const [stats, setStats] = useState(null);
-  // const [loading, setLoading] = useState(false);
+
+ 
   const token = localStorage.getItem("token");
+  
 
   useEffect(() => {
     fetchAll();
@@ -40,29 +41,8 @@ export default function CommunitiesPage() {
     }
   };
 
-  // const openCommunity = async (id) => {
-  //   setLoading(true);
-  //   try {
-  //     const detail = await axios.get(`/api/community/${id}`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setSelected(detail.data);
-  //     const stat = await axios.get(`/api/community/${id}/stats`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setStats(stat.data);
-  //   } catch (e) {
-  //     console.error("openCommunity failed", e);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const reloadCommunity = () => {
-  //   if (selected?._id) {
-  //     openCommunity(selected._id);
-  //   }
-  // };
+ 
+ 
 
   const handleJoin = async (id) => {
     try {
@@ -70,8 +50,7 @@ export default function CommunitiesPage() {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Joined community!");
-      // fetchAllCommunities();
-      // fetchJoinedCommunities();
+      
       window.location.reload();
     } catch (error) {
       console.error("Join failed:", error.response?.data || error.message);
@@ -114,6 +93,7 @@ export default function CommunitiesPage() {
           </p>
         </div>
 
+      
         <section className="px-3 py-4">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-3xl font-semibold dark:text-green-300 text-emerald-900">
@@ -148,6 +128,8 @@ export default function CommunitiesPage() {
             </div>
           )}
         </section>
+
+          <CreateCommunityForm onCreated={fetchAll} />
 
         <section className="pt-6">
           <div className="flex items-center justify-between mb-3">

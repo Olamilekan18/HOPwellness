@@ -80,41 +80,6 @@ export const getPostById = async (req, res) => {
   }
 };
 
-
-
-//   try {
-//     const post = await Post.findById(postId);
-//     if (!post) return res.status(404).json({ message: 'Post not found' });
-
-//     const userId = req.user.id;
-//     const index = post.likes.indexOf(userId);
-//     let message = '';
-
-//     if (index === -1) {
-//       post.likes.push(userId);
-//       message = 'Post liked';
-
-//       if (post.author.toString() !== userId) {
-//         await sendNotification({
-//           userId: post.author,                
-//           type: 'like',                       
-//           message: `${req.user.name} liked your post`, 
-//           fromUser: userId,
-//           post: postId
-//         });
-//       }
-//     } else {
-//       post.likes.splice(index, 1);
-//       message = 'Post unliked';
-//     }
-
-//     await post.save();
-//     return res.status(200).json({ message });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Failed to like/unlike post', error: error.message });
-//   }
-// };
-
 export const likePost = async (req, res) => {
 
   const { postId } = req.params;

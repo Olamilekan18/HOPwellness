@@ -149,12 +149,10 @@ export default function PostItem({
             </a>
           </div>
 
-          {/* Content */}
           <p className="text-gray-800 dark:text-gray-100 text-sm sm:text-base leading-relaxed mb-4">
             {post.content}
           </p>
 
-          {/* Image */}
           {post.image && (
             <div className="mt-4 rounded-xl overflow-hidden">
               <img
@@ -167,7 +165,6 @@ export default function PostItem({
             </div>
           )}
 
-          {/* Actions */}
           <div className="flex justify-between items-center mt-4 text-gray-500 dark:text-gray-400 text-xs sm:text-sm space-x-4 sm:space-x-0 flex-row">
             <button
               aria-label="like"

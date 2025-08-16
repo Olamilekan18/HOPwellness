@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import EachCommunityLayout from "../eachCommunityLayout";
@@ -215,21 +214,38 @@ export default function EachPostDetails() {
                 Comments
               </h3>
 
-              <div className="space-y-3 max-h-52 overflow-y-auto">
+              <div className="space-y-3 overflow-y-auto">
                 {comments.length === 0 && (
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
                     No comments yet.
                   </p>
                 )}
                 {comments.map((c) => (
-                  <div key={c._id} className="border-b pb-2 dark:border-gray-700">
-                    <p className="text-gray-800 dark:text-gray-200 text-sm">
-                      {c.content}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      — {c.author?.name} on{" "}
-                      {new Date(c.createdAt).toLocaleString()}
-                    </p>
+                  <div
+                    key={c._id}
+                    className="flex items-start border-1 dark:border-white space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm mb-3"
+                  >
+                    {/* Avatar */}
+                    <div className="flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-semibold text-sm">
+                        {c.author?.name?.[0]?.toUpperCase() || "A"}
+                      </div>
+                    </div>
+
+                    {/* Comment content */}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          {c.author?.name || "Anonymous"}
+                        </span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          {new Date(c.createdAt).toLocaleString()}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 dark:text-gray-200 leading-snug">
+                        {c.content}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>

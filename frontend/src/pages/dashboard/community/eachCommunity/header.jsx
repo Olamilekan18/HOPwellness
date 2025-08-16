@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Settings } from "lucide-react";
 import Prototypes from "prop-types";
 export default function EachCommunityPageHeader({ navigate, selected }) {
   return (
@@ -15,7 +15,6 @@ export default function EachCommunityPageHeader({ navigate, selected }) {
           {selected.icon || "🌿"}
         </div>
         <div className="flex flex-col items-center sm:items-start space-y-4">
-          {/* Text Content */}
           <div className="text-white text-center sm:text-left">
             <h1 className="text-xl sm:text-2xl font-bold mb-1">
               {selected.name}
@@ -28,8 +27,8 @@ export default function EachCommunityPageHeader({ navigate, selected }) {
       </div>
 
       <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-        <button className="bg-white text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 px-6 py-2 rounded-full font-medium shadow-lg transition-all">
-          Join
+        <button className="bg-white text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 px-4 py-2 rounded-full font-medium shadow-lg transition-all">
+          <Settings />
         </button>
       </div>
     </div>

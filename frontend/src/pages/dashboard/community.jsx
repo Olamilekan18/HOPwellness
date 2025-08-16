@@ -62,8 +62,8 @@ export default function CommunitiesPage() {
     <Layout current="communities" right={<RightRail />}>
       <div className="mt-5 p-5">
         <div className="bg-white dark:bg-gray-800 border border-emerald-200 dark:border-emerald-600 rounded-3xl shadow-xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-between mb-4 flex-col sm:flex-row">
+            <div className="flex items-center space-x-3 mb-3 sm:mb-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 text-emerald-600 dark:text-emerald-400"

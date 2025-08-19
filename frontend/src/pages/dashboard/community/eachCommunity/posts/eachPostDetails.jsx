@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import EachCommunityLayout from "../eachCommunityLayout";
@@ -24,7 +23,6 @@ export default function EachPostDetails() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Fetch post details
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -54,7 +52,6 @@ export default function EachPostDetails() {
     if (token) fetchPost();
   }, [postId, token, currentUserId]);
 
-  // Like handler
   const handleLike = async () => {
     if (likeLoading) return;
     setLikeLoading(true);
@@ -78,7 +75,6 @@ export default function EachPostDetails() {
     }
   };
 
-  // Comment handler
   const handleComment = async (e) => {
     e.preventDefault();
     if (!commentText.trim()) return;
@@ -103,7 +99,6 @@ export default function EachPostDetails() {
     }
   };
 
-  // Share handler
   const handleShare = () => {
     if (navigator.share) {
       navigator
@@ -118,7 +113,6 @@ export default function EachPostDetails() {
     }
   };
 
-  // Loading state
   if (loading) {
     return (
       <EachCommunityLayout communityId={communityId} setLoading={setLoading}>
@@ -164,7 +158,6 @@ export default function EachPostDetails() {
             </button>
           </div>
 
-          {/* Content */}
           <p className="text-gray-800 dark:text-gray-200 text-sm mb-4">
             {post.content}
           </p>
@@ -208,7 +201,6 @@ export default function EachPostDetails() {
             </button>
           </div>
 
-          {/* Comments Section */}
           {showComments && (
             <div className="mt-5">
               <h3 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-3">

@@ -64,6 +64,7 @@ export default function NewMoodSection({
     }
 
     setIsSaving(true);
+    window.location.reload(); 
     try {
       const response = await axios.post(
         "/api/mood/checkin",

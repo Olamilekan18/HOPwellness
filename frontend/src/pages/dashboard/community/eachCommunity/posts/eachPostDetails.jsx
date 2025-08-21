@@ -125,7 +125,7 @@ export default function EachPostDetails() {
           <div className="flex flex-col items-center justify-center space-x-2">
             <div className="w-12 h-12 border-4 border-t-4 border-emerald-600 dark:border-emerald-400 rounded-full animate-spin"></div>
             <p className="text-xl font-semibold text-gray-900 dark:text-white">
-              Loading...
+              Loading... 
             </p>
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -153,7 +153,7 @@ export default function EachPostDetails() {
             </p>
           </div>
           <button
-            onClick={() => navigate(`/dashboard/community/${communityId}/`)}
+            onClick={() => navigate(`/dashboard/community/${communityId}`)}
             className="px-5 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
           >
             Create a Post

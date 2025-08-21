@@ -4,7 +4,7 @@ export default function EachCommunityPageHeader({ navigate, selected }) {
   return (
     <div className="relative bg-gradient-to-r from-emerald-600 to-emerald-400 h-56 sm:h-65 rounded-b-3xl shadow-lg overflow-hidden">
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/dashboard/community")}
         className="absolute top-4 left-4 flex items-center gap-2 text-white font-semibold hover:text-emerald-200 transition-all cursor-pointer"
       >
         <ArrowLeft size={18} /> <span className="hidden sm:inline">Back</span>

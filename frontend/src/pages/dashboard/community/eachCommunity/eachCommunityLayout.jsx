@@ -45,7 +45,7 @@ export default function EachCommunityLayout({
         <>
           <EachCommunityPageHeader navigate={navigate} selected={selected} />
 
-          <div className="mt-16 grid lg:grid-cols-3 px-5 py-3 gap-8">
+          <div className="mt-5 grid lg:grid-cols-3 px-3 py-3 gap-8">
             <div className="lg:col-span-2 space-y-6">{children}</div>
 
             <div className="space-y-6">

@@ -42,7 +42,16 @@ export default function EachCommunityPage() {
       />
 
       {loading ? (
-        <div className="text-sm text-gray-500">Loading...</div>
+        <div className="flex flex-col justify-center items-center space-x-3 text-emerald-600 dark:text-emerald-400">
+          <div>
+            <div className="animate-pulse flex space-x-1">
+              <div className="h-10 w-10 rounded-full bg-emerald-600 dark:bg-emerald-400"></div>
+              <div className="h-10 w-10 rounded-full bg-emerald-600 dark:bg-emerald-400"></div>
+              <div className="h-10 w-10 rounded-full bg-emerald-600 dark:bg-emerald-400"></div>
+            </div>
+          </div>
+          <span className="text-lg mt-3">Loading</span>
+        </div>
       ) : posts.length ? (
         posts.map((p) => (
           <PostItem

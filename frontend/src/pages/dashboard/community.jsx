@@ -133,18 +133,12 @@ export default function CommunitiesPage() {
           )}
         </section>
 
-<<<<<<< HEAD
-        <div ref={formRef} >
-          <CreateCommunityForm onCreated={fetchAll} />
-        </div>
-=======
         {modalOpen ? (
           <CreateCommunityForm
             onCreated={fetchAll}
             setModalOpen={setModalOpen}
           />
         ) : null}
->>>>>>> 75710b9b62f48f4578f14acc8ee727327cfe1d32
 
         <section className="pt-6">
           <div className="flex items-center justify-between mb-3">

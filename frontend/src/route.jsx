@@ -15,6 +15,7 @@ import Community from "./pages/dashboard/community";
 import Nutrition from "./pages/dashboard/nutrition";
 import EachCommunityPage from "./pages/dashboard/eachCommunityPage";
 import EachPostDetails from "./pages/dashboard/community/eachCommunity/posts/eachPostDetails";
+import Chat from "./pages/AIChatbot";
 export default function Router() {
   return (
     <Routes>
@@ -41,6 +42,7 @@ export default function Router() {
           </Route>
         </Route>
         <Route path="settings" element={<DashboardSettings />} />
+        <Route path="ai-chatbot" element={<Chat />} />
         <Route path="*" element={<CommingSoon />} />
       </Route>
     </Routes>

@@ -98,7 +98,7 @@ export default function Layout({ children, right, current }) {
 
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-full bg-emerald-100 dark:bg-gray-700 hover:bg-emerald-200 dark:hover:bg-gray-600 transition-colors duration-200"
+                className="p-2 rounded-full bg-emerald-100 dark:bg-gray-700 hover:bg-emerald-200 dark:hover:bg-gray-600 transition-colors duration-200 cursor-pointer"
                 title="Toggle Dark Mode"
               >
                 {darkMode ? (

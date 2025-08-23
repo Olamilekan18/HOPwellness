@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "mongodb": "^6.17.0",
+    "openai": "^5.12.2",
     "react-toastify": "^11.0.5"
   }
 }

@@ -119,7 +119,6 @@ export default function PostItem({
   return (
     <div className="bg-white rounded-2xl border border-emerald-200 dark:bg-gray-800 shadow-lg p-4">
       <article className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-        {/* Avatar */}
         <div className="flex-shrink-0 sm:w-10 sm:h-10 w-10 h-10 mx-auto sm:mx-0">
           <img
             className="w-full h-full rounded-full object-cover"
@@ -129,7 +128,6 @@ export default function PostItem({
         </div>
 
         <div className="flex-1 min-w-0 ml-2">
-          {/* Header */}
           <div className="flex justify-between items-center mb-2 flex-col sm:flex-row">
             <div className="flex items-baseline space-x-1 text-sm min-w-0">
               <span className="font-medium text-gray-900 dark:text-gray-100 truncate hover:text-emerald-600 hover:underline cursor-pointer">
@@ -195,33 +193,42 @@ export default function PostItem({
             </button>
           </div>
 
-          {/* Comments */}
           {showComments && (
             <div className="mt-4">
               <div className="mb-2 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
                 Comments
               </div>
-              <div className="space-y-2 max-h-40 overflow-y-auto">
+              <div className="space-y-2 max-h-60 overflow-y-auto">
                 {comments.length === 0 && (
                   <div className="text-gray-500 dark:text-gray-400 text-xs">
                     No comments yet.
                   </div>
                 )}
                 {comments.map((c) => (
-                  <div key={c._id} className="flex items-start space-x-2">
-                    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-bold">
-                      {c.author?.name?.[0]?.toUpperCase() || "A"}
+                  <div
+                    key={c._id}
+                    className="flex items-start border-1 dark:border-white space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm mb-3"
+                  >
+                    {/* Avatar */}
+                    <div className="flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-semibold text-sm">
+                        {c.author?.name?.[0]?.toUpperCase() || "A"}
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-xs font-medium text-gray-900 dark:text-gray-100">
-                        {c.author?.name || "Anonymous"}
-                        <span className="ml-2 text-gray-400 dark:text-gray-500 text-xs">
+
+                    {/* Comment content */}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          {c.author?.name || "Anonymous"}
+                        </span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
                           {new Date(c.createdAt).toLocaleString()}
                         </span>
                       </div>
-                      <div className="text-xs text-gray-700 dark:text-gray-200">
+                      <p className="text-sm text-gray-700 dark:text-gray-200 leading-snug">
                         {c.content}
-                      </div>
+                      </p>
                     </div>
                   </div>
                 ))}

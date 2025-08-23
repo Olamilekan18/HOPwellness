@@ -12,6 +12,7 @@ import communityRoutes from './routes/community.js';
 import postRoutes from './routes/post.js';
 import notificationRoutes from './routes/notification.js';
 import nutritionRoutes from './routes/nutritionRoutes.js';
+import chat from './routes/chat.js';
 
 dotenv.config();
 connectDB(); 
@@ -28,6 +29,7 @@ app.use('/api/community', communityRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/nutrition', nutritionRoutes);
+app.use('/api/chat', chat);
 
 
 

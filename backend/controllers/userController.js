@@ -32,10 +32,8 @@ export const checkStreak = async (req, res) => {
 
   if (!lastDate || lastDate.toDateString() !== today.toDateString()) {
     if (lastDate && lastDate.toDateString() === yesterday.toDateString()) {
-      // Visited yesterday — continue streak
       user.streak.count += 1;
     } else {
-      // Missed a day — reset streak
       user.streak.count = 1;
     }
     user.streak.lastDate = today;
@@ -70,7 +68,7 @@ export const getUserBadges = async (req, res) => {
           conditionMet: badge.condition(user),
         };
       }),
-      badgeIds: user.badges, // Optional raw list
+      badgeIds: user.badges,
     });
   } catch (err) {
     console.error(err);

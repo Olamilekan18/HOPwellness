@@ -1,10 +1,10 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Settings } from "lucide-react";
 import Prototypes from "prop-types";
 export default function EachCommunityPageHeader({ navigate, selected }) {
   return (
     <div className="relative bg-gradient-to-r from-emerald-600 to-emerald-400 h-56 sm:h-65 rounded-b-3xl shadow-lg overflow-hidden">
       <button
-        onClick={() => navigate(`/dashboard/community`)}
+        onClick={() => navigate(-1)}
         className="absolute top-4 left-4 flex items-center gap-2 text-white font-semibold hover:text-emerald-200 transition-all cursor-pointer"
       >
         <ArrowLeft size={18} /> <span className="hidden sm:inline">Back</span>
@@ -15,7 +15,6 @@ export default function EachCommunityPageHeader({ navigate, selected }) {
           {selected.icon || "🌿"}
         </div>
         <div className="flex flex-col items-center sm:items-start space-y-4">
-          {/* Text Content */}
           <div className="text-white text-center sm:text-left">
             <h1 className="text-xl sm:text-2xl font-bold mb-1">
               {selected.name}
@@ -28,8 +27,8 @@ export default function EachCommunityPageHeader({ navigate, selected }) {
       </div>
 
       <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-        <button className="bg-white text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 px-6 py-2 rounded-full font-medium shadow-lg transition-all">
-          Join
+        <button className="bg-white text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 px-4 py-2 rounded-full font-medium shadow-lg transition-all">
+          <Settings />
         </button>
       </div>
     </div>

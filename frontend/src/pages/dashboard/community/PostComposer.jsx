@@ -74,7 +74,7 @@ const PostComposer = ({ communityId, onPostCreated }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl  dark:bg-gray-900">
+    <div className=" rounded-2xl  dark:bg-gray-900">
       <textarea
         className="w-full p-4 border border-gray-300 rounded-lg shadow-sm resize-none dark:bg-gray-800 dark:text-white dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
         rows="7"

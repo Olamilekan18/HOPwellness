@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function CreateCommunityForm({ onCreated }) {
+export default function CreateCommunityForm({ onCreated, setModalOpen }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,51 +21,65 @@ export default function CreateCommunityForm({ onCreated }) {
       );
       setName("");
       setDescription("");
-      if (onCreated) onCreated(res.data); 
-      window.location.reload(); 
+      if (onCreated) onCreated(res.data);
+      window.location.reload();
+      setModalOpen(false);
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Failed to create community"
-      );
+      setError(err.response?.data?.message || "Failed to create community");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md max-w-md mx-auto mb-8"
-    >
-      <h2 className="text-xl font-bold mb-4 text-emerald-700 dark:text-emerald-300">
-        Create a Community
-      </h2>
-      {error && (
-        <div className="mb-2 text-red-600 dark:text-red-400 text-sm">{error}</div>
-      )}
-      <input
-        className="w-full mb-3 px-4 py-2 rounded border border-emerald-200 dark:border-emerald-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white"
-        type="text"
-        placeholder="Community Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <textarea
-        className="w-full mb-3 px-4 py-2 rounded border border-emerald-200 dark:border-emerald-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white"
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        rows={3}
-        required
-      />
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-2 px-4 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors"
-      >
-        {loading ? "Creating..." : "Create Community"}
-      </button>
-    </form>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/20 backdrop-blur-sm">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-md w-full relative">
+        <button
+          onClick={() => setModalOpen(false)}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
+        <h2 className="text-xl font-bold mb-4 text-emerald-700 dark:text-emerald-300">
+          Create a Community
+        </h2>
+
+        {error && (
+          <div className="mb-2 text-red-600 dark:text-red-400 text-sm">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <input
+            className="w-full mb-3 px-4 py-2 rounded border border-emerald-200 dark:border-emerald-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white"
+            type="text"
+            placeholder="Community Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+
+          <textarea
+            className="w-full mb-3 px-4 py-2 rounded border border-emerald-200 dark:border-emerald-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white resize-none"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={5}
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-2 px-4 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors"
+          >
+            {loading ? "Creating..." : "Create Community"}
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }

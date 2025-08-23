@@ -12,7 +12,7 @@ export default function CommunitiesPage() {
   const navigate = useNavigate();
   const [joined, setJoined] = useState([]);
   const [all, setAll] = useState([]);
-
+  const [modalOpen, setModalOpen] = useState(false);
   const token = localStorage.getItem("token");
   const formRef = useRef(null);
 
@@ -84,7 +84,10 @@ export default function CommunitiesPage() {
                 Communities
               </h2>
             </div>
-            <button className="bg-emerald-600 text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-emerald-700 transition duration-200">
+            <button
+              className="bg-emerald-600 text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-emerald-700 transition duration-200 cursor-pointer"
+              onClick={() => setModalOpen(true)}
+            >
               Create
             </button>
           </div>
@@ -130,9 +133,18 @@ export default function CommunitiesPage() {
           )}
         </section>
 
+<<<<<<< HEAD
         <div ref={formRef} >
           <CreateCommunityForm onCreated={fetchAll} />
         </div>
+=======
+        {modalOpen ? (
+          <CreateCommunityForm
+            onCreated={fetchAll}
+            setModalOpen={setModalOpen}
+          />
+        ) : null}
+>>>>>>> 75710b9b62f48f4578f14acc8ee727327cfe1d32
 
         <section className="pt-6">
           <div className="flex items-center justify-between mb-3">

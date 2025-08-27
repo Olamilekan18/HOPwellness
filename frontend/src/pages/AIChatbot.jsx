@@ -65,7 +65,6 @@ export default function Chat() {
   return (
     <DashboardLayout>
       <div className="flex flex-col h-screen max-h-[85vh] bg-white dark:bg-gray-950">
-        {/* Header */}
         <header className="px-6 py-4 border-b border-green-100 dark:border-gray-800 flex items-center justify-between bg-white dark:bg-gray-900">
           <h1 className="text-2xl font-semibold text-green-700 dark:text-green-300 tracking-tight">
             AI Assistant
@@ -76,7 +75,6 @@ export default function Chat() {
           </div>
         </header>
 
-        {/* Chat Area */}
         <div
           ref={chatContainerRef}
           className="flex-1 overflow-y-auto px-4 py-5 space-y-4 scroll-smooth bg-white dark:bg-gray-950"
@@ -123,7 +121,6 @@ export default function Chat() {
           <div className="h-1" />
         </div>
 
-        {/* Composer */}
         <form
           onSubmit={(e) => {
             e.preventDefault();

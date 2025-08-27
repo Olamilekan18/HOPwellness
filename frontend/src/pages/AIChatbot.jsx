@@ -12,7 +12,7 @@ export default function Chat() {
     setMessages([
       {
         sender: "bot",
-        text: "Hello! I'm a MERN stack chatbot. How can I help you today?",
+        text: "Hop Wellness here, what do you need help with?",
       },
     ]);
   }, []);

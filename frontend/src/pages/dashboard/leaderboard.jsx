@@ -88,7 +88,7 @@ export default function Leaderboard() {
       name: user.name,
       xps: user.xp,
       badgeCount: user.badges ? user.badges.length : 0,
-      avatar: user.imageUrl || defaultImage, // Use a random avatar if none provided
+      avatar: user.imageUrl || defaultImage, 
     };
   });
 

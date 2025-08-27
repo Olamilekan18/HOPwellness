@@ -180,12 +180,8 @@ export default function EachPostDetails() {
           </button>
         </div>
 
-<<<<<<< HEAD
-          <p className="text-gray-800 dark:text-gray-200 text-sm mb-4">
-=======
         <div>
           <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed mb-3">
->>>>>>> 75710b9b62f48f4578f14acc8ee727327cfe1d32
             {post.content}
           </p>
           {post.image && (
@@ -227,19 +223,11 @@ export default function EachPostDetails() {
           </button>
         </div>
 
-<<<<<<< HEAD
-          {showComments && (
-            <div className="mt-5">
-              <h3 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                Comments
-              </h3>
-=======
         {showComments && (
           <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
               Comments
             </h3>
->>>>>>> 75710b9b62f48f4578f14acc8ee727327cfe1d32
 
             <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
               {comments.length === 0 ? (

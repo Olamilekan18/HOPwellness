@@ -107,7 +107,7 @@ export default function PostItem({
 
   useEffect(() => {
     axios
-      .get(`/api/posts/${post._id}`, {
+      .get(`${backendUrl}/api/posts/${post._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

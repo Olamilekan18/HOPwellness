@@ -83,7 +83,7 @@ export default function EachCommunityLayout({
               <h4 className="font-semibold text-emerald-900 dark:text-white">
                 Members
               </h4>
-              {selected.members.length > 4 && (
+              {selected.members?.length > 4 && (
                 <button
                   onClick={() => console.log("Show all members")}
                   className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 transition-all"
@@ -93,7 +93,7 @@ export default function EachCommunityLayout({
               )}
             </div>
             <div className="max-h-[320px] overflow-auto space-y-3">
-              {selected.members.slice(0, 4).map((m) => (
+              {selected.members?.slice(0, 4).map((m) => (
                 <div
                   key={m._id}
                   className="flex items-center gap-4 hover:bg-emerald-50 dark:hover:bg-emerald-700 rounded-lg p-3 transition-all"

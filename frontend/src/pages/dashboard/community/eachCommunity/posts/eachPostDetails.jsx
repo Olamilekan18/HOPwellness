@@ -60,7 +60,7 @@ export default function EachPostDetails() {
 
     try {
       const res = await axios.post(
-        `/api/posts/${postId}/like`,
+        `${backendUrl}/api/posts/${postId}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -84,7 +84,7 @@ export default function EachPostDetails() {
     setCommentLoading(true);
     try {
       const res = await axios.post(
-        `/api/posts/${postId}/comment`,
+        `${backendUrl}/api/posts/${postId}/comment`,
         { content: commentText },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -36,7 +36,7 @@ export default function WeeklyChallenge() {
             Authorization: `Bearer ${token}`,
           },
         });
-setDailyChallenges(Array.isArray(response.data.weekly) ? response.data.weekly : []);
+setWeeklyChallenges(Array.isArray(response.data.weekly) ? response.data.weekly : []);
 
       } catch (err) {
         console.error("Error fetching weekly challenges:", err);

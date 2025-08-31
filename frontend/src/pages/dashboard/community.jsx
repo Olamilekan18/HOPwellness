@@ -7,7 +7,7 @@ import RightRail from "./community/RightRail";
 import { useNavigate } from "react-router-dom";
 import CreateCommunityForm from "./community/CreateCommunityForm";
 import { useRef } from "react";
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 export default function CommunitiesPage() {
   const navigate = useNavigate();
   const [joined, setJoined] = useState([]);
@@ -23,7 +23,7 @@ export default function CommunitiesPage() {
 
   const fetchAll = async () => {
     try {
-      const { data } = await axios.get("/api/community");
+      const { data } = await axios.get(`${backendUrl}/api/community`);
       setAll(data);
     } catch (e) {
       console.error("getAll failed", e);
@@ -32,7 +32,7 @@ export default function CommunitiesPage() {
 
   const fetchJoined = async () => {
     try {
-      const { data } = await axios.get("/api/community/my", {
+      const { data } = await axios.get(`/api/community/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setJoined(data);
@@ -59,7 +59,7 @@ export default function CommunitiesPage() {
   };
   const isJoined = (id) => joined.some((c) => c._id === id);
   console.log("All communities:", all);
-  
+
 const unjoined = Array.isArray(all) ? all.filter(c => !isJoined(c._id)) : [];
 
   return (

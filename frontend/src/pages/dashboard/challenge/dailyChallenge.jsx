@@ -42,8 +42,8 @@ export default function DailyChallenge() {
             Authorization: `Bearer ${token}`,
           },
         });
-        setDailyChallenges(response.data.daily);
-        setError(null);
+setDailyChallenges(Array.isArray(response.data.daily) ? response.data.daily : []);
+
       } catch (err) {
         console.error("Error fetching daily challenges:", err);
         setError(err.message || "Failed to fetch daily challenges.");

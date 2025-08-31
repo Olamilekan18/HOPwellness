@@ -8,7 +8,7 @@ const ConditionsList = () => {
   useEffect(() => {
     const fetchConditions = async () => {
       try {
-        const response = await axios.get(`${backendUrl}`/api/nutrition/conditions``);
+        const response = await axios.get(`${backendUrl}/api/nutrition/conditions`);
         setConditions(response.data);
       } catch (error) {
         console.error('Error fetching conditions:', error);

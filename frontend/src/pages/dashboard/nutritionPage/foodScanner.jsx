@@ -269,7 +269,7 @@ const illnessDietData = {
         return;
       }
       try {
-        const LOGMEAL_API_TOKEN = "fdcd45850fb7eeff7e0460a650413e209f99ad64";
+        const LOGMEAL_API_TOKEN = "5222df552fbe9df2604c00649b465999d42f8878";
         const formData = new FormData();
         formData.append("image", imageFile);
 

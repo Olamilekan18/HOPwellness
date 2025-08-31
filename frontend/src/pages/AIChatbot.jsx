@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import DashboardLayout from "../componet/dashboard/dashboardLayout";
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 export default function Chat() {
   const chatContainerRef = useRef(null);
@@ -40,7 +41,7 @@ export default function Chat() {
     apiChatHistory.push({ role: "user", parts: [{ text: userMessage.text }] });
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chat", {
+      const response = await axios.post(`${backendUrl}`/api/chat, {
         chatHistory: apiChatHistory,
       });
       const botResponseText = response.data.text;
@@ -140,7 +141,7 @@ export default function Chat() {
                     sendMessage();
                   }
                 }}
-                placeholder="Ask me anything about your MERN stack project..."
+                placeholder="Ask me anything about your Health, Fitness, Nutrition..."
                 className="w-full resize-none rounded-xl border border-green-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 pr-12 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500/70 focus:border-green-400 dark:focus:ring-green-500/40 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 aria-label="Chat input"
                 disabled={isLoading}

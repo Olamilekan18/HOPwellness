@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 const ConditionsList = () => {
   const [conditions, setConditions] = useState([]);
@@ -7,7 +8,7 @@ const ConditionsList = () => {
   useEffect(() => {
     const fetchConditions = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/nutrition/conditions');
+        const response = await axios.get(`${backendUrl}`/api/nutrition/conditions``);
         setConditions(response.data);
       } catch (error) {
         console.error('Error fetching conditions:', error);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../../componet/dashboard/dashboardLayout";
+import { toast } from "react-toastify";
 
 export default function DashboardSettings() {
   const [profilePicture, setProfilePicture] = useState("");
@@ -23,6 +24,8 @@ export default function DashboardSettings() {
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
       localStorage.setItem("profilePicture", defaultImage);
       setProfilePicture(defaultImage);
+       window.location.reload();
+    toast.success("Profile picture updated!");
     }
   }, []);
 
@@ -31,6 +34,11 @@ export default function DashboardSettings() {
       localStorage.setItem("profilePicture", profilePicture);
     }
   }, [profilePicture]);
+
+  function handleSaveChanges() {
+    window.location.reload();
+    toast.success("Settings saved!");
+  }
 
   return (
     <DashboardLayout>
@@ -126,9 +134,9 @@ export default function DashboardSettings() {
           </div>
         </div>
 
-        {/* Save Button */}
         <div className="text-right">
-          <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow transition">
+          <button onClick={handleSaveChanges}
+           className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow transition">
             Save Changes
           </button>
         </div>

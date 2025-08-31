@@ -5,6 +5,8 @@ import { MessageCircle, Share, ThumbsUp } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { BsExclamationTriangle } from "react-icons/bs";
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
 export default function EachPostDetails() {
   const { communityId, postId } = useParams();
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ export default function EachPostDetails() {
         setLoading(true);
 
         const res = await axios.get(
-          `http://localhost:5000/api/posts/${postId}`,
+          `${backendUrl}/api/posts/${postId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

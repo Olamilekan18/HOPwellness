@@ -42,7 +42,6 @@ export default function EachCommunityLayout({
     }
   };
 
-  // Show Skeleton while loading
   if (!selected || !stats) {
     return <SkeletonLoader />;
   }

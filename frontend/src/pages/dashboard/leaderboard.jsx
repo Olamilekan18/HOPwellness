@@ -8,6 +8,7 @@ import secondRanking from "/badges/rankingSecond.png";
 import thirdRanking from "/badges/rankingThird.png";
 import ribbon from "/ribbon.png";
 import defaultImage from "/blank-profile-picture-973460_960_720.webp";
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 export default function Leaderboard() {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -18,7 +19,7 @@ export default function Leaderboard() {
     const fetchLeaderboard = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/leaderboard/xp"
+          `${backendUrl}/api/leaderboard/xp`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

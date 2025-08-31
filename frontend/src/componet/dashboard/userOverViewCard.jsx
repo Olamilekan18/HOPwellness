@@ -2,6 +2,8 @@ import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import defaultImage from "/blank-profile-picture-973460_960_720.webp";
 import { data } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
 
 export default function UserOverViewCard() {
   const [profilePicture, setProfilePicture] = useState("");
@@ -20,7 +22,7 @@ export default function UserOverViewCard() {
 
     const fetchStreak = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/user/me", {
+        const response = await fetch(`${backendUrl}/api/user/me`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

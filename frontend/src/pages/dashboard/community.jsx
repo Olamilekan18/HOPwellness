@@ -58,7 +58,9 @@ export default function CommunitiesPage() {
     }
   };
   const isJoined = (id) => joined.some((c) => c._id === id);
-  const unjoined = all.filter((c) => !isJoined(c._id));
+  console.log("All communities:", all);
+  
+const unjoined = Array.isArray(all) ? all.filter(c => !isJoined(c._id)) : [];
 
   return (
     <Layout current="communities" right={<RightRail />}>

@@ -133,17 +133,16 @@ export default function PastMoodNote({ refreshTrigger }) {
               </div>
 
               <div className="flex flex-wrap gap-2 mt-2">
-                {note.tags &&
-                  note.tags.map((tag, idx) => {
-                    return (
-                      <span
-                        key={idx}
-                        className="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-white px-3 py-1 rounded-full text-xs"
-                      >
-                        <FaTag className="text-green-400" /> {tag}
-                      </span>
-                    );
-                  })}
+               {Array.isArray(note.tags) &&
+          note.tags.map((tag, idx) => (
+    <span
+      key={idx}
+      className="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-white px-3 py-1 rounded-full text-xs"
+    >
+      <FaTag className="text-green-400" /> {tag}
+    </span>
+  ))}
+
               </div>
             </div>
           );

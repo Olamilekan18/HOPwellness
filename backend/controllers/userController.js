@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import { badgeDefinitions } from "../utils/badgeDefinitions.js";
 import Community from "../models/Community.js";
-import UserProfile from "../models/userProfile.js";
+import UserProfile from "../models/UserProfile.js";
 
 export const getUserProfile = async (req, res) => {
   try {

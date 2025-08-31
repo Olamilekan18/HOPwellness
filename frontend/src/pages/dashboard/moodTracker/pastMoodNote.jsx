@@ -3,6 +3,7 @@ import { FaSmile, FaSmileBeam, FaMeh, FaFrown, FaAngry } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
 
 const getMoodDisplay = (mood) => {
@@ -31,12 +32,12 @@ export default function PastMoodNote({ refreshTrigger }) {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get("/api/mood/logs", {
+      const response = await axios.get(`${backendUrl}/api/mood/logs` , {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      setMoodLogs(response.data);
+      setMoodLogs(response.data || []);
     } catch (err) {
       console.error(
         "Error fetching mood logs:",
@@ -94,7 +95,7 @@ export default function PastMoodNote({ refreshTrigger }) {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {moodLogs.map((note) => {
+        {Array.isArray(moodLogs) && moodLogs.map((note) => {
           const { icon, color } = getMoodDisplay(note.emoji);
           const formattedDate = new Date(note.date).toLocaleDateString(
             "en-US",

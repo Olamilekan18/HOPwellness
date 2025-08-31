@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
 export default function CreateCommunityForm({ onCreated, setModalOpen }) {
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ export default function CreateCommunityForm({ onCreated, setModalOpen }) {
     setLoading(true);
     try {
       const res = await axios.post(
-        "/api/community/create",
+        `${backendUrl}/api/community/create`,
         { name, description },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -41,7 +41,7 @@ export default function Chat() {
     apiChatHistory.push({ role: "user", parts: [{ text: userMessage.text }] });
 
     try {
-      const response = await axios.post(`${backendUrl}`/api/chat, {
+      const response = await axios.post(`${backendUrl}/api/chat`, {
         chatHistory: apiChatHistory,
       });
       const botResponseText = response.data.text;

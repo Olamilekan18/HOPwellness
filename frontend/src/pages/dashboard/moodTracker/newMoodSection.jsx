@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 export default function NewMoodSection({
   mood,
   setNewTag,
@@ -67,7 +68,7 @@ export default function NewMoodSection({
     window.location.reload(); 
     try {
       const response = await axios.post(
-        "/api/mood/checkin",
+        `${backendUrl}/api/mood/checkin`,
         {
           emoji: mood,
           title: noteTitle,

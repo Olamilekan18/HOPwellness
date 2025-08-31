@@ -8,6 +8,7 @@ import { GiNightSleep } from "react-icons/gi";
 import { FiTarget } from "react-icons/fi";
 import { NotebookText, Brain, Wind } from "lucide-react";
 import { MdOutlineAirlineSeatLegroomNormal } from "react-icons/md";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
 const challengeIcons = {
   "check-in": BsPatchCheckFill,
@@ -37,7 +38,7 @@ export default function DailyChallenge() {
         if (typeof window !== "undefined") {
           token = localStorage.getItem("token");
         }
-        const response = await axios.get("/api/challenges/assigned", {
+        const response = await axios.get(`${backendUrl}/api/challenges/assigned`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

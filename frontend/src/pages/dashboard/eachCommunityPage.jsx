@@ -12,6 +12,7 @@ export default function EachCommunityPage() {
   const [selected, setSelected] = useState(null);
   const [posts, setPosts] = useState([]);
   const token = localStorage.getItem("token");
+  const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
   useEffect(() => {
     openCommunity(communityId);
@@ -20,12 +21,12 @@ export default function EachCommunityPage() {
   const openCommunity = async (id) => {
     setLoading(true);
     try {
-      const detail = await axios.get(`/api/community/${id}`, {
+      const detail = await axios.get(`${backendUrl}/api/community/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelected(detail.data);
 
-      const postsRes = await axios.get(`/api/posts/community/${id}/posts`, {
+      const postsRes = await axios.get(`${backendUrl}/api/posts/community/${id}/posts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPosts(postsRes.data);

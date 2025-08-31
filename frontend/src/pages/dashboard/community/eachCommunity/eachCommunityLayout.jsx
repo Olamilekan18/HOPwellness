@@ -8,6 +8,7 @@ import RightRail from "../RightRail";
 import StatCard from "../StatCard";
 import EachCommunityPageHeader from "./header";
 import SkeletonLoader from "../../components/skeletonLoader";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
 export default function EachCommunityLayout({
   children,
@@ -26,12 +27,12 @@ export default function EachCommunityLayout({
   const openCommunity = async (id) => {
     setLoading(true); // Start loading
     try {
-      const stat = await axios.get(`/api/community/${id}/stats`, {
+      const stat = await axios.get(`${backendUrl}/api/community/${id}/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStats(stat.data);
 
-      const detail = await axios.get(`/api/community/${id}`, {
+      const detail = await axios.get(`${backendUrl}/api/community/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelected(detail.data);

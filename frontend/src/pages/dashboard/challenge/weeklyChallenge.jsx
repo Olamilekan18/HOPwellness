@@ -7,6 +7,7 @@ import { FaBottleWater } from "react-icons/fa6";
 import { BsPersonWalking } from "react-icons/bs";
 import { Sun } from "lucide-react";
 import { GiNightSleep } from "react-icons/gi";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
 const weeklyChallengeIcons = {
   "check-in": FiActivity,
@@ -31,7 +32,7 @@ export default function WeeklyChallenge() {
         if (typeof window !== "undefined") {
           token = localStorage.getItem("token");
         }
-        const response = await axios.get("/api/challenges/assigned", {
+        const response = await axios.get(`${backendUrl}/api/challenges/assigned`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

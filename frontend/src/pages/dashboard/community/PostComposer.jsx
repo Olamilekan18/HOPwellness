@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
 const PostComposer = ({ communityId, onPostCreated }) => {
   const [content, setContent] = useState("");
@@ -37,7 +38,7 @@ const PostComposer = ({ communityId, onPostCreated }) => {
     setLoading(true);
     try {
       await axios.post(
-        `/api/posts/community/${communityId}`,
+        `${backendUrl}/api/posts/community/${communityId}`,
         { content },
         { headers: { Authorization: `Bearer ${token}` } }
       );

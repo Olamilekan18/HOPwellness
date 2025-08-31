@@ -32,7 +32,7 @@ export default function CommunitiesPage() {
 
   const fetchJoined = async () => {
     try {
-      const { data } = await axios.get(`/api/community/my`, {
+      const { data } = await axios.get(`${backendUrl}/api/community/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setJoined(data);
@@ -43,7 +43,7 @@ export default function CommunitiesPage() {
 
   const handleJoin = async (id) => {
     try {
-      await axios.post(`/api/community/join/${id}`, null, {
+      await axios.post(`${backendUrl}/api/community/join/${id}`, null, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Joined community!");

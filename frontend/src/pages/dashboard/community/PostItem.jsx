@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
 
 export default function PostItem({
   post,
@@ -37,7 +38,7 @@ export default function PostItem({
 
     try {
       const res = await axios.post(
-        `/api/posts/${post._id}/like`,
+        `${backendUrl}/api/posts/${post._id}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -70,7 +71,7 @@ export default function PostItem({
     setCommentLoading(true);
     try {
       const res = await axios.post(
-        `/api/posts/${post._id}/comment`,
+        `${backendUrl}/api/posts/${post._id}/comment`,
         { content: commentText },
         { headers: { Authorization: `Bearer ${token}` } }
       );

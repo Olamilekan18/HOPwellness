@@ -39,6 +39,14 @@ app.get("/", (req, res) => {
   res.send("✅ API is running...");
 });
 
+app.use(
+  cors({
+    origin: "https://hopwellness.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({ message: err.message });

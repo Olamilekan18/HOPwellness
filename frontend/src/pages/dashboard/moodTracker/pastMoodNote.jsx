@@ -37,6 +37,7 @@ export default function PastMoodNote({ refreshTrigger }) {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      console.log("Fetched mood logs:", response.data);
       setMoodLogs(response.data || []);
     } catch (err) {
       console.error(

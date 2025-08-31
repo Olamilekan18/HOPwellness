@@ -82,7 +82,7 @@ setDailyChallenges(Array.isArray(response.data.daily) ? response.data.daily : []
         token = localStorage.getItem("token");
       }
 
-      const apiUrl = `/api/challenges/${challengeToComplete.challengeId}/complete`;
+      const apiUrl = `${backendUrl}/api/challenges/${challengeToComplete.challengeId}/complete`;
 
       await axios.post(
         apiUrl,

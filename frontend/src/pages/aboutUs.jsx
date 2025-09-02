@@ -75,12 +75,6 @@ export default function AboutUs() {
               >
                 Get Started
               </button>
-              <a
-                href="#how-it-works"
-                className="px-7 py-3 rounded-full border border-white/40 text-white/90 hover:bg-white/10 transition text-sm font-medium"
-              >
-                How It Works
-              </a>
             </motion.div>
             <motion.div
               variants={fadeUp}

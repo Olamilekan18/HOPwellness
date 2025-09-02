@@ -33,8 +33,8 @@ export default function Hero() {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <motion.img
-            src="https://img.freepik.com/free-photo/beautiful-blonde-woman-doing-yoga-outdoors_23-2148739137.jpg?semt=ais_hybrid&w=740"
-            alt="Yoga"
+            src="/views.jpg"
+            alt="enjoying view"
             className="rounded-xl shadow-lg object-cover w-full h-56 sm:h-60 md:h-64 hover:scale-105 transition"
           />
           <motion.img

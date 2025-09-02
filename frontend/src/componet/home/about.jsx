@@ -7,7 +7,7 @@ export default function AboutUs() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div className="relative flex flex-col items-center md:items-start">
           <motion.img
-            src="https://img.freepik.com/free-photo/portrait-confident-female-doctor-hospital_23-2149370393.jpg?w=740"
+            src="/gym.jpg"
             alt="Doctor"
             className="rounded-2xl w-full sm:w-[400px] shadow-xl z-10 relative"
             initial={{ scale: 0.9, opacity: 0 }}
@@ -16,9 +16,9 @@ export default function AboutUs() {
           />
 
           <motion.img
-            src="https://todaysparent.mblycdn.com/uploads/tp/2006/01/GettyImages-1368004438.jpg"
+            src="/tools.jpg"
             alt="Checkup"
-            className="rounded-2xl w-full sm:w-[350px] shadow-md absolute top-36 left-0 sm:left-56 z-0"
+            className="rounded-2xl w-full sm:w-[350px] shadow-md hover:z-100 absolute top-36 left-0 sm:left-56 z-0"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.7 }}

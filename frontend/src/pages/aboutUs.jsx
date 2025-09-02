@@ -57,7 +57,7 @@ export default function AboutUs() {
           <div className="w-full lg:w-1/2 relative">
             <div className="aspect-square max-w-md mx-auto rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl flex items-center justify-center">
               <img
-                src="https://images.pexels.com/photos/3759657/pexels-photo-3759657.jpeg"
+                src="/hero.jpg"
                 className="w-full h-full object-cover rounded-3xl"
                 alt="hero Image"
               />

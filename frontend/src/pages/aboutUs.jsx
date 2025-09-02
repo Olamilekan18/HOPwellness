@@ -15,7 +15,7 @@ export default function AboutUs() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-green-600 to-green-700">
         <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_20%_25%,rgba(255,255,255,0.6),transparent_60%)]" />
-        <div className="relative max-w-7xl mx-auto px-6 md:px-14 py-28 flex flex-col-reverse lg:flex-row items-center gap-14">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-14 py-10 flex flex-col-reverse lg:flex-row items-center gap-14">
           <div className="w-full lg:w-1/2 text-white">
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
               Build Habits That Actually Stick
@@ -56,13 +56,11 @@ export default function AboutUs() {
           </div>
           <div className="w-full lg:w-1/2 relative">
             <div className="aspect-square max-w-md mx-auto rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl flex items-center justify-center">
-              <div className="text-center">
-                <img
-                  src="https://images.pexels.com/photos/3759657/pexels-photo-3759657.jpeg"
-                  className="w-full h-full object-cover rounded-3xl"
-                  alt="hero Image"
-                />
-              </div>
+              <img
+                src="https://images.pexels.com/photos/3759657/pexels-photo-3759657.jpeg"
+                className="w-full h-full object-cover rounded-3xl"
+                alt="hero Image"
+              />
             </div>
             <div className="absolute -top-10 -right-10 w-64 h-64 bg-gradient-to-tr from-white/20 to-transparent blur-3xl rounded-full pointer-events-none" />
           </div>

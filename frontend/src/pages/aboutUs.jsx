@@ -39,7 +39,6 @@ export default function AboutUs() {
     <>
       <HomeNav />
 
-      {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-green-600 to-green-700">
         <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_20%_25%,rgba(255,255,255,0.6),transparent_60%)]" />
         <div className="relative max-w-7xl mx-auto px-6 md:px-14 py-10 flex flex-col-reverse lg:flex-row items-center gap-14">
@@ -138,7 +137,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* DISTINCT VALUE */}
       <section className="bg-white py-20 px-6 md:px-14">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -220,7 +218,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* PROCESS */}
       <section
         id="how-it-works"
         className="relative py-24 px-6 md:px-14 bg-gradient-to-b from-green-50 via-white to-white"
@@ -424,7 +421,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* CTA */}
       <section
         id="cta"
         className="bg-gradient-to-r from-green-700 to-emerald-600 py-20 px-6 md:px-14 text-center text-white"

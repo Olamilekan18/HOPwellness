@@ -446,7 +446,7 @@ export default function AboutUs() {
           >
             <button
               onClick={handleGetStarted}
-              className="px-8 py-3 rounded-full bg-white text-green-700 font-semibold shadow hover:bg-green-50 transition"
+              className="px-8 py-3 rounded-full cursor-pointer bg-white text-green-700 font-semibold shadow hover:bg-green-50 transition"
             >
               Get Started
             </button>

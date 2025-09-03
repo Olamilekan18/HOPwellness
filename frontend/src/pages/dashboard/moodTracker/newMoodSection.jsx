@@ -65,7 +65,6 @@ export default function NewMoodSection({
     }
 
     setIsSaving(true);
-    window.location.reload(); 
     try {
       const response = await axios.post(
         `${backendUrl}/api/mood/checkin`,
@@ -106,6 +105,7 @@ export default function NewMoodSection({
       setTags([]);
       setNewTag("");
       setShowAddTagSection(false);
+          window.location.reload(); 
 
       if (onMoodSaved) {
         onMoodSaved();

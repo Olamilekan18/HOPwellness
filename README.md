@@ -14,10 +14,6 @@ It combines fitness, mindfulness, and healthy habits in a simple, engaging way.
 - 🎯 **Gamified Wellness** — earn XP points for completing tasks
 - 🌗 **Dark/Light Mode** friendly UI
 
----
-
-## 🖼️ Screenshots
-*(Optional: add images of your app once ready — `public/screenshots/`)*  
 
 ---
 
@@ -58,9 +54,10 @@ Create a .env file in both frontend/ and backend/ with:
 VITE_BACKEND_URL=https://your-backend-url.onrender.com
 
 # Backend
-MONGO_URI=your-mongodb-connection
-JWT_SECRET=your-secret
-PORT=5000
+   ```bash
+   MONGO_URI=your-mongodb-connection
+   JWT_SECRET=your-secret
+   PORT=5000
 
 cd frontend
 npm run dev

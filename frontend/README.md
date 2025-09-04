@@ -14,10 +14,6 @@ It combines fitness, mindfulness, and healthy habits in a simple, engaging way.
 - 🎯 **Gamified Wellness** — earn XP points for completing tasks
 - 🌗 **Dark/Light Mode** friendly UI
 
----
-
-## 🖼️ Screenshots
-*(Optional: add images of your app once ready — `public/screenshots/`)*  
 
 ---
 

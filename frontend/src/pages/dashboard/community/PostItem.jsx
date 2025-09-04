@@ -112,7 +112,7 @@ export default function PostItem({
       })
       .then((res) => {
         setLikeCount(res.data.likeCount);
-        setComments(res.data.comments); // ← this will now always have populated authors
+        setComments(res.data.comments); 
       })
       .catch((err) => console.error(err));
   }, [post._id, token]);

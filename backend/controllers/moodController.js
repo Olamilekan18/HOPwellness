@@ -1,4 +1,3 @@
-// controllers/moodController.js
 import Mood from '../models/Mood.js';
 import User from '../models/User.js';
 
@@ -13,16 +12,6 @@ export const checkInMood = async (req, res) => {
   try {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
-
-    // const alreadyCheckedIn = await Mood.findOne({
-    //   user: userId,
-    //   date: { $gte: startOfDay }
-    // });
-
-    // Optional: prevent double check-in
-    // if (alreadyCheckedIn) {
-    //   return res.status(400).json({ message: 'Already checked in today' });
-    // }
 
     const mood = await Mood.create({ user: userId, emoji, note, title, tags });
 
@@ -40,8 +29,8 @@ export const checkInMood = async (req, res) => {
     const today = new Date();
     today.setHours(0,0,0,0);
 
-     const yesterday = new Date(today); // Start from today's date
-    yesterday.setDate(today.getDate() - 1); // Subtract one day
+     const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1); 
 
     const yesterdayCheckIn = await Mood.findOne({
       user: userId,
@@ -66,7 +55,6 @@ export const checkInMood = async (req, res) => {
 
     user.streak.lastDate = startOfDay;
 
-    // XP
     user.xp = (user.xp || 0) + 5;
     user.moodLogs.push(mood._id);
 

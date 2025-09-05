@@ -1,7 +1,7 @@
 {
   "short_name": "HOP",
-  "name": "Hop Fitness",
-  "description": "Health is Wealth.",
+  "name": "Hop Wellness",
+  "description": "A wellness and nutrition app",
   "icons": [
     {
       "src": "/vite.svg",

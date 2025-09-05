@@ -10,8 +10,10 @@ It combines fitness, mindfulness, and healthy habits in a simple, engaging way.
 ## ✨ Features
 - ✅ **Daily Challenges** (hydration, mindfulness, posture checks, etc.)
 - 👥 **Community Support** — join groups, share progress, and connect with others
+- Nutrition and Disease Management
+- Mood Tracking feature
 - 📊 **Stats & Tracking** — monitor your habits and growth
-- 🎯 **Gamified Wellness** — earn XP points for completing tasks
+- 🎯 **Gamified Wellness** — earn XP points for completing task
 - 🌗 **Dark/Light Mode** friendly UI
 
 
@@ -26,7 +28,7 @@ Backend is deployed separately on **Render**.
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend:** React + Vite + TailwindCSS
+- **Frontend:** React + Vite + TailwindCSS + framer-motion
 - **Backend:** Node.js + Express + MongoDB
 - **Deployment:** Vercel (frontend), Render (backend)
 - **Auth:** JWT (JSON Web Tokens)
@@ -43,7 +45,7 @@ Backend is deployed separately on **Render**.
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/hopwellness.git
+   git clone https://github.com/Olamilekan18/hopwellness.git
    cd hopwellness
 
 npm install

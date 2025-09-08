@@ -5,6 +5,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 export default function Form() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -12,8 +13,12 @@ export default function Form() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+ 
 
   const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const res = await fetch(`${backendUrl}/api/auth/login`, {
@@ -36,10 +41,11 @@ export default function Form() {
           theme: "colored",
           style: { backgroundColor: "#dc2626", color: "#fff" },
         });
+        setLoading(false)
         return;
       }
+      setLoading(false);
       navigate("/dashboard");
-      // eslint-disable-next-line no-unused-vars
     } catch (err) {
       toast.error("Network error", {
         position: "top-center",
@@ -54,6 +60,16 @@ export default function Form() {
       });
     }
   };
+
+   if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+ <ClipLoader
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />      </div>
+    );
+  }
 
   return (
     <div className="mt-5 flex flex-col items-center">

@@ -5,6 +5,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 export default function SignUpForm() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -15,9 +16,9 @@ export default function SignUpForm() {
   const [initialPassword, setInitialPassword] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function verifyInput() {
-    // const inputedName = name;
 
     if (!validateEmail(email)) {
       toast.error(
@@ -70,6 +71,7 @@ export default function SignUpForm() {
   }
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     const response = verifyInput();
@@ -84,10 +86,12 @@ export default function SignUpForm() {
       const data = await res.json();
       if (!res.ok) {
         toast.error(data.message || "Registration failed");
+        setLoading(false)
         return;
       }
 
       if (data.user && data.user.id) {
+        setLoading(false);
     localStorage.setItem('userId', data.user.id);
   }
 
@@ -95,13 +99,26 @@ export default function SignUpForm() {
       console.log("User ID saved to local storage:", userData);
       toast.success("Registration successful! You can now log in.");
       navigate("/dashboard");
-      // eslint-disable-next-line no-unused-vars
     } catch (err) {
+      setLoading(false);
+      console.error("Error during registration:", err);
       toast.error("Network error");
     }
+    setLoading(false);
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+ <ClipLoader
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />      </div>
+    );
+  }
+
   return (
+
     <div className="mt-5 flex flex-col items-center">
       <h1 className="text-2xl xl:text-3xl font-extrabold">Sign Up</h1>
       <div className="w-full flex-1 mt-8">
@@ -197,5 +214,5 @@ export default function SignUpForm() {
         </form>
       </div>
     </div>
-  );
+  )
 }
